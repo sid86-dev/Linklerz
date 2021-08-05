@@ -14,10 +14,34 @@
     <!-- internal css -->
     <link rel="stylesheet" href="/static/css/mystyle.css">
     <link rel="stylesheet" href="/static/css/style.css">
-
+    <link rel="stylesheet" href="/static/css/text.css">
+    <style>
+        .bn9 {
+            padding: 2px;
+            outline: 0;
+            font-size: 17px;
+            color: rgb(255, 255, 255);
+            background: -webkit-gradient(linear, left top, right top, from(#fdde5c), color-stop(#f8ab5e), color-stop(#f56a62), color-stop(#a176c8), color-stop(#759beb), color-stop(#65beb3), to(#70db96));
+            background: linear-gradient(to right, #fdde5c, #f8ab5e, #f56a62, #a176c8, #759beb, #65beb3, #70db96);
+            border-radius: 30px;
+            border: 0;
+            box-shadow: none;
+            cursor: pointer;
+        }
+        
+        .bn9>span {
+            display: block;
+            padding: 10px 20px;
+            font-size: 17px;
+            background: #0e0e10;
+            border-radius: 30px;
+        }
+    </style>
 </head>
 
-<body>
+<body style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
+
+
 
     <div class="container">
         <nav class="navbar navbar-expand-lg ftco_navbar ftco-navbar-light" id="ftco-navbar">
@@ -26,18 +50,18 @@
                 <div class="social-media order-lg-last">
                     <p class="mb-0 d-flex">
                         <a href="#" class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
+                                class="fa fa-facebook"><i class="sr-only">Facebook</i></span></a>
                         <a href="#" class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
+                                class="fa fa-twitter"><i class="sr-only">Twitter</i></span></a>
                         <a href="#" class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
+                                class="fa fa-instagram"><i class="sr-only">Instagram</i></span></a>
                         <a href="#" class="d-flex align-items-center justify-content-center"><span
-								class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
+                                class="fa fa-dribbble"><i class="sr-only">Dribbble</i></span></a>
                     </p>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-					<span class="fa fa-bars"></span> Menu
-				</button>
+                    <span class="fa fa-bars"></span> Menu
+                </button>
                 <div class="collapse navbar-collapse" id="ftco-nav">
                     <ul class="navbar-nav ml-auto mr-md-3">
                         <li class="nav-item active"><a href="#" class="nav-link">Home</a></li>
@@ -52,15 +76,15 @@
         <!-- END nav -->
     </div>
     <!-- content -->
-    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light">
-        <div class="col-md-5 p-lg-5 mx-auto my-5">
-            <h1 class="display-4 fw-normal">Create your Linklerz</h1>
-            <p class="lead fw-normal">Now create your custom linklerz with the cool backgroud packs. Linklerz allow you to add unlimited links all for free.</p>
-            <a href="/login"><button id="btnhover"  style="border-radius: 20px;   --content: 'Get Started for free'">
-				<div class="left"></div>
-				 Get Started for free
-				<div class="right"></div>
-			  </button></a>
+    <div class="position-relative overflow-hidden p-3 p-md-5 m-md-3 text-center bg-light" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
+        <div class="col-md-5 p-lg-5 mx-auto ">
+
+            <h1 class="display-4 fw-normal" style="font-size: 80px;">Create your Linklerz</h1>
+            <br>
+            <a href="/login" class="bnt521"><button class="bn9 "><span class="fs-3">Get Started for free</span></button></a>
+            <br>
+            <br>
+            <p class="lead fw-normal mx-5">Now create your custom linklerz with the cool backgroud packs. Linklerz allow you to add unlimited links all for free.</p>
         </div>
         <div class="product-device shadow-sm d-none d-md-block"></div>
         <div class="product-device product-device-2 shadow-sm d-none d-md-block"></div>
