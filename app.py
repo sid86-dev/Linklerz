@@ -42,20 +42,22 @@ def logout():
 @app.route('/home', methods=['GET','POST'])
 def home():
     login_fail= ""
-    username = session['user']
-    if ('user' in session and session['user'] == username):
-        # posts = Posts.query.all()
-        data = get_links(username)
-        link_name = []
-        link_address = []
-        for i in range(1,4):
-            link  = data[i]
-            seperate = link.split(">")
-            link_name.append(seperate[0])
-            link_address.append(seperate[1])
+    try:
         username = session['user']
-        return render_template('home.html', username=username, link_name=link_name,link_address=link_address)
-
+        if ('user' in session and session['user'] == username):
+            # posts = Posts.query.all()
+            data = get_links(username)
+            link_name = []
+            link_address = []
+            for i in range(1,4):
+                link  = data[i]
+                seperate = link.split(">")
+                link_name.append(seperate[0])
+                link_address.append(seperate[1])
+            username = session['user']
+            return render_template('home.html', username=username, link_name=link_name,link_address=link_address)
+    except:
+        a = "error"
     if request.method == 'POST':
         username = request.form.get('username')
         userpass = request.form.get('password')
