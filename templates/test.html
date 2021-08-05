@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<body>
+    <style>
+        div#editor {
+            display: none;
+        }
+    </style>
+    <div id="thetext" onclick="toggleEditor()">
+        This is the text that will be edited.<br /> Just click on it.
+    </div>
+    <div id="editor">
+        <textarea id="ta1" name="ta1" rows="10" cols="50"></textarea><br />
+        <input name="submit" id="submit" type="button" value="Edit Text" onclick="doEdit()" />
+    </div>
+    <script>
+        function toggleEditor() {
+            var theText = document.getElementById('thetext');
+            var theEditor = document.getElementById('ta1');
+            var editorArea = document.getElementById('editor');
+
+            //set text in text div to textarea
+            //correct line breaks, prevent HTML injection
+            var subject = theText.innerHTML;
+            subject = subject.replace(new RegExp("<br />", "gi"), 'n');
+            subject = subject.replace(new RegExp("<br />", "gi"), 'n');
+            subject = subject.replace(new RegExp("<", "gi"), '<');
+            subject = subject.replace(new RegExp(">", "gi"), '>');
+            theEditor.value = subject;
+
+            //hide text, show editor
+            theText.style.display = 'none';
+            editorArea.style.display = 'inline';
+        }
+    </script>
+</body>
+
+</html>

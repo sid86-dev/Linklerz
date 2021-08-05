@@ -28,8 +28,6 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/static/css/util.css">
     <link rel="stylesheet" type="text/css" href="/static/css/home.css">
-    <link rel="stylesheet" type="text/css" href="/static/css/field.css">
-    <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
     <!--===============================================================================================-->
 </head>
 
@@ -49,46 +47,103 @@
                     </svg>
                 </a>
             </div>
+            <form class="contact100-form validate-form">
 
-            <span class="contact100-form-title">
-                {{username}}
-            </span>
+                <span class="contact100-form-title">
+                    {{username}}
+                </span>
 
-            <span class="contact100-form-title" style="font-size: large;">
+                <!-- <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                    <span class="label-input100">FULL NAME *</span>
+                    <input class="input100" type="text" name="name" placeholder="Enter Your Name">
+                </div>
 
-                <h3 class="mb-5">Your Links</h3>
-                {% for i in range(3) %}
-                <div class="container mb-4">
-                    <div class="container__item">
-                        <form class="form">
-                            <input type="email" class="form__field" placeholder="{{link_name[i]}}" />
-                            <button type="button" class="btn btn--primary btn--inside uppercase">Edit</button>
-                        </form>
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
+                    <span class="label-input100">Email *</span>
+                    <input class="input100" type="text" name="email" placeholder="Enter Your Email ">
+                </div>
+
+                <div class="wrap-input100 bg1 rs1-wrap-input100">
+                    <span class="label-input100">Phone</span>
+                    <input class="input100" type="text" name="phone" placeholder="Enter Number Phone">
+                </div> -->
+
+                <div class="wrap-input100 input100-select bg1">
+                    <span class="label-input100">Link *</span>
+                    <div>
+                        <select class="js-select2" name="service">
+                            <option>Please chooses</option>
+                            <option>Instagram</option>
+                            <option>Facebook</option>
+                            <option>Snapchat</option>
+                            <option>Discord</option>
+                            <!-- <option>Telegram</option> -->
+                        </select>
+                        <div class="dropDownSelect2"></div>
                     </div>
                 </div>
-                {% endfor %}
-                <style>
-                    #inner {
-                        display: table;
-                        margin: 0 auto;
-                        /* border: 1px solid black; */
-                    }
 
-                    #outer {
-                        /* border: 1px solid red; */
-                        width: 100%
-                    }
-                </style>
-                <br><br>
-                <div id="outer">
+                <div class="w-full dis-none js-show-service">
+                    <div class="wrap-contact100-form-radio">
+                        <span class="label-input100">Choose Background</span>
 
-                        <button type="button" id="inner" style="width: 50%;"
-                            class="btn btn--primary btn--inside uppercase">Add
-                            <i class="fa fa-plus-square m-l-7" aria-hidden="true"></i>
-                        </button>
+                        <div class="contact100-form-radio m-t-15">
+                            <input class="input-radio100" id="radio1" type="radio" name="type-product" value="physical" checked="checked">
+                            <label class="label-radio100" for="radio1">
+                                Default
+                            </label>
+                        </div>
+
+                        <div class="contact100-form-radio">
+                            <input class="input-radio100" id="radio2" type="radio" name="type-product" value="digital">
+                            <label class="label-radio100" for="radio2">
+                                Gradient
+                            </label>
+                        </div>
+
+                        <div class="contact100-form-radio">
+                            <input class="input-radio100" id="radio3" type="radio" name="type-product" value="service">
+                            <label class="label-radio100" for="radio3">
+                                Simple white
+                            </label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                        <span class="label-input100">LINK *</span>
+                        <input class="input100" type="text" name="name" placeholder="Paste link here">
+                    </div>
+                    <!-- 
+                    <div class="wrap-contact100-form-range">
+                        <span class="label-input100">Budget *</span>
+
+                        <div class="contact100-form-range-value">
+                            $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
+                            <input type="text" name="from-value">
+                            <input type="text" name="to-value">
+                        </div>
+
+                        <div class="contact100-form-range-bar">
+                            <div id="filter-bar"></div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate="Please Type Your Message">
+                    <span class="label-input100">Message</span>
+                    <textarea class="input100" name="message" placeholder="Your message here..."></textarea>
+                </div> -->
+
+                <div class="container-contact100-form-btn" style="margin-top: 100px;">
+                    <button class="contact100-form-btn">
+                        <span>
+                            Submit
+                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                        </span>
+                    </button>
+                </div>
+            </form>
         </div>
-
-    </div>
     </div>
 
 
