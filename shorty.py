@@ -4,13 +4,13 @@ conn = sqlite3.connect('user.db')
 
 c = conn.cursor()
 
-# c.execute("""CREATE TABLE details(
+# c.execute("""CREATE TABLE users(
 #         username text,
-#         link text)""")
+#         password text)""")
 
-# c.execute("INSERT INTO details VALUES('raju', 'https://www.instagram.com/raju__/')")
+# c.execute("INSERT INTO users VALUES('sid86', 'siddharth18')")
 
-c.execute("SELECT * FROM details WHERE username='raju'")
+c.execute("SELECT * FROM users WHERE username='sid86'")
 
 print(c.fetchone())
 

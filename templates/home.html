@@ -1,9 +1,217 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <title>Contact V5</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor/noui/nouislider.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <!--===============================================================================================-->
+</head>
+
+<body>
+
+
+    <div class="container-contact100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
+
+        <div class="wrap-contact100">
+            <div class="float-right">
+                <a href="/logout">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-box-arrow-in-right" viewBox="0 0 16 16">
+						<path fill-rule="evenodd"
+						d="M6 3.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 0-1 0v2A1.5 1.5 0 0 0 6.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-8A1.5 1.5 0 0 0 5 3.5v2a.5.5 0 0 0 1 0v-2z" />
+						<path fill-rule="evenodd"
+						d="M11.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5H1.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3z" />
+					</svg>
+                </a>
+            </div>
+            <form class="contact100-form validate-form">
+
+                <span class="contact100-form-title">
+					{{username}}
+				</span>
+
+                <!-- <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                    <span class="label-input100">FULL NAME *</span>
+                    <input class="input100" type="text" name="name" placeholder="Enter Your Name">
+                </div>
+
+                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
+                    <span class="label-input100">Email *</span>
+                    <input class="input100" type="text" name="email" placeholder="Enter Your Email ">
+                </div>
+
+                <div class="wrap-input100 bg1 rs1-wrap-input100">
+                    <span class="label-input100">Phone</span>
+                    <input class="input100" type="text" name="phone" placeholder="Enter Number Phone">
+                </div> -->
+
+                <div class="wrap-input100 input100-select bg1">
+                    <span class="label-input100">Link *</span>
+                    <div>
+                        <select class="js-select2" name="service">
+							<option>Please chooses</option>
+							<option>Instagram</option>
+							<option>Facebook</option>
+							<option>Snapchat</option>
+							<option>Discord</option>
+							<!-- <option>Telegram</option> -->
+						</select>
+                        <div class="dropDownSelect2"></div>
+                    </div>
+                </div>
+
+                <div class="w-full dis-none js-show-service">
+                    <div class="wrap-contact100-form-radio">
+                        <span class="label-input100">Choose Background</span>
+
+                        <div class="contact100-form-radio m-t-15">
+                            <input class="input-radio100" id="radio1" type="radio" name="type-product" value="physical" checked="checked">
+                            <label class="label-radio100" for="radio1">
+								Default
+							</label>
+                        </div>
+
+                        <div class="contact100-form-radio">
+                            <input class="input-radio100" id="radio2" type="radio" name="type-product" value="digital">
+                            <label class="label-radio100" for="radio2">
+								Gradient
+							</label>
+                        </div>
+
+                        <div class="contact100-form-radio">
+                            <input class="input-radio100" id="radio3" type="radio" name="type-product" value="service">
+                            <label class="label-radio100" for="radio3">
+								Simple white
+							</label>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
+                        <span class="label-input100">LINK *</span>
+                        <input class="input100" type="text" name="name" placeholder="Paste link here">
+                    </div>
+                    <!-- 
+                    <div class="wrap-contact100-form-range">
+                        <span class="label-input100">Budget *</span>
+
+                        <div class="contact100-form-range-value">
+                            $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
+                            <input type="text" name="from-value">
+                            <input type="text" name="to-value">
+                        </div>
+
+                        <div class="contact100-form-range-bar">
+                            <div id="filter-bar"></div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <!-- <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate="Please Type Your Message">
+                    <span class="label-input100">Message</span>
+                    <textarea class="input100" name="message" placeholder="Your message here..."></textarea>
+                </div> -->
+
+                <div class="container-contact100-form-btn" style="margin-top: 100px;">
+                    <button class="contact100-form-btn">
+						<span>
+							Submit
+							<i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+						</span>
+					</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
+    <!--===============================================================================================-->
+    <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor/bootstrap/js/popper.js"></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor/select2/select2.min.js"></script>
+    <script>
+        $(".js-select2").each(function() {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+
+
+            $(".js-select2").each(function() {
+                $(this).on('select2:close', function(e) {
+                    if ($(this).val() == "Please chooses") {
+                        $('.js-show-service').slideUp();
+                    } else {
+                        $('.js-show-service').slideUp();
+                        $('.js-show-service').slideDown();
+                    }
+                });
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor/noui/nouislider.min.js"></script>
+    <script>
+        var filterBar = document.getElementById('filter-bar');
+
+        noUiSlider.create(filterBar, {
+            start: [1500, 3900],
+            connect: true,
+            range: {
+                'min': 1500,
+                'max': 7500
+            }
+        });
+
+        var skipValues = [
+            document.getElementById('value-lower'),
+            document.getElementById('value-upper')
+        ];
+
+        filterBar.noUiSlider.on('update', function(values, handle) {
+            skipValues[handle].innerHTML = Math.round(values[handle]);
+            $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+            $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="/static/js/main.js"></script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RDT7KXQG57"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -12,241 +220,9 @@
         }
         gtag('js', new Date());
 
-        gtag('config', 'G-RDT7KXQG57');
+        gtag('config', 'UA-23581568-13');
     </script>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- my favicon code -->
-    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/myfavicons/apple-touch-icon-57x57.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/myfavicons/apple-touch-icon-114x114.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/myfavicons/apple-touch-icon-72x72.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/myfavicons/apple-touch-icon-144x144.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/myfavicons/apple-touch-icon-60x60.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/myfavicons/apple-touch-icon-120x120.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/myfavicons/apple-touch-icon-76x76.png" />
-    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/myfavicons/apple-touch-icon-152x152.png" />
-    <link rel="icon" type="image/png" href="/myfavicons/favicon-196x196.png" sizes="196x196" />
-    <link rel="icon" type="image/png" href="/myfavicons/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/png" href="/myfavicons/favicon-32x32.png" sizes="32x32" />
-    <link rel="icon" type="image/png" href="/myfavicons/favicon-16x16.png" sizes="16x16" />
-    <link rel="icon" type="image/png" href="/myfavicons/favicon-128.png" sizes="128x128" />
-    <meta name="application-name" content="&nbsp;" />
-    <meta name="msapplication-TileColor" content="#FFFFFF" />
-    <meta name="msapplication-TileImage" content="mstile-144x144.png" />
-    <meta name="msapplication-square70x70logo" content="mstile-70x70.png" />
-    <meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
-    <meta name="msapplication-wide310x150logo" content="mstile-310x150.png" />
-    <meta name="msapplication-square310x310logo" content="mstile-310x310.png" />
 
-    <!-- xxx -->
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-
-    <title>Linklerz™ | {{username}}</title>
-    <style>
-        .one-edge-shadow {
-            -webkit-box-shadow: 0 8px 6px -6px black;
-            -moz-box-shadow: 0 8px 6px -6px black;
-            box-shadow: 0 8px 6px -6px black;
-        }
-        
-        .shadow {
-            -moz-box-shadow: 3px 3px 5px 6px #ccc;
-            -webkit-box-shadow: 3px 3px 5px 6px #ccc;
-            box-shadow: 3px 3px 5px 6px #ccc;
-        }
-        
-        .glow-on-hover {
-            width: 260px;
-            height: 50px;
-            border: none;
-            outline: none;
-            color: #fff;
-            background: #111;
-            cursor: pointer;
-            position: relative;
-            z-index: 0;
-            border-radius: 5px;
-            font-size: large;
-        }
-        
-        .glow-on-hover:before {
-            content: '';
-            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-            position: absolute;
-            display: inline-block;
-            top: -2px;
-            left: -2px;
-            background-size: 400%;
-            z-index: -1;
-            filter: blur(5px);
-            width: calc(100% + 4px);
-            height: calc(100% + 4px);
-            animation: glowing 20s linear infinite;
-            opacity: 0;
-            transition: opacity .3s ease-in-out;
-            border-radius: 5px;
-        }
-        
-        .glow-on-hover:active {
-            color: rgb(27, 26, 26)
-        }
-        
-        .glow-on-hover:active:after {
-            background: transparent;
-        }
-        
-        .glow-on-hover:hover:before {
-            opacity: 1;
-        }
-        
-        .glow-on-hover:after {
-            z-index: -1;
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            background: rgb(41, 39, 39);
-            left: 0;
-            top: 0;
-            border-radius: 5px;
-        }
-        
-        @keyframes glowing {
-            0% {
-                background-position: 0 0;
-            }
-            50% {
-                background-position: 400% 0;
-            }
-            100% {
-                background-position: 0 0;
-            }
-        }
-        
-        body {
-            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-        }
-        
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-        
-        img {
-            border-radius: 50%;
-        }
-        
-        .typeText::after {
-            content: "|";
-            animation: blink 1s infinite;
-        }
-        
-        @keyframes blink {
-            0%,
-            100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0;
-            }
-        }
-    </style>
-
-    <body class="containers">
-        <div class="d-flex justify-content-center mt-2">
-            <img src="/static/img/sid_dp.jpg" width="61" height="65" alt="Avatar">
-
-        </div>
-
-        <p style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;" class="text-center font-monospace fw-bold typeText"></p>
-
-        <div class="d-grid gap-2 mx-auto col-6 justify-content-center">
-            {% for i in range(3) %}
-            <a href="{{link_address[i]}}" target="_blank">
-                <button class="glow-on-hover mt-4 shadow" type="button">
-                    {{link_name[i]}}
-                </button>
-            </a>
-            {% endfor %}
-
-        </div>
-        <!-- footer -->
-        <div class="container d-flex justify-content-center mt-4">
-
-            <img style="border-radius: 0%;" src="/static/img/sidlogo.png" alt="" width="85" height="53">
-        </div>
-        <!-- Optional JavaScript; choose one of the two! -->
-
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-        <script>
-            var typeText = document.querySelector(".typeText")
-            var textToBeTyped = "{{username}}"
-            var index = 0,
-                isAdding = true
-
-            function playAnim() {
-                setTimeout(function() {
-                    // set the text of typeText to a substring of the text to be typed using index.
-                    typeText.innerText = textToBeTyped.slice(0, index)
-                    if (isAdding) {
-                        // adding text
-                        if (index > textToBeTyped.length) {
-                            // no more text to add
-                            isAdding = false
-                                //break: wait 2s before playing again
-                            setTimeout(function() {
-                                playAnim()
-                            }, 1500)
-                            return
-                        } else {
-                            // increment index by 1
-                            index++
-                        }
-                    } else {
-                        // removing text
-                        if (index === 0) {
-                            // no more text to remove
-                            isAdding = true
-                        } else {
-                            // decrement index by 1
-                            index--
-                        }
-                    }
-                    // call itself
-                    playAnim()
-                }, 275)
-            }
-            // start animation
-            playAnim()
-        </script>
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
-        <!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    -->
-    </body>
-
-</html>
-</script>
-<!-- Option 2: Separate Popper and Bootstrap JS -->
-<!--
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
-    -->
 </body>
 
 </html>
