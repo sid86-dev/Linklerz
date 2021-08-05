@@ -57,7 +57,7 @@ def home():
             username = session['user']
             return render_template('home.html', username=username, link_name=link_name,link_address=link_address)
     except:
-        a = "error"
+        username = ""
     if request.method == 'POST':
         username = request.form.get('username')
         userpass = request.form.get('password')
@@ -73,12 +73,20 @@ def home():
             data_username = data[0]
             data_password = data[1]
             if (username == data_username and userpass == data_password):
+                data = get_links(username)
+                link_name = []
+                link_address = []
+                for i in range(1,4):
+                    link  = data[i]
+                    seperate = link.split(">")
+                    link_name.append(seperate[0])
+                    link_address.append(seperate[1])
                 # set the session variable
                 session['user'] = username
                 # posts = Posts.query.all()
-                return render_template('home.html', username=username)
+                return render_template('home.html', username=username, link_name=link_name, link_address=link_address)
         except:
-                login_fail = "Username and Password do not match"
+            login_fail = "Username and Password do not match"
     return render_template('login.html', login_fail=login_fail)
 
 @app.route(
