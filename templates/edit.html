@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Contact V5</title>
+    <title>Linklerz™ | {{username}}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
@@ -28,6 +28,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/static/css/util.css">
     <link rel="stylesheet" type="text/css" href="/static/css/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/button.css">
     <!--===============================================================================================-->
 </head>
 
@@ -47,31 +48,38 @@
                     </svg>
                 </a>
             </div>
-            <form class="contact100-form validate-form">
+            <form action="/submit">
 
                 <span class="contact100-form-title">
                     {{username}}
                 </span>
 
-                <!-- <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-                    <span class="label-input100">FULL NAME *</span>
-                    <input class="input100" type="text" name="name" placeholder="Enter Your Name">
+                <style>
+                    .inner {
+                        display: table;
+                        margin: 0 auto;
+                        /* border: 1px solid black; */
+                    }
+                    
+                    .outer {
+                        /* border: 1px solid red; */
+                        width: 100%
+                    }
+                </style>
+                <br><br>
+                <div class="outer">
+                    {% for i in range(3) %}
+                    <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner ">
+                        <span class="label-input100 ">{{link_name[i]}}</span>
+                        <input class="input100 " type="text " name="phone " placeholder="{{link_address[i]}} ">
+                    </div>
+                    {% endfor %}
                 </div>
-
-                <div class="wrap-input100 validate-input bg1 rs1-wrap-input100" data-validate="Enter Your Email (e@a.x)">
-                    <span class="label-input100">Email *</span>
-                    <input class="input100" type="text" name="email" placeholder="Enter Your Email ">
-                </div>
-
-                <div class="wrap-input100 bg1 rs1-wrap-input100">
-                    <span class="label-input100">Phone</span>
-                    <input class="input100" type="text" name="phone" placeholder="Enter Number Phone">
-                </div> -->
-
-                <div class="wrap-input100 input100-select bg1">
-                    <span class="label-input100">Link *</span>
+                {% for i in range(num) %}
+                <div class="wrap-input100 input100-select bg1 ">
+                    <span class="label-input100 ">Link *</span>
                     <div>
-                        <select class="js-select2" name="service">
+                        <select class="js-select2 " name="service ">
                             <option>Please chooses</option>
                             <option>Instagram</option>
                             <option>Facebook</option>
@@ -79,67 +87,47 @@
                             <option>Discord</option>
                             <!-- <option>Telegram</option> -->
                         </select>
-                        <div class="dropDownSelect2"></div>
+                        <div class="dropDownSelect2 "></div>
                     </div>
                 </div>
 
-                <div class="w-full dis-none js-show-service">
-                    <div class="wrap-contact100-form-radio">
-                        <span class="label-input100">Choose Background</span>
+                <div class="w-full dis-none js-show-service ">
+                    <div class="wrap-contact100-form-radio ">
+                        <span class="label-input100 ">Choose Background</span>
 
-                        <div class="contact100-form-radio m-t-15">
-                            <input class="input-radio100" id="radio1" type="radio" name="type-product" value="physical" checked="checked">
-                            <label class="label-radio100" for="radio1">
+                        <div class="contact100-form-radio m-t-15 ">
+                            <input class="input-radio100 " id="radio1 " type="radio " name="type-product " value="physical " checked="checked ">
+                            <label class="label-radio100 " for="radio1 ">
                                 Default
                             </label>
                         </div>
 
-                        <div class="contact100-form-radio">
-                            <input class="input-radio100" id="radio2" type="radio" name="type-product" value="digital">
-                            <label class="label-radio100" for="radio2">
+                        <div class="contact100-form-radio ">
+                            <input class="input-radio100 " id="radio2 " type="radio " name="type-product " value="digital ">
+                            <label class="label-radio100 " for="radio2 ">
                                 Gradient
                             </label>
                         </div>
 
-                        <div class="contact100-form-radio">
-                            <input class="input-radio100" id="radio3" type="radio" name="type-product" value="service">
-                            <label class="label-radio100" for="radio3">
+                        <div class="contact100-form-radio ">
+                            <input class="input-radio100 " id="radio3 " type="radio " name="type-product " value="service ">
+                            <label class="label-radio100 " for="radio3 ">
                                 Simple white
                             </label>
                         </div>
                     </div>
                     <br>
-                    <div class="wrap-input100 validate-input bg1" data-validate="Please Type Your Name">
-                        <span class="label-input100">LINK *</span>
-                        <input class="input100" type="text" name="name" placeholder="Paste link here">
+                    <div class="wrap-input100 validate-input bg1 " data-validate="Please Type Your Name ">
+                        <span class="label-input100 ">LINK *</span>
+                        <input class="input100 " type="text " name="name " placeholder="Paste link here ">
                     </div>
-                    <!-- 
-                    <div class="wrap-contact100-form-range">
-                        <span class="label-input100">Budget *</span>
 
-                        <div class="contact100-form-range-value">
-                            $<span id="value-lower">610</span> - $<span id="value-upper">980</span>
-                            <input type="text" name="from-value">
-                            <input type="text" name="to-value">
-                        </div>
-
-                        <div class="contact100-form-range-bar">
-                            <div id="filter-bar"></div>
-                        </div>
-                    </div> -->
                 </div>
+                {% endfor %}
 
-                <!-- <div class="wrap-input100 validate-input bg0 rs1-alert-validate" data-validate="Please Type Your Message">
-                    <span class="label-input100">Message</span>
-                    <textarea class="input100" name="message" placeholder="Your message here..."></textarea>
-                </div> -->
-
-                <div class="container-contact100-form-btn" style="margin-top: 100px;">
-                    <button class="contact100-form-btn">
-                        <span>
-                            Submit
-                            <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
-                        </span>
+                <div class="container-contact100-form-btn mb-5" style="margin-top: 60px;">
+                    <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px">
+                        Submit
                     </button>
                 </div>
             </form>
@@ -149,25 +137,26 @@
 
 
     <!--===============================================================================================-->
-    <script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/static/vendor/jquery/jquery-3.2.1.min.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor/animsition/js/animsition.min.js"></script>
+    <script src="/static/vendor/animsition/js/animsition.min.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor/bootstrap/js/popper.js"></script>
-    <script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendor/bootstrap/js/popper.js "></script>
+    <script src="/static/vendor/bootstrap/js/bootstrap.min.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor/select2/select2.min.js"></script>
+    <script src="/static/vendor/select2/select2.min.js "></script>
+    <script src="/static/vendor/noui/nouislider.min.js"></script>
     <script>
-        $(".js-select2").each(function() {
+        $(".js-select2 ").each(function() {
             $(this).select2({
                 minimumResultsForSearch: 20,
                 dropdownParent: $(this).next('.dropDownSelect2')
             });
 
 
-            $(".js-select2").each(function() {
+            $(".js-select2 ").each(function() {
                 $(this).on('select2:close', function(e) {
-                    if ($(this).val() == "Please chooses") {
+                    if ($(this).val() == "Please chooses ") {
                         $('.js-show-service').slideUp();
                     } else {
                         $('.js-show-service').slideUp();
@@ -178,12 +167,12 @@
         })
     </script>
     <!--===============================================================================================-->
-    <script src="/static/vendor/daterangepicker/moment.min.js"></script>
-    <script src="/static/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="/static/vendor/daterangepicker/moment.min.js "></script>
+    <script src="/static/vendor/daterangepicker/daterangepicker.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor/countdowntime/countdowntime.js"></script>
+    <script src="/static/vendor/countdowntime/countdowntime.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor/noui/nouislider.min.js"></script>
+    <script src="/static/vendor/noui/nouislider.min.js "></script>
     <script>
         var filterBar = document.getElementById('filter-bar');
 
@@ -203,15 +192,15 @@
 
         filterBar.noUiSlider.on('update', function(values, handle) {
             skipValues[handle].innerHTML = Math.round(values[handle]);
-            $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
-            $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+            $('.contact100-form-range-value input[name="from-value "]').val($('#value-lower').html());
+            $('.contact100-form-range-value input[name="to-value "]').val($('#value-upper').html());
         });
     </script>
     <!--===============================================================================================-->
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/main.js "></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13 "></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 

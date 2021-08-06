@@ -10,8 +10,9 @@ with open('config.json', 'r') as f:
 import sqlite3
 
 
-app = Flask(__name__) 
+app = Flask(__name__)
 app.secret_key = 'my-secret-key'
+
 
 def get_links(user):
     conn = sqlite3.connect('linklerz_.db')
@@ -22,26 +23,28 @@ def get_links(user):
     data = c.fetchone()
     conn.commit()
     conn.close()
-    return data    
+    return data
+
 
 @app.route('/')
 def index():
     return render_template('index.html', params=params)
 
-@app.route('/login', methods=['GET','POST'])
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
-    if ('user' in session and session['user'] == "sid86"):
-        return render_template("home.html")
-    return render_template('login.html')
+    return redirect('/home')
+
 
 @app.route('/logout')
 def logout():
     session.pop('user')
     return redirect('/')
 
-@app.route('/home', methods=['GET','POST'])
+
+@app.route('/home', methods=['GET', 'POST'])
 def home():
-    login_fail= ""
+    login_fail = ""
     try:
         username = session['user']
         if ('user' in session and session['user'] == username):
@@ -49,13 +52,13 @@ def home():
             data = get_links(username)
             link_name = []
             link_address = []
-            for i in range(1,4):
-                link  = data[i]
+            for i in range(1, 4):
+                link = data[i]
                 seperate = link.split(">")
                 link_name.append(seperate[0])
                 link_address.append(seperate[1])
             username = session['user']
-            return render_template('home.html', username=username, link_name=link_name,link_address=link_address)
+            return render_template('home.html', username=username, link_name=link_name, link_address=link_address)
     except:
         username = ""
     if request.method == 'POST':
@@ -76,8 +79,8 @@ def home():
                 data = get_links(username)
                 link_name = []
                 link_address = []
-                for i in range(1,4):
-                    link  = data[i]
+                for i in range(1, 4):
+                    link = data[i]
                     seperate = link.split(">")
                     link_name.append(seperate[0])
                     link_address.append(seperate[1])
@@ -89,9 +92,30 @@ def home():
             login_fail = "Username and Password do not match"
     return render_template('login.html', login_fail=login_fail)
 
+
+@app.route('/edit')
+def edit():
+    try:
+        username = session['user']
+        if ('user' in session and session['user'] == username):
+            data = get_links(username)
+            link_name = []
+            link_address = []
+            for i in range(1, 4):
+                link = data[i]
+                seperate = link.split(">")
+                link_name.append(seperate[0])
+                link_address.append(seperate[1])
+            num = 5 - len(link_name)
+            return render_template('edit.html', username=username, link_name=link_name, link_address=link_address, num=num)
+    except:
+        username = "error"
+        return render_template('404.html')
+
+
 @app.route(
     '/link/<user>')
-def sid(user):
+def link(user):
     # connects to database
     conn = sqlite3.connect('linklerz_.db')
     c = conn.cursor()
@@ -103,13 +127,14 @@ def sid(user):
     conn.close()
     link_name = []
     link_address = []
-    for i in range(1,4):
-        link  = data[i]
+    for i in range(1, 4):
+        link = data[i]
         seperate = link.split(">")
         link_name.append(seperate[0])
         link_address.append(seperate[1])
 
-    return render_template('link.html', username=user,link_name=link_name,link_address=link_address)
+    return render_template('link.html', username=user, link_name=link_name, link_address=link_address)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
