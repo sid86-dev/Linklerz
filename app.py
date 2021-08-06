@@ -40,7 +40,57 @@ def login():
 def logout():
     session.pop('user')
     return redirect('/')
-
+@app.route('/save', methods=['GET', 'POST'])
+def save():
+    if request.method == 'POST':
+        # delete row
+        username = request.form.get('username', "")
+        conn = sqlite3.connect('linklerz_.db')
+        c = conn.cursor()
+        c.execute(f"DELETE FROM details WHERE username='{username}'")
+        conn.commit()
+        conn.close()
+        # add row
+        link_address1 = request.form.get('link_address0', '')
+        link_address2 = request.form.get('link_address1', '')
+        link_address3 = request.form.get('link_address2', '')
+        link_address4 = request.form.get('link_address3', '')
+        link_address5 = request.form.get('link_address4', '')
+        link_name1 = request.form.get('link_name0', '')
+        link_name2 = request.form.get('link_name1', '')
+        link_name3 = request.form.get('link_name2', '')
+        link_name4 = request.form.get('link_name3', '')
+        link_name5 = request.form.get('link_name4', '')
+        
+        # lst_link = [link_address1,link_address2,link_address3,link_address4,link_address4,link_address5]
+        lst_name = [link_name1,link_name2,link_name3,link_name4,link_name4,link_name5]
+        for n in lst_name:
+            if n != "":
+                link1 = f"{link_name1}>{link_address1}"
+                link2 = f"{link_name2}>{link_address2}"
+                link3 = f"{link_name3}>{link_address3}"
+                link4 = f"{link_name4}>{link_address4}"
+                link5 = f"{link_name5}>{link_address5}"
+            else:
+                link1 = ""
+                link2 = ""
+                link3 = ""
+                link4 = ""
+                link5 = ""
+                
+        print(f"username={username}")
+        print(f"Link={link1}")
+        print(f"Link={link2}")
+        print(f"Link={link3}")
+        print(f"Link={link4}")
+        print(f"Link={link5}")
+        conn = sqlite3.connect('linklerz_.db')
+        c = conn.cursor()
+        c.execute(f"INSERT INTO details VALUES('{username}','{link1}', '{link2}', '{link3}', '{link4}',  '{link5}')")
+        # database processing
+        conn.commit()
+        conn.close()     
+    return redirect('/home')
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -57,14 +107,14 @@ def home():
                 if i == "":
                     links -=1
                 links +=1
-            print(links)
+            # print(links)
             for i in range(1, links):
                 link = data[i]
                 seperate = link.split(">")
                 link_name.append(seperate[0])
                 link_address.append(seperate[1])
             username = session['user']
-            print(link_address, link_name)
+            # print(link_address, link_name)
             return render_template('home.html', username=username, link_name=link_name, link_address=link_address, links=links-1)
     except Exception as e:
         print(e)
@@ -92,7 +142,7 @@ def home():
                     if i == "":
                         links -=1
                     links +=1
-                print(links)
+                # print(links)
                 for i in range(1, links):
                     link = data[i]
                     seperate = link.split(">")
@@ -101,7 +151,7 @@ def home():
                 # set the session variable
                 session['user'] = username
                 # posts = Posts.query.all()
-                print(link_address, link_name)
+                # print(link_address, link_name)
                 return render_template('home.html', username=username, link_name=link_name, link_address=link_address, links=links-1)
         except:
             login_fail = "Username and Password do not match"
@@ -127,7 +177,7 @@ def edit():
                 link_name.append(seperate[0])
                 link_address.append(seperate[1])
             num = 5 - len(link_name)
-            print(link_address, link_name)
+            # print(link_address, link_name)
             return render_template('edit.html', username=username, link_name=link_name, link_address=link_address, num=num, links=links-1)
     except:
         username = "error"

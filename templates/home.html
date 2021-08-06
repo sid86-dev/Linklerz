@@ -4,49 +4,90 @@
 
 <span class="contact100-form-title" style="font-size: large;">
 
-                <h3 class="mb-5">Your Linklerz</h3>
-                {% for i in range(links) %}
-                <div class="container mb-4">
-                    <div class="container__item">
-                        <form class="form">
-                            <input type="email" class="form__field" placeholder="{{link_name[i]}}" />
-                            <a href="/edit" style="font-family: Montserrat-Black;">
-                                <button type="button" class="btn btn--primary btn--inside uppercase">Edit</button>
-                            </a>
-                        </form>
-                    </div>
-                </div>
-                {% endfor %}
+    <h3 class="mb-2" style="font-family: Montserrat-SemiBold;">Your Linklerz</h3>
+    <div class="outer mb-5">
+        <div class="container">
 
-                <style>
-                    #inner {
-                        display: table;
-                        margin: 0 auto;
-                        /* border: 1px solid black; */
-                    }
+            <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner">
 
-                    #outer {
-                        /* border: 1px solid red; */
-                        width: 100%
-                    }
-                </style>
-                <br><br>
-                <div id="outer">
-                    <a href="/edit">
-                        <div class="container-contact100-form-btn " id="inner" style="margin-top: 0px;">
-                            <button class="button "
-                                style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px">
-                                Add Links
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" style="padding-top: 2px;" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
-                                    <path d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z"/>
-                                  </svg>
-                            </button>
-                        </div>
-
-                    </a>
-                </div>
-
+                <button onclick="copyText()" class="fs-17"
+                    style="font-family: Montserrat-Black; opacity: 0.5;font-weight: lighter; width: 100%;"> <input
+                        class="input100 text-center p-0" id="myInput" type="text" style="height: 20px; width: 100%;"
+                        value="linklerz.herokuapp.com/li.{{username}}"
+                        placeholder="https://linklerz.herokuapp.com/"></button>
+                <div id="snackbar">link is copied to clipboard</div>
+            </div>
         </div>
+    </div>
+    <script>
+        function copyText() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+            // alert("Copied the text: " + copyText.value);
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+    {% for i in range(links) %}
+    <div class="container mb-4 ">
+        <div class="container__item">
+            <form action="/edit">
+                <input type="email " class="form__field " style="font-family: Montserrat-SemiBold;"
+                    value="{{link_name[i]}}" />
+                    <button type="submit" style="font-family: Montserrat-Black; " class="btn btn--primary btn--inside uppercase ">Edit</button>
+    
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+
+
+    <style>
+        .inner {
+            display: table;
+            margin: 0 auto;
+            /* border: 1px solid black; */
+        }
+
+        .outer {
+            /* border: 1px solid red; */
+            width: 100%
+        }
+    </style>
+    <br><br>
+    <div class="outer ">
+        <a href="/edit ">
+            <div class="container-contact100-form-btn inner " style="margin-top: 0px; ">
+                <button class="button "
+                    style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
+                    Add Links
+                    <svg xmlns="http://www.w3.org/2000/svg " width="16 " height="16 " style="padding-top: 2px; "
+                        fill="currentColor " class="bi bi-plus-lg " viewBox="0 0 16 16 ">
+                        <path
+                            d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z " />
+                    </svg>
+                </button>
+            </div>
+
+        </a>
+    </div>
+
+    </div>
     </div>
 
 

@@ -14,21 +14,23 @@
         width: 100%
     }
 </style>
-
-<div class="outer">
-    {% for i in range(links) %}
-    <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner ">
-        <span class="label-input100 ">{{link_name[i]}}</span>
-        <input class="input100 " type="text " name="phone " placeholder="{{link_address[i]}} ">
+<form action="/save" method="POST">
+    <input type="text" value="{{username}}" name=username style="display: none;">
+    <div class="outer">
+        {% for i in range(links) %}
+        <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner ">
+            <span class="label-input100 ">{{link_name[i]}}</span>
+            <input type="text" name="link_name{{i}}" style="display: none;" value="{{link_name[i]}}" placeholder="{{link_name[i]}}">
+            <input class="input100 " type="text" name="link_address{{i}}" value="{{link_address[i]}}" placeholder="{{link_address[i]}}">
+        </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
-{% for i in range(num) %}
-<br>
-<div class="wrap-input100 input100-select bg1 ">
-    <span class="label-input100 ">Link *</span>
-    <div>
-        <select class="js-select2 " name="service ">
+    {% for i in range(num) %}
+    <br>
+    <div class="wrap-input100 input100-select bg1 ">
+        <span class="label-input100 ">Link *</span>
+        <div>
+            <select class="js-select2 " name="service ">
             <option>Please chooses</option>
             <option>Instagram</option>
             <option>Facebook</option>
@@ -36,26 +38,26 @@
             <option>Discord</option>
             <!-- <option>Telegram</option> -->
         </select>
-        <div class="dropDownSelect2 "></div>
-    </div>
-</div>
-
-<div class="w-full dis-none js-show-service ">
-    <div class="wrap-input100 validate-input bg1 " data-validate="Please Type Your Name ">
-        <span class="label-input100 ">LINK *</span>
-        <input class="input100 " type="text " name="name " placeholder="Paste link here ">
+            <div class="dropDownSelect2 "></div>
+        </div>
     </div>
 
-</div>
+    <div class="w-full dis-none js-show-service ">
+        <div class="wrap-input100 validate-input bg1 " data-validate="Please Type Your Name ">
+            <span class="label-input100 ">LINK *</span>
+            <input class="input100 " type="text " name="name " placeholder="Paste link here ">
+        </div>
 
-<br> {% endfor %} {% if num == 0 %}
-<p class="fs-20 inner" style="font-family: Poppins-Regular, sans-serif; ">Upgrade to pro for more links</p>
-{% endif %}
-<div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
-    <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
+    </div>
+
+    <br> {% endfor %} {% if num == 0 %}
+    <p class="fs-20 inner" style="font-family: Poppins-Regular, sans-serif; ">Upgrade to pro for more links</p>
+    {% endif %}
+    <div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
+        <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
         Save
     </button>
-</div>
+    </div>
 </form>
 </div>
 </div>
