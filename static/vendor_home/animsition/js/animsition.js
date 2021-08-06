@@ -39,7 +39,7 @@
         overlay               :   false,
         overlayClass          :   'animsition-overlay-slide',
         overlayParentElement  :   'body',
-        transition            :   function(url){ window.location.href = url; }
+        transition            :   function(){ window.location.href = url; }
       }, options);
 
       __.settings = {

@@ -46,10 +46,12 @@ a:hover {
 }
 
 .btn--primary {
-    background: #7f8ff4;
+    /* background: #7f8ff4; */
+    background-color: #2EE59D;
     color: #fff;
     -webkit-box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
-    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    /* box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1); */
+    box-shadow: 0px 15px 20px rgba(46, 229, 157, 0.4);
     border-radius: 2px;
     padding: 12px 36px;
 }
