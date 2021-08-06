@@ -16,7 +16,7 @@
 </style>
 
 <div class="outer">
-    {% for i in range(3) %}
+    {% for i in range(links) %}
     <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner ">
         <span class="label-input100 ">{{link_name[i]}}</span>
         <input class="input100 " type="text " name="phone " placeholder="{{link_address[i]}} ">
@@ -29,13 +29,13 @@
     <span class="label-input100 ">Link *</span>
     <div>
         <select class="js-select2 " name="service ">
-                            <option>Please chooses</option>
-                            <option>Instagram</option>
-                            <option>Facebook</option>
-                            <option>Snapchat</option>
-                            <option>Discord</option>
-                            <!-- <option>Telegram</option> -->
-                        </select>
+            <option>Please chooses</option>
+            <option>Instagram</option>
+            <option>Facebook</option>
+            <option>Snapchat</option>
+            <option>Discord</option>
+            <!-- <option>Telegram</option> -->
+        </select>
         <div class="dropDownSelect2 "></div>
     </div>
 </div>
@@ -48,12 +48,13 @@
 
 </div>
 
-<br> {% endfor %}
-
-<div class="container-contact100-form-btn mb-5" style="margin-top: 0px;">
-    <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px">
-                        Submit
-                    </button>
+<br> {% endfor %} {% if num == 0 %}
+<p class="fs-20 inner" style="font-family: Poppins-Regular, sans-serif; ">Upgrade to pro for more links</p>
+{% endif %}
+<div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
+    <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
+        Update
+    </button>
 </div>
 </form>
 </div>

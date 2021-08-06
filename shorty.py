@@ -1,6 +1,6 @@
 import sqlite3
 
-conn = sqlite3.connect('user.db')
+conn = sqlite3.connect('linklerz_.db')
 
 c = conn.cursor()
 
@@ -8,11 +8,16 @@ c = conn.cursor()
 #         username text,
 #         password text)""")
 
-# c.execute("INSERT INTO users VALUES('sid86', 'siddharth18')")
+# c.execute("INSERT INTO details VALUES('sid86','Github>https://github.com/sid86-dev', 'Linkedin>https://www.linkedin.com/in/siddhartha-roy-9052771b8/', 'Instagram>https://www.instagram.com/sid86__/', 'Portfolio>https://www.sid86.xyz/', 'Twitter>https://twitter.com/yourboysid_')")
 
-c.execute("SELECT * FROM users WHERE username='sid86'")
+c.execute("SELECT * FROM details WHERE username='sid86'")
 
-print(c.fetchone())
-
+data = c.fetchone()
+links = 0
+for i in data:
+    if i == "":
+        links -=1
+    links +=1
+print(links)
 conn.commit()
 conn.close()
