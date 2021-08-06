@@ -24,7 +24,48 @@ def get_links(user):
     conn.commit()
     conn.close()
     return data
+def data_processing(username,lst1, lst2, lst3, lst4):    
+    newlst1 = []
+    newlst2 = []
 
+    for a in lst1:
+        if a != "":
+            newlst1.append(a)
+    for b in lst2:
+        if b != "":
+            newlst2.append(b)
+
+    for c in lst3:
+        if c != "":
+            newlst1.append(c)
+        else:
+            newlst1.append(c)
+    for d in lst4:
+        if d != "":
+            newlst2.append(d)
+        else:
+            newlst2.append("")
+    length = len(newlst2)
+
+    # print(newlst1)
+    # print(newlst2)
+
+    finaldic = {}
+    for y in range(5):
+             if newlst1[y] != "":
+                 if newlst1[y] != "":
+                     finaldic[f"link{y+1}"] = f"{newlst1[y]}>{newlst2[y]}"
+             else :
+                 finaldic[f"link{y+1}"] = f""
+
+    # print(finaldic)
+
+    # print(f"value={finaldic['link3']}")
+    # print(newlst2)
+    str = f"INSERT INTO details VALUES('{username}','{finaldic['link1']}', '{finaldic['link2']}', '{finaldic['link3']}', '{finaldic  ['link4']}', '{finaldic['link5']}')"
+    # dic = {"apple":"world"}
+    # print(dic[lst1[1]])
+    return str
 
 @app.route('/')
 def index():
@@ -61,32 +102,30 @@ def save():
         link_name3 = request.form.get('link_name2', '')
         link_name4 = request.form.get('link_name3', '')
         link_name5 = request.form.get('link_name4', '')
-        
-        # lst_link = [link_address1,link_address2,link_address3,link_address4,link_address4,link_address5]
-        lst_name = [link_name1,link_name2,link_name3,link_name4,link_name4,link_name5]
-        for n in lst_name:
-            if n != "":
-                link1 = f"{link_name1}>{link_address1}"
-                link2 = f"{link_name2}>{link_address2}"
-                link3 = f"{link_name3}>{link_address3}"
-                link4 = f"{link_name4}>{link_address4}"
-                link5 = f"{link_name5}>{link_address5}"
-            else:
-                link1 = ""
-                link2 = ""
-                link3 = ""
-                link4 = ""
-                link5 = ""
-                
-        print(f"username={username}")
-        print(f"Link={link1}")
-        print(f"Link={link2}")
-        print(f"Link={link3}")
-        print(f"Link={link4}")
-        print(f"Link={link5}")
+        newlink_name1 = request.form.get('newlink_name0', "")        
+        newlink_name2 = request.form.get('newlink_name1', "")        
+        newlink_name3 = request.form.get('newlink_name2', "")        
+        newlink_name4 = request.form.get('newlink_name3', "")        
+        newlink_name5 = request.form.get('newlink_name4', "")        
+        newlink_address1 = request.form.get('newlink_address0', "")        
+        newlink_address2 = request.form.get('newlink_address1', "")        
+        newlink_address3 = request.form.get('newlink_address2', "")        
+        newlink_address4 = request.form.get('newlink_address3', "")        
+        newlink_address5 = request.form.get('newlink_address4', "")        
+        lst_name = [link_name1,link_name2,link_name3,link_name4,link_name5]
+        lst_link_address = [link_address1,link_address2,link_address3,link_address4,link_address5]
+        newlst_name = [newlink_name1,newlink_name2,newlink_name3,newlink_name4,newlink_name5]
+        newlst_link_address = [newlink_address1,newlink_address2,newlink_address3,newlink_address4,newlink_address5]
+
+        print(len(lst_name))
+        print(len(lst_link_address))
+        print(len(newlst_name))
+        print(len(newlst_link_address))
+        process = data_processing(username,lst_name,lst_link_address,newlst_name,newlst_link_address)
+        print(process)
         conn = sqlite3.connect('linklerz_.db')
         c = conn.cursor()
-        c.execute(f"INSERT INTO details VALUES('{username}','{link1}', '{link2}', '{link3}', '{link4}',  '{link5}')")
+        c.execute(process)
         # database processing
         conn.commit()
         conn.close()     

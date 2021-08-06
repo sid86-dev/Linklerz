@@ -43,6 +43,9 @@
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
+    {% if links == 0 %}       
+    <p style="font-family: Montserrat-SemiBold;">Create your linklerz by clicking on the button below</p>
+    {% endif %}
     {% for i in range(links) %}
     <div class="container mb-4 ">
         <div class="container__item">
