@@ -323,7 +323,14 @@ def link(user):
 
 @app.route('/settings')
 def settings():
-    username = session['user']
-    return render_template('settings.html', username = username)
+    try:
+        username = session['user']
+        return render_template('settings.html', username = username)
+    except:
+        return redirect("/error")
+@app.route("/error")
+def error():
+        return render_template('404.html')
+
 if __name__ == "__main__":
     app.run(debug=True)
