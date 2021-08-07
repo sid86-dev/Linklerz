@@ -35,11 +35,11 @@
     <!--===============================================================================================-->
     <style>
         .box {
-            width: 300px;
+            width: 85%;
             height: 60px;
             border: 2px solid black;
             margin: auto;
-            padding: 15px;
+            /* position: relative; */
             box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
         }
         
@@ -150,8 +150,9 @@
             <div class="float-right">
                 <a href="/home">
                     <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd" d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z"/>
-                      </svg>
+                        <path fill-rule="evenodd"
+                            d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+                    </svg>
                 </a>
             </div>
 
@@ -160,7 +161,7 @@
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
                     data-bs-placement="top" title="Pro Badge">
             </span>
-            <span class="contact100-form-title" style="font-size: large;">
+            <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
 
                 <h3 class="mb-2" style="font-family: Montserrat-SemiBold;">Your Linklerz</h3>
                 <div class="outer mb-5">
@@ -175,27 +176,28 @@
                                     placeholder="https://linklerz.herokuapp.com/"></button>
                             <div id="snackbar">link is copied to clipboard</div>
                         </div>
-                        
-                        <button class="box mt-4">
-                            <a href="">
-                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="">
-                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Plans</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="">
-                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Help</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="/logout">
-                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
-                            </a>
-                        </button>
+                        <!-- <div class="outer"> -->
+                            <button class="box mt-4">
+                                <a href="">
+                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
+                                </a>
+                            </button>
+                            <button class="box mt-4">
+                                <a href="">
+                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Plans</h4>
+                                </a>
+                            </button>
+                            <button class="box mt-4">
+                                <a href="">
+                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Help</h4>
+                                </a>
+                            </button>
+                            <button class="box mt-4">
+                                <a href="/logout">
+                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
+                                </a>
+                            </button>
+                        <!-- </div> -->
                     </div>
                 </div>
                 <script>
