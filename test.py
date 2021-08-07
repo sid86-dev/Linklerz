@@ -1,63 +1,62 @@
-from typing_extensions import final
+from os import name
+import sqlite3
+
+def delete_data(delete_name):
+    conn = sqlite3.connect('linklerz_.db')
+
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM details WHERE username='sid86'")
+
+    data = c.fetchone()
 
 
-lst1 = ['Github', '', '', '', '']
-lst2 = ['https://github.com/sid86-86', '', '', '', '']
-lst3 = ['', '', '', '', '', '']
-lst4 =['', '', '', '', '', '']
+    # print(data)
+    length = len(data)
 
+    names = []
+    links = []
 
-def data_processing(lst1, lst2, lst3, lst4):    
-    newlst1 = []
-    newlst2 = []
+    lst  = []
 
-    for a in lst1:
-        if a != "":
-            newlst1.append(a)
-    for b in lst2:
-        if b != "":
-            newlst2.append(b)
+    for i in range(1,length):
+        lst.append(data[i])
 
-    for c in lst3:
-        if c != "":
-            newlst1.append(c)
+    my_dic = {}
+
+    # print(lst)
+
+    for i in range(len(lst)):
+        if ">" in lst[i]:
+            item = lst[i]
+            seperate = item.split('>')
+            # print(seperate)
+            my_dic[seperate[0]] = seperate[1]
         else:
-            newlst1.append(c)
-    for d in lst4:
-        if d != "":
-            newlst2.append(d)
-        else:
-            newlst2.append("")
-    length = len(newlst2)
+            my_dic[""] = ""
+       
 
-    # print(newlst1)
-    # print(newlst2)
+    my_dic.pop(delete_name)
 
-    finaldic = {}
-    try:
-        for y in range(5):
-            if newlst1[y] != "":
-                if newlst1[y] != "":
-                    finaldic[f"link{y+1}"] = f"{newlst1[y]}>{newlst2[y]}"
-            else :
-                finaldic[f"link{y+1}"] = f""
-        print(finaldic)
-    except:
-        print(WindowsError)
-    # length = len(finaldic)
-    # final_links = {}
-    # # print(finaldic)
-    # for items in finaldic:
-    #     print(items)
-    #     if finaldic[items] == "":
+    # print(my_dic)
 
-    # print(f"value={finaldic['link3']}")
-    # print(newlst2)
-    # for items in dic =  
-    str = f"INSERT INTO details VALUES('sid86','{finaldic['link1']}', '{finaldic['link2']}', '{finaldic['link3']}', '{finaldic  ['link4']}', '{finaldic['link5']}')"
-    # dic = {"apple":"world"}
-    # print(dic[lst1[1]])
-    return str
+    final_lst = []
+    for item in my_dic:
+        if item != "":
+            final_lst.append(f"{item}>{my_dic[item]}")
 
-process = data_processing(lst1,lst2,lst3,lst4)
-print(process)
+    return final_lst
+
+lst = delete_data("Github")
+
+if len(lst) < 5:
+    for i in range(5-len(lst)):
+        lst.append("")
+
+str = f"INSERT INTO details VALUES('sid86','{lst[0]}', '{lst[1]}', '{lst[2]}', '{lst[3]}', '{lst[4]}')"
+
+# print(lst)
+
+print(str)
+
+

@@ -14,6 +14,53 @@ app = Flask(__name__)
 app.secret_key = 'my-secret-key'
 
 
+def delete_data(delete_name):
+    conn = sqlite3.connect('linklerz_.db')
+
+    c = conn.cursor()
+
+    c.execute("SELECT * FROM details WHERE username='sid86'")
+
+    data = c.fetchone()
+
+
+    # print(data)
+    length = len(data)
+
+    names = []
+    links = []
+
+    lst  = []
+
+    for i in range(1,length):
+        lst.append(data[i])
+
+    my_dic = {}
+
+    # print(lst)
+
+    for i in range(len(lst)):
+        if ">" in lst[i]:
+            item = lst[i]
+            seperate = item.split('>')
+            # print(seperate)
+            my_dic[seperate[0]] = seperate[1]
+        else:
+            my_dic[""] = ""
+       
+
+    my_dic.pop(delete_name)
+
+    # print(my_dic)
+
+    final_lst = []
+    for item in my_dic:
+        if item != "":
+            final_lst.append(f"{item}>{my_dic[item]}")
+
+    return final_lst
+
+    
 def get_links(user):
     conn = sqlite3.connect('linklerz_.db')
     c = conn.cursor()
@@ -24,6 +71,8 @@ def get_links(user):
     conn.commit()
     conn.close()
     return data
+
+
 def data_processing(username,lst1, lst2, lst3, lst4):    
     newlst1 = []
     newlst2 = []
@@ -81,6 +130,7 @@ def login():
 def logout():
     session.pop('user')
     return redirect('/')
+
 @app.route('/save', methods=['GET', 'POST'])
 def save():
     if request.method == 'POST':
@@ -130,6 +180,26 @@ def save():
         conn.commit()
         conn.close()     
     return redirect('/home')
+
+@app.route('/delete/<link_name>', methods = ['GET', 'POST'])
+def delete(link_name):
+    username = session['user']
+    get_name = link_name
+    print(get_name)
+    lst = delete_data(get_name)
+
+    if len(lst) < 5:
+        for i in range(5-len(lst)):
+            lst.append("")
+
+    str = f"INSERT INTO details VALUES('{username}','{lst[0]}', '{lst[1]}', '{lst[2]}', '{lst[3]}', '{lst[4]}')"
+    conn = sqlite3.connect('linklerz_.db')
+    c = conn.cursor()
+    c.execute(f"DELETE FROM details WHERE username='{username}'")
+    c.execute(str)
+    conn.commit()
+    conn.close()
+    return redirect('/edit')
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
