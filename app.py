@@ -321,6 +321,9 @@ def link(user):
 
     return render_template('link.html', username=user, link_name=link_name, link_address=link_address,links=links)
 
-
+@app.route('/settings')
+def settings():
+    username = session['user']
+    return render_template('settings.html', username = username)
 if __name__ == "__main__":
     app.run(debug=True)
