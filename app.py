@@ -472,7 +472,7 @@ def link(user):
         link_name.append(seperate[0])
         link_address.append(seperate[1])
 
-    return render_template('link.html', username=user, link_name=link_name, link_address=link_address, links=links)
+    return render_template('default.html', username=user, link_name=link_name, link_address=link_address, links=links)
 
 
 @app.route('/settings')
