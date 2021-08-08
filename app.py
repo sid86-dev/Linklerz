@@ -9,6 +9,9 @@ with open('config.json', 'r') as f:
 
 import sqlite3
 
+import hashlib
+
+from mailer import send_email
 
 app = Flask(__name__)
 app.secret_key = 'my-secret-key'
@@ -116,10 +119,72 @@ def data_processing(username,lst1, lst2, lst3, lst4):
     # print(dic[lst1[1]])
     return str
 
+
+def encrypt(password):
+    hash = hashlib.sha256(password.encode()).hexdigest()
+    return hash
+
 @app.route('/')
 def index():
-    return render_template('index.html', params=params)
+    try:
+        username = session['user']
+        if ('user' in session and session['user'] == username):
+            return redirect('/home')
+    except:
+        return render_template('index.html', params=params)
 
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    user_exist = "NO"
+    match = "YES"
+    length = "MORE"
+    if request.method == 'POST':
+        email = request.form.get('email').lower()
+        username = request.form.get('username').lower()
+        password = request.form.get('password').lower()
+        password_confirm = request.form.get('password_confirm').lower()
+        print(email,username, password, password_confirm)
+
+        # validation
+        conn = sqlite3.connect('user.db')
+        c = conn.cursor()
+
+        c.execute(f"SELECT * FROM users WHERE username='{username}'")
+        data = c.fetchone()
+        # print(type(data))
+        conn.close()
+        if data == None:
+            user_exist=="NO"
+            if len(password) < 6:
+                return render_template('signup.html', user_exist=user_exist, match="YES", length="LESS")                    
+            if password != password_confirm:
+                return render_template('signup.html', user_exist=user_exist, match="NO", length=length)                    
+            else:
+                hash_password = encrypt(password)
+                # to users
+                conn = sqlite3.connect('user.db')
+                c = conn.cursor()
+                c.execute(f"INSERT INTO users VALUES('{username}','{hash_password}', '{email}', 'free')")
+                conn.commit()
+                conn.close()
+                # to details
+                conn = sqlite3.connect('linklerz_.db')
+                c = conn.cursor()
+                c.execute(f"INSERT INTO details VALUES('{username}','', '', '', '','')")
+                conn.commit()
+                conn.close()
+
+                send_email(email, username)
+                # print("Database done")
+                return render_template('confirm.html', email_address=email)     
+        elif len(data) > 0:  
+            # print(user_exist) 
+            # print(data)
+            return render_template("signup.html", user_exist="YES", match=match, length=length)
+        # print(user_exist)
+        # conn.commit()
+    return render_template('signup.html', user_exist=user_exist, match=match, length=length)
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -229,8 +294,9 @@ def home():
         print(e)
         username = ""
     if request.method == 'POST':
-        username = request.form.get('username')
-        userpass = request.form.get('password')
+        username = request.form.get('username').lower()
+        userpass = request.form.get('password').lower()
+        userpass = encrypt(userpass)
         conn = sqlite3.connect('user.db')
         c = conn.cursor()
         try:

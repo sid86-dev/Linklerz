@@ -1,5 +1,10 @@
 {% extends 'home_base.html' %} {% block content%}
-
+<script>
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function() {
+        window.history.pushState(null, "", window.location.href);
+    };
+</script>
 
 
 <span class="contact100-form-title" style="font-size: large;">
