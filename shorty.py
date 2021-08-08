@@ -8,20 +8,19 @@ c = conn.cursor()
 #         username text,
 #         password text)""")
 
-# c.execute("INSERT INTO details VALUES('sid86','Github>https://github.com/sid86-dev', 'Linkedin>https://www.linkedin.com/in/siddhartha-roy-9052771b8/', 'Instagram>https://www.instagram.com/sid86__/', 'Portfolio>https://www.sid86.xyz/', 'Twitter>https://twitter.com/yourboysid_')")
 
-c.execute(f"INSERT INTO users VALUES('sid00','jjjjij', 'sod@gmail.com', 'free')")
+# c.execute(f"INSERT INTO users VALUES('sid00','jjjjij', 'sod@gmail.com', 'free')")
 
 
-# c.execute("SELECT * FROM details WHERE username='sid86'")
-# c.execute("DELETE FROM details WHERE username='raja21'")
+c.execute("SELECT * FROM users WHERE email='sid86harth@gmail.com'")
+data = c.fetchone() 
+c.execute("DELETE FROM users WHERE email='sid86harth@gmail.com'")
 
-# data = c.fetchone()
-# links = 0
-# for i in data:
-#     if i == "":
-#         links -=1
-#     links +=1
-# print(links)
+password = data[1]
+username = data[0]
+email = data[2]
+c.execute(f"INSERT INTO users VALUES('{username}','{password}', '{email}', 'free', 'yes')")
+
+# print(data)
 conn.commit()
 conn.close()

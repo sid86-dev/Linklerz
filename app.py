@@ -7,6 +7,8 @@ from werkzeug.utils import redirect
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]
 
+from itsdangerous import URLSafeTimedSerializer 
+
 import sqlite3
 
 import hashlib
@@ -16,13 +18,22 @@ from mailer import send_email
 app = Flask(__name__)
 app.secret_key = 'my-secret-key'
 
+s = URLSafeTimedSerializer('Linklerz.li')
+
+
+
+def gen_token(email):
+    token = s.dumps(email, salt='email-confirm')
+    return token
 
 def delete_data(delete_name):
+    username = session['user']
+
     conn = sqlite3.connect('linklerz_.db')
 
     c = conn.cursor()
 
-    c.execute("SELECT * FROM details WHERE username='sid86'")
+    c.execute(f"SELECT * FROM details WHERE username='{username}'")
 
     data = c.fetchone()
 
@@ -165,7 +176,7 @@ def signup():
                 # to users
                 conn = sqlite3.connect('user.db')
                 c = conn.cursor()
-                c.execute(f"INSERT INTO users VALUES('{username}','{hash_password}', '{email}', 'free')")
+                c.execute(f"INSERT INTO users VALUES('{username}','{hash_password}', '{email}', 'free', 'no')")
                 conn.commit()
                 conn.close()
                 # to details
@@ -175,7 +186,10 @@ def signup():
                 conn.commit()
                 conn.close()
 
-                send_email(email, username)
+                token = gen_token(email)
+                final_token = f"http://127.0.0.1:5000/confirm/{token}"
+                print(final_token)
+                send_email(email, username, final_token)
                 # print("Database done")
                 return render_template('confirm.html', email_address=email)     
         elif len(data) > 0:  
@@ -186,6 +200,28 @@ def signup():
         # conn.commit()
     return render_template('signup.html', user_exist=user_exist, match=match, length=length)
 
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    email = s.loads(token, salt='email-confirm', max_age=6048000)
+    # data process
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute(f"SELECT * FROM users WHERE email='{email}'")
+    data = c.fetchone() 
+    c.execute(f"DELETE FROM users WHERE email='{email}'")
+
+    password = data[1]
+    username = data[0]
+    # email = data[2]
+    c.execute(f"INSERT INTO users VALUES('{username}','{password}', '{email}', 'free', 'yes')")
+
+    # print(data)
+    conn.commit()
+    conn.close()
+
+    return render_template("confirm_email.html", email=email)
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     return redirect('/home')
@@ -195,6 +231,11 @@ def login():
 def logout():
     session.pop('user')
     return redirect('/')
+
+
+@app.route("/profile")
+def profile():
+    return render_template('profile.html')
 
 @app.route('/save', methods=['GET', 'POST'])
 def save():

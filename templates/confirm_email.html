@@ -2,9 +2,10 @@
 <html lang="en">
 
 <head>
-    <title>Linklerz™ | {{username}}</title>
+    <title>Linklerz™ | Signup</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="refresh" content="8;url=/home" />
     <!-- favicons -->
     <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png" />
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/favicon/apple-touch-icon-114x114.png" />
@@ -178,112 +179,82 @@
                     </svg>
                 </a>
             </div>
-
-            <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
-                {{username}}
-                <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Pro Badge">
-            </span>
+            <div class="outer">
+                <img src="/static/img/email.png" alt="" class="inner mt-5">
+                <p class="contact100-form-title inner" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
+                    Your email is confirmed !
+                </p>
+                <a href="/home" class="inner box text-center pt-2" target="_blank" style="font-size: large; font-family: Montserrat-SemiBold">
+                    {{email}}
+                </a>
+            </div>
             <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
 
-                <h3 class="mb-2" style="font-family: Montserrat-SemiBold;font-size: x-large;">Your Linklerz</h3>
-                <div class="outer mb-5">
-                    <div class="container">
+                <h3 class="mb-4 mt-5" style="font-family: Montserrat-SemiBold; font-size: small;">Thank you for confirming. You are now eligible to take the most out of Linklerz™</h3>
+            
+    <script>
+        function copyText() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput ");
 
-                        <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner">
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
 
-                            <button onclick="copyText()" class="fs-17"
-                                style="font-family: Montserrat-Black; opacity: 0.5;font-weight: lighter; width: 100%;">
-                                <input class="input100 text-center p-0" id="myInput" type="text"
-                                    style="height: 20px; width: 100%;" value="linklerz.herokuapp.com/li.{{username}}"
-                                    placeholder="https://linklerz.herokuapp.com/"></button>
-                            <div id="snackbar">link is copied to clipboard</div>
-                        </div>
-                        <!-- <div class="outer"> -->
-                            <button class="box mt-4">
-                                <a href="">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
-                                </a>
-                            </button>
-                            <button class="box mt-4">
-                                <a href="">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Plans</h4>
-                                </a>
-                            </button>
-                            <button class="box mt-4">
-                                <a href="">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Help</h4>
-                                </a>
-                            </button>
-                            <button class="box mt-4">
-                                <a href="/logout">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
-                                </a>
-                            </button>
-                        <!-- </div> -->
-                    </div>
-                </div>
-                <script>
-                    function copyText() {
-                        /* Get the text field */
-                        var copyText = document.getElementById("myInput");
+            /* Copy the text inside the text field */
+            document.execCommand("copy ");
 
-                        /* Select the text field */
-                        copyText.select();
-                        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+            /* Alert the copied text */
+            // alert("Copied the text: " + copyText.value);
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar ");
 
-                        /* Copy the text inside the text field */
-                        document.execCommand("copy");
+            // Add the "show " class to DIV
+            x.className = "show ";
 
-                        /* Alert the copied text */
-                        // alert("Copied the text: " + copyText.value);
-                        // Get the snackbar DIV
-                        var x = document.getElementById("snackbar");
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function() {
+                x.className = x.className.replace("show ", " ");
+            }, 3000);
+        }
+    </script>
 
-                        // Add the "show" class to DIV
-                        x.className = "show";
+    <style>
+        .inner {
+            display: table;
+            margin: 0 auto;
+            /* border: 1px solid black; */
+        }
+        
+        .outer {
+            /* border: 1px solid red; */
+            width: 100%
+        }
+    </style>
 
-                        // After 3 seconds, remove the show class from DIV
-                        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-                    }
-                </script>
-
-                <style>
-                    .inner {
-                        display: table;
-                        margin: 0 auto;
-                        /* border: 1px solid black; */
-                    }
-
-                    .outer {
-                        /* border: 1px solid red; */
-                        width: 100%
-                    }
-                </style>
-
-        </div>
+    </div>
     </div>
 
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/jquery/jquery-3.2.1.min.js"></script>
+    <script src="/static/vendor_home/jquery/jquery-3.2.1.min.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/animsition/js/animsition.min.js"></script>
+    <script src="/static/vendor_home/animsition/js/animsition.min.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/bootstrap/js/popper.js"></script>
-    <script src="/static/vendor_home/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/vendor_home/bootstrap/js/popper.js "></script>
+    <script src="/static/vendor_home/bootstrap/js/bootstrap.min.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/select2/select2.min.js"></script>
+    <script src="/static/vendor_home/select2/select2.min.js "></script>
     <script>
-        $(".js-select2").each(function () {
+        $(".js-select2 ").each(function() {
             $(this).select2({
                 minimumResultsForSearch: 20,
                 dropdownParent: $(this).next('.dropDownSelect2')
             });
 
 
-            $(".js-select2").each(function () {
-                $(this).on('select2:close', function (e) {
-                    if ($(this).val() == "Please chooses") {
+            $(".js-select2 ").each(function() {
+                $(this).on('select2:close', function(e) {
+                    if ($(this).val() == "Please chooses ") {
                         $('.js-show-service').slideUp();
                     } else {
                         $('.js-show-service').slideUp();
@@ -294,12 +265,12 @@
         })
     </script>
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/daterangepicker/moment.min.js"></script>
-    <script src="/static/vendor_home/daterangepicker/daterangepicker.js"></script>
+    <script src="/static/vendor_home/daterangepicker/moment.min.js "></script>
+    <script src="/static/vendor_home/daterangepicker/daterangepicker.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/countdowntime/countdowntime.js"></script>
+    <script src="/static/vendor_home/countdowntime/countdowntime.js "></script>
     <!--===============================================================================================-->
-    <script src="/static/vendor_home/noui/nouislider.min.js"></script>
+    <script src="/static/vendor_home/noui/nouislider.min.js "></script>
     <script>
         var filterBar = document.getElementById('filter-bar');
 
@@ -317,17 +288,17 @@
             document.getElementById('value-upper')
         ];
 
-        filterBar.noUiSlider.on('update', function (values, handle) {
+        filterBar.noUiSlider.on('update', function(values, handle) {
             skipValues[handle].innerHTML = Math.round(values[handle]);
-            $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
-            $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+            $('.contact100-form-range-value input[name="from-value "]').val($('#value-lower').html());
+            $('.contact100-form-range-value input[name="to-value "]').val($('#value-upper').html());
         });
     </script>
     <!--===============================================================================================-->
-    <script src="/static/js/main.js"></script>
+    <script src="/static/js/main.js "></script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13 "></script>
     <script>
         window.dataLayer = window.dataLayer || [];
 
@@ -338,6 +309,25 @@
 
         gtag('config', 'UA-23581568-13');
     </script>
+
+</body>
+
+</html>
+<!--===============================================================================================-->
+<script src="/static/js/main.js "></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13 "></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
 
 </body>
 
