@@ -181,8 +181,10 @@
 
             <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
                 {{username}}
+                {% if plan == "premium" %} 
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Pro Badge">
+                data-bs-placement="top" title="Pro Badge">
+                {% endif %}
             </span>
             <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
 
@@ -201,7 +203,7 @@
                         </div>
                         <!-- <div class="outer"> -->
                             <button class="box mt-4">
-                                <a href="">
+                                <a href="/profile">
                                     <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
                                 </a>
                             </button>

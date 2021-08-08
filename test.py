@@ -1,4 +1,3 @@
-
 from itsdangerous import URLSafeTimedSerializer
 from string import Template
 def gen_token(email):

@@ -8,7 +8,12 @@
 
 
 <span class="contact100-form-title" style="font-size: large;">
-
+    {% if confirm == "no" %}
+    <a href="/emailconfirm">
+        <h3 class="mb-4" style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please confirm Your email </h3>
+    </a>
+  
+    {% endif %}
     <h3 class="mb-2" style="font-family: Montserrat-SemiBold;font-size: x-large;">Your Linklerz</h3>
     <div class="outer mb-5">
         <div class="container">
@@ -49,7 +54,7 @@
         }
     </script>
     {% if links == 0 %}       
-    <p style="font-family: Montserrat-SemiBold;">Create your linklerz by clicking on the button below</p>
+    <p style="font-family: Montserrat-SemiBold;">Hurrah ! Create your first linklerz by clicking on the button below</p>
     {% endif %}
     {% for i in range(links) %}
     <div class="container mb-4 ">

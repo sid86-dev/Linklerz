@@ -57,6 +57,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
     <!--===============================================================================================-->
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration,
+                minutes, seconds;
+            setInterval(function() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            var fiveMinutes = 7,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
     <style>
         .box {
             width: 85%;
@@ -184,13 +209,16 @@
                 <p class="contact100-form-title inner" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
                     Your email is confirmed !
                 </p>
+                <p class="contact100-form-title inner " style="font-family: Montserrat-SemiBold;font-size: large;">
+                    You will be redirected to the login page in <span id="time">00:07</span> seconds
+                </p>
                 <a href="/home" class="inner box text-center pt-2" target="_blank" style="font-size: large; font-family: Montserrat-SemiBold">
                     {{email}}
                 </a>
             </div>
             <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
 
-                <h3 class="mb-4 mt-5" style="font-family: Montserrat-SemiBold; font-size: small;">Thank you for confirming. You are now eligible to take the most out of Linklerz™</h3>
+                <h3 class="mb-4 mt-5" style="font-family: Montserrat-SemiBold; font-size: small;">Thank you for confirming. You are now a memeber of Linklerz™</h3>
             
     <script>
         function copyText() {

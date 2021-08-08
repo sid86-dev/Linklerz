@@ -57,6 +57,31 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
     <!--===============================================================================================-->
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration,
+                minutes, seconds;
+            setInterval(function() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            var fiveMinutes = 7,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
     <style>
         .box {
             width: 85%;
@@ -183,6 +208,9 @@
                 <img src="/static/img/email.png" alt="" class="inner mt-5">
                 <p class="contact100-form-title inner" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
                     You will receive a confirmation email
+                </p>
+                <p class="contact100-form-title inner " style="font-family: Montserrat-SemiBold;font-size: large;">
+                    You will be redirected to the login page in <span id="time">00:07</span> seconds
                 </p>
                 <a href="https://mail.google.com/mail/" class="inner box text-center pt-2" target="_blank" style="font-size: large; font-family: Montserrat-SemiBold">
                     {{email_address}}

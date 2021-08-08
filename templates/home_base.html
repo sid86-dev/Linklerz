@@ -172,8 +172,10 @@
 
             <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold; font-size: x-large;">
                 {{username}}
+                {% if plan == "premium" %}
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
-                    data-bs-placement="top" title="Pro Badge">
+                data-bs-placement="top" title="Pro Badge">
+                {% endif %}
             </span>{% block content%} {% endblock %}
             <!--===============================================================================================-->
             <script src="/static/vendor_home/jquery/jquery-3.2.1.min.js"></script>
