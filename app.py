@@ -229,7 +229,7 @@ def emailconfirm():
 
 @app.route('/confirm/<token>')
 def confirm_email(token):
-    email = s.loads(token, salt='email-confirm', max_age=604800)
+    email = s.loads(token, salt='email-confirm', max_age=60480)
     # data process
     conn = sqlite3.connect('user.db')
     c = conn.cursor()
