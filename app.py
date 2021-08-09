@@ -257,8 +257,11 @@ def login():
 
 @app.route('/logout')
 def logout():
-    session.pop('user')
-    return redirect('/')
+    try:
+        session.pop('user')
+        return redirect('/')
+    except:
+        return redirect('/error')
 
 
 @app.route('/save', methods=['GET', 'POST'])
