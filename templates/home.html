@@ -10,9 +10,11 @@
 <span class="contact100-form-title" style="font-size: large;">
     {% if confirm == "no" %}
     <a href="/emailconfirm">
-        <h3 class="mb-4" style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please confirm Your email </h3>
+        <h3 class="mb-4"
+            style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please
+            confirm Your email </h3>
     </a>
-  
+
     {% endif %}
     <h3 class="mb-2" style="font-family: Montserrat-SemiBold;font-size: x-large;">Your Linklerz</h3>
     <div class="outer mb-5">
@@ -23,8 +25,8 @@
                 <button onclick="copyText()" class="fs-17"
                     style="font-family: Montserrat-Black; opacity: 0.5;font-weight: lighter; width: 100%;"> <input
                         class="input100 text-center p-0" id="myInput" type="text" style="height: 20px; width: 100%;"
-                        value="https://linklerz.herokuapp.com/li.{{username}}"
-                        placeholder="https://linklerz.herokuapp.com/li."></button>
+                        value="https://linklerz.cleverapps.io/li.{{username}}"
+                        placeholder="https://linklerz.cleverapps.io/li."></button>
                 <div id="snackbar">link is copied to clipboard</div>
             </div>
         </div>
@@ -53,7 +55,7 @@
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     </script>
-    {% if links == 0 %}       
+    {% if links == 0 %}
     <p style="font-family: Montserrat-SemiBold;">Hurrah ! Create your first linklerz by clicking on the button below</p>
     {% endif %}
     {% for i in range(links) %}
@@ -62,8 +64,9 @@
             <form action="/edit">
                 <input type="email " class="form__field " style="font-family: Montserrat-SemiBold;"
                     value="{{link_name[i]}}" />
-                    <button type="submit" style="font-family: Montserrat-Black; " class="btn btn--primary btn--inside uppercase ">Edit</button>
-    
+                <button type="submit" style="font-family: Montserrat-Black; "
+                    class="btn btn--primary btn--inside uppercase ">Edit</button>
+
             </form>
         </div>
     </div>

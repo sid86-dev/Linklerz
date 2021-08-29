@@ -181,9 +181,9 @@
 
             <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
                 {{username}}
-                {% if plan == "premium" %} 
+                {% if plan == "premium" %}
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Pro Badge">
+                    data-bs-placement="top" title="Pro Badge">
                 {% endif %}
             </span>
             <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
@@ -197,31 +197,32 @@
                             <button onclick="copyText()" class="fs-17"
                                 style="font-family: Montserrat-Black; opacity: 0.5;font-weight: lighter; width: 100%;">
                                 <input class="input100 text-center p-0" id="myInput" type="text"
-                                    style="height: 20px; width: 100%;" value="https://linklerz.herokuapp.com/li.{{username}}"
-                                    placeholder="https://linklerz.herokuapp.com/li."></button>
+                                    style="height: 20px; width: 100%;"
+                                    value="https://linklerz.cleverapps.io/li.{{username}}"
+                                    placeholder="https://linklerz.cleverapps.io/li."></button>
                             <div id="snackbar">link is copied to clipboard</div>
                         </div>
                         <!-- <div class="outer"> -->
-                            <button class="box mt-4">
-                                <a href="/profile">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
-                                </a>
-                            </button>
-                            <button class="box mt-4">
-                                <a href="">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Plans</h4>
-                                </a>
-                            </button>
-                            <button class="box mt-4">
-                                <a href="">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Help</h4>
-                                </a>
-                            </button>
-                            <button class="box mt-4">
-                                <a href="/logout">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
-                                </a>
-                            </button>
+                        <button class="box mt-4">
+                            <a href="/profile">
+                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
+                            </a>
+                        </button>
+                        <button class="box mt-4">
+                            <a href="">
+                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Plans</h4>
+                            </a>
+                        </button>
+                        <button class="box mt-4">
+                            <a href="">
+                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Help</h4>
+                            </a>
+                        </button>
+                        <button class="box mt-4">
+                            <a href="/logout">
+                                <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
+                            </a>
+                        </button>
                         <!-- </div> -->
                     </div>
                 </div>

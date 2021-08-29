@@ -188,7 +188,7 @@ def signup():
                 conn.close()
 
                 token = gen_token(email)
-                final_token = f"https://linklerz.herokuapp.com/confirm/{token}"
+                final_token = f"https://linklerz.cleverapps.io/confirm/{token}"
                 # print(final_token)
                 send_email(email, username, final_token)
                 # print("Database done")
@@ -219,7 +219,7 @@ def emailconfirm():
         data = user_detail(username)
         email = data[2]
         token = gen_token(email)
-        final_token = f"https://linklerz.herokuapp.com/confirm/{token}"
+        final_token = f"https://linklerz.cleverapps.io/confirm/{token}"
         # print(final_token)
         send_email(email, username, final_token)
         return render_template('confirm.html', email_address=email)
