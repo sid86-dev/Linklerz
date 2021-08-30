@@ -147,7 +147,7 @@ def save():
             db.session.commit()
             return redirect(f'/home/{username}')
 
-
+# delete route
 @app.route('/delete/<link_name>')
 def delete(link_name):
     username = session['user']
