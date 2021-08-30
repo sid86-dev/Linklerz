@@ -247,6 +247,8 @@ def confirm_email(token):
     credentials = Users.query.filter_by(email=email).first()
     credentials.confirmation = "yes"
     db.session.commit()
+    return render_template('confirm_email.html', credentials=credentials)
+
 
 # Logging out
 @app.route('/logout')
