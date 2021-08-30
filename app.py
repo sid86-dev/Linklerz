@@ -72,8 +72,7 @@ def home(username):
         print(credentials.username)
         return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
     except:
-        login_fail = "Username and Password do not match"
-        return render_template('login.html', login_fail=login_fail)
+        return redirect('/login')
 
 # edit route
 @app.route('/edit')
