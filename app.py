@@ -1,6 +1,9 @@
 from flask import Flask, render_template, session, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
+from mailer import send_email
+from itsdangerous import URLSafeTimedSerializer
+
 
 app = Flask(__name__)
 app.secret_key = 'my-secret-key'
@@ -9,6 +12,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
+s = URLSafeTimedSerializer('Linklerz.li')
 
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -37,6 +41,10 @@ def entry(username_get,userpass_encrypt, useremail_get):
 def get_linktype(linktype):
     list_lintype = linktype.split(">")
     return list_lintype
+
+def gen_token(email):
+    token = s.dumps(email, salt='email-confirm')
+    return token
 
 # index route
 @app.route('/')
@@ -192,7 +200,7 @@ def login():
                 return render_template('login.html', login_fail=login_fail)
         return render_template('login.html', login_fail=login_fail)
 
-
+# signup route
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     user_exist = "NO"
@@ -211,11 +219,26 @@ def signup():
             if userpass_get == confirmpass_get:
                 userpass_encrypt = encrypt(userpass_get)
                 entry(username_get,userpass_encrypt,useremail_get)
-                return redirect('/login')
+                session['user'] = username_get
+                return redirect(f'/sendconfirm/{useremail_get}')
             else:
                 match = "NO"
                 return render_template('signup.html', user_exist=user_exist, match=match)
     return render_template('signup.html', user_exist=user_exist)
+
+
+# email send    
+@app.route('/sendconfirm/<string:email>')
+def emailconfirm(email):
+    try:
+        username = session['user']
+        token = gen_token(email)
+        final_token = f"https://linklerz.cleverapps.io/confirm/{token}"
+      
+        send_email(email, username, final_token)
+        return render_template('confirm.html', email_address=email)
+    except:
+        return redirect('/error')
 # Logging out
 @app.route('/logout')
 def logout():
@@ -225,6 +248,14 @@ def logout():
     except:
         return render_template('404.html')
 
+
+@app.route('/confirm/<token>')
+def confirm_email(token):
+    email = s.loads(token, salt='email-confirm', max_age=60480)
+    # data process
+    credentials = Users.query.filter_by(email=email).first()
+    credentials.confirmation = "yes"
+    db.session.commit()
 
 # render link
 @app.route(
