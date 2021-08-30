@@ -240,7 +240,7 @@ def emailconfirm(email):
     except:
         return redirect('/error')
 
-@app.route('/confirm/<token>')
+@app.route('/confirm/<string:token>')
 def confirm_email(token):
     email = s.loads(token, salt='email-confirm', max_age=172800)
     # data process
