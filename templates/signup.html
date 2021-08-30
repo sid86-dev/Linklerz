@@ -188,11 +188,14 @@
                 <h3 class="mb-3" style="font-family: Montserrat-SemiBold; font-size: large;">Already have account? <a href="/login" style="text-decoration: underline;font-family: Montserrat-SemiBold; font-size: large;">Login</a> </h3>
             <form class="contact100-form validate-form" action="/signup" method="POST">
                 <div class="outer">
-
+                    {% if email_exist == "yes" %}
+                    <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Email already exist</h3>
+                    {% endif %}
                     <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
                         <span class="label-input100 float-left">Email *</span>
             <input class="input100" type="email" name="email" placeholder="Enter Your Email " required>
         </div>
+
         {% if user_exist == "YES" %}
         <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Username already exist</h3>
         {% endif %}

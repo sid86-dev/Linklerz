@@ -217,10 +217,16 @@ def signup():
         except:
             user_exist = "NO"
             if userpass_get == confirmpass_get:
-                userpass_encrypt = encrypt(userpass_get)
-                entry(username_get,userpass_encrypt,useremail_get)
-                session['user'] = username_get
-                return redirect(f'/sendconfirm/{useremail_get}')
+                try:
+                    credentials = Users.query.filter_by(email=useremail_get).first()
+                    useremail = credentials.email
+                    email_exist = "yes"
+                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist)
+                except:
+                    userpass_encrypt = encrypt(userpass_get)
+                    entry(username_get,userpass_encrypt,useremail_get)
+                    session['user'] = username_get
+                    return redirect(f'/sendconfirm/{useremail_get}')
             else:
                 match = "NO"
                 return render_template('signup.html', user_exist=user_exist, match=match)
