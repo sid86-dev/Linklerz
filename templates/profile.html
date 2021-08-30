@@ -186,7 +186,7 @@
                 data-bs-placement="top" title="Pro Badge">
                 {% endif %}
              {% if credentials.confirmation == "no" %}
-            <a href="/emailconfirm">
+            <a href="/sendconfirm/{{credentials.email}}">
                 <h3 class="mt-3" style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please confirm Your email </h3>
             </a>
         </span> {% endif %}
