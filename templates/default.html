@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linklerz™ | {{username}}</title>
+    <title>Linklerz™ | {{credentials.username}}</title>
     <link rel="stylesheet" href="/static/css/button.css">
     <link rel="stylesheet" href="/static/css/default.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,15 +39,15 @@
 <body style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
     <div class="center-screen">
         <p style="font-family: 'Montserrat', sans-serif; font-size: x-large;margin-bottom: 12%;opacity: 0.7;">
-            {{username}}</p>
+            {{credentials.username}}</p>
         <div style="width: 50vh;">
-            {% for i in range(links-1) %}
-            <a href="{{link_address[i]}}" target="_blank">
+            {% for items in linkdic %} {% if items != "" %}
+            <a href="{{linkdic[items]}}" target="_blank">
                 <button class=" button " style="width: 70%;font-family: 'Montserrat', sans-serif; font-size: large;border-radius: 5px; margin-bottom: 10%; ">
-                    {{link_name[i]}}
+                    {{items}}
                 </button>
             </a>
-            {% endfor %}
+            {% endif %} {% endfor %}
         </div>
         <a href="https://linklerz.cleverapps.io/ " style="text-decoration: none; color: black; ">
             <p style="font-family: 'Montserrat', sans-serif; font-size: small;opacity: 0.7; ">Linklerz™</p>

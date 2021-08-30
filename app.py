@@ -1,7 +1,8 @@
 from typing_extensions import final
 from flask import Flask, render_template, session, request
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 import json
+
 
 from werkzeug.utils import redirect
 with open('config.json', 'r') as f:
@@ -17,9 +18,22 @@ from mailer import send_email
 
 app = Flask(__name__)
 app.secret_key = 'my-secret-key'
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://uh0cnoyrm6zjx9r0:VglVd8ErFy0srvWHyu82@bvcxwbbp2ahmmcsixu69-mysql.services.clever-cloud.com:3306/bvcxwbbp2ahmmcsixu69"
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+db = SQLAlchemy(app)
 
 s = URLSafeTimedSerializer('Linklerz.li')
 
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
+    plan = db.Column(db.String(12), nullable=False)
+    confirmation = db.Column(db.String(20), nullable=False)
+    linktype = db.Column(db.String(500), nullable=False)
+    linkurl = db.Column(db.String(500), nullable=False)
 
 def gen_token(email):
     token = s.dumps(email, salt='email-confirm')
@@ -252,7 +266,18 @@ def confirm_email(token):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    return redirect('/home')
+    if request.method == 'POST':
+        username_get = request.form.get('username').lower()
+        userpass_get = request.form.get('password').lower()
+        userpass_encrypt = encrypt(userpass_get)
+        credentials = Users.query.filter_by(username=username_get).first()
+        print(credentials.username)
+        print(credentials.password)
+        if credentials.username == username_get and credentials.password == userpass_encrypt:
+            return render_template('home.html')
+        else:
+            return redirect('/login', login_fail = "Username and Password do not match")
+    return render_template('login.html')
 
 
 @app.route('/logout')
@@ -321,6 +346,7 @@ def save():
 
 @app.route('/delete/<link_name>', methods=['GET', 'POST'])
 def delete(link_name):
+    
     username = session['user']
     get_name = link_name
     print(get_name)
@@ -349,6 +375,7 @@ def user_detail(username):
     conn.close()
 
     return data
+
 
 
 @app.route('/home', methods=['GET', 'POST'])
