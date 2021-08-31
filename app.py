@@ -2,8 +2,10 @@ from flask import Flask, render_template, session, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from mailer import send_email
+from delete_mailer import delete_email
 from itsdangerous import URLSafeTimedSerializer
-
+import string
+import random
 
 app = Flask(__name__)
 app.secret_key = 'my-secret-key'
@@ -46,6 +48,14 @@ def gen_token(email):
     token = s.dumps(email, salt='email-confirm')
     return token
 
+
+def gen_word():
+    letters = string.ascii_lowercase + string.ascii_uppercase
+    while True:
+        rand_letters = random.choices(letters, k=4)
+        rand_letters = "".join(rand_letters)
+        return rand_letters
+
 # index route
 @app.route('/')
 def index():
@@ -57,9 +67,12 @@ def not_found(e):
 # defining function
   return render_template("404.html")
 
-@app.route('/settings')
-def settings():
-    return render_template('settings.html')
+@app.route('/settings/<string:username>')
+def settings(username):
+    if ('user' in session and session['user'] == username):
+        return render_template('settings.html', username=username)
+    else:
+        return render_template('404.html')
 
 
 # home route
@@ -69,7 +82,7 @@ def home(username):
         credentials = Users.query.filter_by(username=username).first()
         linktype = credentials.linktype 
         list_linktype = get_linktype(linktype)
-        print(credentials.username)
+
         return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
     except:
         return redirect('/login')
@@ -98,19 +111,18 @@ def edit():
         else:
             num = 10 - len(list_linktype)
         return render_template('edit.html', linkdic=linkdic, num=num, credentials=credentials)
-    return render_template('404.html')
+    return redirect('/login')
 
 
 # profile route
-@app.route("/profile", methods=['GET', 'POST'])
-def profile():
-    # try:
-    username = session['user']
-    if ('user' in session and session['user'] == username):
-        credentials = Users.query.filter_by(username=username).first()
-        return render_template('profile.html', credentials=credentials)
-    # except:
-        # return render_template('404.html')
+@app.route("/profile/<string:username>", methods=['GET', 'POST'])
+def profile(username):
+    try:
+        if ('user' in session and session['user'] == username):
+            credentials = Users.query.filter_by(username=username).first()
+            return render_template('profile.html', credentials=credentials)
+    except:
+        return redirect('/login')
 
 # saving data
 @app.route('/save', methods = ['GET', 'POST'])
@@ -254,7 +266,34 @@ def confirm_email(token):
     db.session.commit()
     return render_template('confirm_email.html', credentials=credentials)
 
+# delete account
+@app.route('/deletelog/<string:username>')
+def delete_account(username):
+    # try:
+    if ('user' in session and session['user'] == username):
+        keyword = gen_word() 
+        word = f"{username}{keyword}"
+        return render_template('delete.html', username=username, word=word)
+    # except:
+        # return redirect('/login')
 
+@app.route('/deletecheck/<string:username>/<string:word>', methods = ['GET', 'POST'])
+def delete_check(username,word):
+    if request.method == "POST":
+            inputtext = request.form.get('inputtext')
+            if inputtext != word:
+                return redirect(f'/deletelog/{username}')
+            else:
+                credentials = Users.query.filter_by(username=username).first()
+                email = credentials.email
+                # delete data
+                db.session.delete(credentials)
+                db.session.commit()
+                # send email
+                delete_email(email,username)
+
+                return redirect('/logout')
+    return redirect('/login')
 # Logging out
 @app.route('/logout')
 def logout():
@@ -263,8 +302,6 @@ def logout():
         return redirect('/login')
     except:
         return render_template('404.html')
-
-
 
 
 # render link
