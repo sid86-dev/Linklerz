@@ -39,6 +39,7 @@ def entry(username_get,userpass_encrypt, useremail_get):
      )
     db.session.add(entry)
     db.session.commit()
+    
 
 def get_linktype(linktype):
     list_lintype = linktype.split(">")
@@ -320,7 +321,7 @@ def link(username):
             linkdic[key] = value
             list_linkurl.remove(value)
             break
-    return render_template('default.html', credentials=credentials, linkdic=linkdic)
+    return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()

@@ -193,7 +193,8 @@
                     {% endif %}
                     <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
                         <span class="label-input100 float-left">Email *</span>
-            <input class="input100" type="email" name="email" placeholder="Enter Your Email " required>
+            <input class="input100" type="email" value="{{
+                request.form.email }}" name="email" placeholder="Enter Your Email " required>
         </div>
 
         {% if user_exist == "YES" %}
@@ -201,7 +202,8 @@
         {% endif %}
         <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
             <span class="label-input100 float-left">Username *</span>
-            <input class="input100" type="text" name="username" placeholder="linklerz.xyz.li/your username" required>
+            <input class="input100" type="text" value="{{
+                request.form.username }}" name="username" placeholder="linklerz.xyz.li/your username" required>
         </div>
         {% if match == "NO" %}
         <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Password do not match</h3>
