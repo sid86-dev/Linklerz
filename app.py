@@ -324,4 +324,4 @@ def link(username):
     return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

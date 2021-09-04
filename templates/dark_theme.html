@@ -37,14 +37,16 @@
 
     <!-- Profile name-->
     <div class="profile-name">@{{credentials.username}}</div>
+    <div class="center">
 
-    <div class="container">
-        <div class="vertical-center">
-            <!-- Links-->
-            {% for items in linkdic %} {% if items != "" %}<a href="{{linkdic[items]}}" class="links">{{items}}</a>{% endif %} {% endfor %}
-        </div>
+
+        <!-- Links-->
+        {% for items in linkdic %} {% if items != "" %}<a href="{{linkdic[items]}}" class="links">{{items}}</a>{% endif %} {% endfor %}
+
+        <div class="bottom-text" style="bottom: 0%;">Linklerz™</div>
+
     </div>
-    <div class="bottom-text">Linklerz™</div>
+
 
 </body>
 
