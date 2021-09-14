@@ -126,7 +126,7 @@ def edit():
 
         plan = credentials.plan
         if plan == "free":
-            num = 6 - len(list_linktype)
+            num = 5 - len(list_linktype)
         else:
             num = 10 - len(list_linktype)
         return render_template('edit.html', linkdic=linkdic, num=num, credentials=credentials)
