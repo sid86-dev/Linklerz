@@ -25,6 +25,7 @@ db = SQLAlchemy(app)
 
 s = URLSafeTimedSerializer('Linklerz.li')
 
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(50), nullable=False)
@@ -34,6 +35,7 @@ class Users(db.Model):
     confirmation = db.Column(db.String(20), nullable=False)
     linktype = db.Column(db.String(500), nullable=False)
     linkurl = db.Column(db.String(500), nullable=False)
+
 
 def gen_token(email):
     token = s.dumps(email, salt='email-confirm')
@@ -202,7 +204,7 @@ def signup():
                 conn.close()
 
                 token = gen_token(email)
-                final_token = f"https://linklerz.cleverapps.io/confirm/{token}"
+                final_token = f"https://lerz.herokuapp.com/confirm/{token}"
                 # print(final_token)
                 send_email(email, username, final_token)
                 # print("Database done")
@@ -233,7 +235,7 @@ def emailconfirm():
         data = user_detail(username)
         email = data[2]
         token = gen_token(email)
-        final_token = f"https://linklerz.cleverapps.io/confirm/{token}"
+        final_token = f"https://lerz.herokuapp.com/confirm/{token}"
         # print(final_token)
         send_email(email, username, final_token)
         return render_template('confirm.html', email_address=email)
@@ -276,7 +278,7 @@ def login():
         if credentials.username == username_get and credentials.password == userpass_encrypt:
             return render_template('home.html')
         else:
-            return redirect('/login', login_fail = "Username and Password do not match")
+            return redirect('/login', login_fail="Username and Password do not match")
     return render_template('login.html')
 
 
@@ -346,7 +348,7 @@ def save():
 
 @app.route('/delete/<link_name>', methods=['GET', 'POST'])
 def delete(link_name):
-    
+
     username = session['user']
     get_name = link_name
     print(get_name)
@@ -375,7 +377,6 @@ def user_detail(username):
     conn.close()
 
     return data
-
 
 
 @app.route('/home', methods=['GET', 'POST'])

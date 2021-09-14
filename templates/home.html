@@ -25,8 +25,8 @@
                 <button onclick="copyText()" class="fs-17"
                     style="font-family: Montserrat-Black; opacity: 0.5;font-weight: lighter; width: 100%;"> <input
                         class="input100 text-center p-0" id="myInput" type="text" style="height: 20px; width: 100%;"
-                        value="https://linklerz.cleverapps.io/li.{{credentials.username}}"
-                        placeholder="https://linklerz.cleverapps.io/li."></button>
+                        value="https://lerz.herokuapp.com/li.{{credentials.username}}"
+                        placeholder="https://lerz.herokuapp.com/li."></button>
                 <div id="snackbar">link is copied to clipboard</div>
             </div>
         </div>
@@ -58,13 +58,14 @@
     {% if credentials.linktype == "" %}
     <p style="font-family: Montserrat-SemiBold;">Hurrah ! Create your first linklerz by clicking on the button below</p>
     {% endif %}
-    
+
     {% for items in list_linktype %}
     {% if items != "" %}
     <div class="container mb-4 ">
         <div class="container__item">
 
-            <input type="email " class="form__field " style="font-family: Montserrat-SemiBold;" value="{{items}}" disabled/>
+            <input type="email " class="form__field " style="font-family: Montserrat-SemiBold;" value="{{items}}"
+                disabled />
             <a href="/edit">
                 <button type="submit" style="font-family: Montserrat-Black; "
                     class="btn btn--primary btn--inside uppercase ">Edit</button>

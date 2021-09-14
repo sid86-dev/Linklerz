@@ -281,7 +281,7 @@ def emailconfirm(email):
     try:
         username = session['user']
         token = gen_token(email)
-        final_token = f"https://linklerz.cleverapps.io/confirm/{token}"
+        final_token = f"https://lerz.herokuapp.com/confirm/{token}"
 
         send_email(email, username, final_token)
         return render_template('confirm.html', email_address=email)

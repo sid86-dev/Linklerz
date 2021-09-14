@@ -194,7 +194,7 @@ def send_email(to, username, token):
                             <td align="center" style="padding: 30px 30px 30px 30px; border-radius: 4px 4px 4px 4px; color: #666666; font-family: 'Lato', Helvetica, Arial, sans-serif; font-size: 18px; font-weight: 400; line-height: 25px;background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
                                 <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">Need more help?</h2>
                                 <h2 style="font-size: 20px; font-weight: 400; color: #111111; margin: 0;">
-                                    <a href="https://linklerz.cleverapps.io/" style="color: #111111;font-size: large;text-decoration: underline;">click here</a>
+                                    <a href="https://lerz.herokuapp.com/" style="color: #111111;font-size: large;text-decoration: underline;">click here</a>
                                 </h2>
                             </td>
                         </tr>
