@@ -6,12 +6,15 @@ from delete_mailer import delete_email
 from itsdangerous import URLSafeTimedSerializer
 import string
 import random
+
+URI = "mysql://udy5gbibqkt2beci:3cneeL99r0nDxI3pg0jD@bgalto0h3kbgjyciovmb-mysql.services.clever-cloud.com:3306/bgalto0h3kbgjyciovmb"
+
 from sqlalchemy import create_engine
 e = create_engine(
-    "mysql://uh0cnoyrm6zjx9r0:VglVd8ErFy0srvWHyu82@bvcxwbbp2ahmmcsixu69-mysql.services.clever-cloud.com:3306/bvcxwbbp2ahmmcsixu69", pool_recycle=1800)
+    URI, pool_recycle=1800)
 app = Flask(__name__)
-app.secret_key = 'my-secret-key'
-app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://uh0cnoyrm6zjx9r0:VglVd8ErFy0srvWHyu82@bvcxwbbp2ahmmcsixu69-mysql.services.clever-cloud.com:3306/bvcxwbbp2ahmmcsixu69"
+app.secret_key = 'b95hS2YkaGGjIQSeFl9Ez58O0WAobjyY'
+app.config['SQLALCHEMY_DATABASE_URI'] = URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
