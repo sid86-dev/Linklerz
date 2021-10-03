@@ -1,9 +1,11 @@
-FROM python:3.7.7-stretch
+FROM python:3
 
 WORKDIR /linklerz
 
-ADD . .
+ENV FLASK_APP=app.py
+
+COPY . /linklerz
 
 RUN pip install -r requirements.txt
 
-CMD [ "python",".\app.py" ]
+CMD ["python", "app.py"]
