@@ -1,43 +1,529 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/static/css/test.css">
+<head id="ctl00_Head1">
+    <meta charset="utf-8" />
+    <title>
+        Student Analysis Test
+    </title>
+    <meta name="description" content="School ERP" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="keywords" content="School ERP" />
+    <meta name="author" content="School ERP" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../css/font_style.css" />
+    <link rel="stylesheet" href="../css/ace.min.css" class="ace-main-stylesheet" />
+    <link href="../css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="../../scripts/jquery-1.8.2.min.js"></script>
+
 </head>
 
-<body>
-    <div class="">
+<body oncontextmenu="return false" onunload="">
+    <form name="aspnetForm" method="post" action="./StudentAnalysisTest.aspx" id="aspnetForm">
+        <div>
+            <input type="hidden" name="__EVENTTARGET" id="__EVENTTARGET" value="" />
+            <input type="hidden" name="__EVENTARGUMENT" id="__EVENTARGUMENT" value="" />
+            <input type="hidden" name="__LASTFOCUS" id="__LASTFOCUS" value="" />
+            <input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUKMTcwNjg0OTg0NQ9kFgJmD2QWAgIDD2QWEgIFDxBkZBYBAgFkAgcPDxYCHghJbWFnZVVybAUSfi9pbWFnZXMvZHVtbXkuanBnZGQCCw8WAh4EVGV4dAWLGjxsaT48YSBocmVmPSdTdHVkZW50SW5kZXguYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpIGNsYXNzPSdmYSBmYS1kYXNoYm9hcmQnPjwvaT48c3BhbiBjbGFzcz0nbWVudS10ZXh0Jz4gRGFzaGJvYXJkIDwvc3Bhbj48L2E+PC9saT48bGk+PGEgaHJlZj0nVXBkYXRlQWRtaXNzaW9uLmFzcHgnIHN0eWxlPSdjb2xvcjojMDAwOyBmb250LXNpemU6MTNweDsgZm9udC1mYW1pbHk6VmVyZGFuYSwgR2VuZXZhLCBzYW5zLXNlcmlmJz48aW1nIHNyYz0naWNvbnMvc3RhZmYtaWNvLnBuZycgaGVpZ2h0PScyNScgd2lkdGg9JzI1JyBhbGlnbj0nYWJzbWlkZGxlJy8+PHNwYW4gY2xhc3M9J21lbnUtdGV4dCc+IFByb2ZpbGU8L3NwYW4+PC9hPjwvbGk+PGxpPjxhIGhyZWY9J1BheUZlZS5hc3B4JyBzdHlsZT0nY29sb3I6IzAwMDsgZm9udC1zaXplOjEzcHg7IGZvbnQtZmFtaWx5OlZlcmRhbmEsIEdlbmV2YSwgc2Fucy1zZXJpZic+PGltZyBzcmM9J2ljb25zL2ZlZS1pY29uLmpwZycgaGVpZ2h0PScyNScgd2lkdGg9JzI1JyBhbGlnbj0nYWJzbWlkZGxlJy8+IDxzcGFuIGNsYXNzPSdtZW51LXRleHQnPiBQYXkgRmVlPC9zcGFuPjwvYT48L2xpPjxsaT48YSBocmVmPSdQYXllbWVudE9yZGVyRGV0YWlsLmFzcHgnIHN0eWxlPSdjb2xvcjojMDAwOyBmb250LXNpemU6MTNweDsgZm9udC1mYW1pbHk6VmVyZGFuYSwgR2VuZXZhLCBzYW5zLXNlcmlmJz48aW1nIHNyYz0naWNvbnMvcGF5bWVudC1pY28uanBnJyBoZWlnaHQ9JzI1JyB3aWR0aD0nMjUnIGFsaWduPSdhYnNtaWRkbGUnLz48c3BhbiBjbGFzcz0nbWVudS10ZXh0Jz4gUGF5bWVudCBTdGF0dXM8L3NwYW4+PC9hPjwvbGk+PGxpPjxhIGhyZWY9J1N0dWRlbnRTbXNEZXRhaWwuYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9tZXNzYWdlLWljby5wbmcnIGhlaWdodD0nMjUnIHdpZHRoPScyNScgYWxpZ249J2Fic21pZGRsZScvPjxzcGFuIGNsYXNzPSdtZW51LXRleHQnPiBTTVMgRGV0YWlsczwvc3Bhbj48L2E+PC9saT48bGk+PGEgaHJlZj0nU3R1ZGVudENlcnRpZmljYXRlQWNoaXZlbWVudHMuYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9ub3RpY2UuanBnJyBoZWlnaHQ9JzI1JyB3aWR0aD0nMjUnIGFsaWduPSdhYnNtaWRkbGUnLz48c3BhbiBjbGFzcz0nbWVudS10ZXh0Jz4gQ2VydGlmaWNhdGUgJiBBY2hpdmVtZW50czwvc3Bhbj48L2E+PC9saT48bGk+PGEgaHJlZj0nU3R1ZGVudEhvbWVXb3JrLmFzcHgnIHN0eWxlPSdjb2xvcjojMDAwOyBmb250LXNpemU6MTNweDsgZm9udC1mYW1pbHk6VmVyZGFuYSwgR2VuZXZhLCBzYW5zLXNlcmlmJz48aW1nIHNyYz0naWNvbnMvcmVjaXB0aW9uLWljby5wbmcnIGhlaWdodD0nMjUnIHdpZHRoPScyNScgYWxpZ249J2Fic21pZGRsZScvPjxzcGFuIGNsYXNzPSdtZW51LXRleHQnPk9ubGluZSBDbGFzc2VzPC9saT48bGk+PGEgaHJlZj0nU3R1ZGVudEFuYWx5c2lzVGVzdC5hc3B4JyBzdHlsZT0nY29sb3I6IzAwMDsgZm9udC1zaXplOjEzcHg7IGZvbnQtZmFtaWx5OlZlcmRhbmEsIEdlbmV2YSwgc2Fucy1zZXJpZic+PGltZyBzcmM9J2ljb25zL2V4YW0taWNvLnBuZycgaGVpZ2h0PScyNScgd2lkdGg9JzI1JyBhbGlnbj0nYWJzbWlkZGxlJy8+PHNwYW4gY2xhc3M9J21lbnUtdGV4dCc+IE9ubGluZSBUZXN0PC9zcGFuPjwvYT48L2xpPjxsaT48YSBocmVmPSdFeGFtaW5hdGlvblJlcG9ydHMuYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9leGFtLXJlcG9ydC1pY28uanBnJyBoZWlnaHQ9JzI1JyB3aWR0aD0nMjUnIGFsaWduPSdhYnNtaWRkbGUnLz48c3BhbiBjbGFzcz0nbWVudS10ZXh0Jz4gRXhhbSBSZXN1bHQ8L3NwYW4+PC9hPjwvbGk+PGxpPjxhIGhyZWY9J1N0dWRlbnRMaWJyYXJ5VHJhbnNhY3Rpb24uYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9saWJyYXJ5LWljby5qcGcnIGhlaWdodD0nMjUnIHdpZHRoPScyNScgYWxpZ249J2Fic21pZGRsZScvPjxzcGFuIGNsYXNzPSdtZW51LXRleHQnPiBMaWJyYXJ5IFRyYW5zYWN0aW9uPC9zcGFuPjwvYT48L2xpPjxsaT48YSBocmVmPSdTdHVkZW50QXR0ZW5kYW5jZVJlcG9ydC5hc3B4JyBzdHlsZT0nY29sb3I6IzAwMDsgZm9udC1zaXplOjEzcHg7IGZvbnQtZmFtaWx5OlZlcmRhbmEsIEdlbmV2YSwgc2Fucy1zZXJpZic+PGltZyBzcmM9J2ljb25zL2F0dGVuZGFuY2UtaWNvLmpwZycgaGVpZ2h0PScyNScgd2lkdGg9JzI1JyBhbGlnbj0nYWJzbWlkZGxlJy8+PHNwYW4gY2xhc3M9J21lbnUtdGV4dCc+IEF0dGVuZGFuY2U8L3NwYW4+PC9hPjwvbGk+PGxpPjxhIGhyZWY9J1N0dWRlbnROb3RpY2UuYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9ub3RpY2UuanBnJyBoZWlnaHQ9JzI1JyB3aWR0aD0nMjUnIGFsaWduPSdhYnNtaWRkbGUnLz48c3BhbiBjbGFzcz0nbWVudS10ZXh0Jz4gTm90aWNlICYgQ2lyY3VsYXI8L3NwYW4+PC9hPjwvbGk+PGxpPjxhIGhyZWY9J1N0dWRlbnRMZWRnZXIuYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9DdXJyaWN1bHVtLWljby5wbmcnIGhlaWdodD0nMjUnIHdpZHRoPScyNScgYWxpZ249J2Fic21pZGRsZScvPjxzcGFuIGNsYXNzPSdtZW51LXRleHQnPiBMZWRnZXIgRGV0YWlsPC9zcGFuPjwvYT48L2xpPjxsaT48YSBocmVmPSdTdHVkZW50TG9naW5EZXRhaWwuYXNweCcgc3R5bGU9J2NvbG9yOiMwMDA7IGZvbnQtc2l6ZToxM3B4OyBmb250LWZhbWlseTpWZXJkYW5hLCBHZW5ldmEsIHNhbnMtc2VyaWYnPjxpbWcgc3JjPSdpY29ucy9wYXNzd29yZC1yZXNldC1pY28uanBnJyBoZWlnaHQ9JzI1JyB3aWR0aD0nMjUnIGFsaWduPSdhYnNtaWRkbGUnLz48c3BhbiBjbGFzcz0nbWVudS10ZXh0Jz4gQ2hhbmdlIFBhc3N3b3JkPC9zcGFuPjwvYT48L2xpPmQCDQ8WAh8BBRBTSURESEFSVEhBIFJPWSAgZAIPDw8WAh8BBRNTdHVkZW50IE9ubGluZSBUZXN0ZGQCFw8PFgYeCUZvcmVDb2xvcgkAADr/HwEFpgE8ZGl2IGNsYXNzPSdhbGVydCBhbGVydC1kYW5nZXIgYWxlcnQtZGlzbWlzc2FibGUnPjxidXR0b24gdHlwZT0nYnV0dG9uJyBjbGFzcz0nY2xvc2UnIGRhdGEtZGlzbWlzcz0nYWxlcnQnIGFyaWEtaGlkZGVuPSd0cnVlJz7DlzwvYnV0dG9uPlBsZWFzZSBDb250YWN0IFNjaG9vbC4hPC9kaXY+HgRfIVNCAgRkZAIZD2QWBAIFD2QWBAIBDzwrABEDAA8WBB4LXyFEYXRhQm91bmRnHgtfIUl0ZW1Db3VudAIBZAEQFgAWABYADBQrAAAWAmYPZBYEAgEPZBYQZg9kFgJmDxUBATFkAgEPZBYCAgEPDxYCHwEFB1RpbWUgVXBkZAICDw8WAh8BBQsxNCBTZXAgMjAyMWRkAgMPDxYCHwEFClN1YmplY3RpdmVkZAIEDw8WAh8BBQ00OjAwUE0tNDoxMFBNZGQCBQ8PFgIfAQUMREVNTyBTVUJKRUNUZGQCBg8PFgIfAQULDQogTUlEIFRFUk1kZAIHDw8WAh8BBQIxMGRkAgIPDxYCHgdWaXNpYmxlaGRkAgMPDxYCHwAFSS4uL1NlY3VyaXR5L0NhcHRjaGEuYXNoeD93PTMwNSZoPTkyJmM9VHBlYmN2ZDdmOVhZUFh6bWkvNjlVdz09JmJjPSNmZmZmZmZkZAIGD2QWBgIBDxYCHgVWYWx1ZQUEMTEyOGQCCw88KwAJAGQCDQ88KwAJAGQCGw8WAh8BBQ1YSS8wMTIwLzIwLTIxZAIdDxYCHwEFCzE0LVNlcC0yMDIxZBgCBR5fX0NvbnRyb2xzUmVxdWlyZVBvc3RCYWNrS2V5X18WAQUPY3RsMDAkbG5rTG9nb3V0BS9jdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJGd2U3R1ZGVudEFuYWx5c2lzVGVzdA88KwAMAgNmCAIBZPn/uDJL3D6rROEUW0dAJENB6qVUGRKgF5KOvoh8Y+Vy"
+            />
+        </div>
 
-        <label class="showOverlay" for="check">Show mask </label>
-        <input id="check" class="check" type="checkbox">
-        <div class="containerOuter">
-            <div class="container">
-                <input type="radio" class="hidden" id="input1" name="inputs">
-                <label class="entry" for="input1"><div class="circle"></div><div class="entry-label">Kingdom</div></label>
-                <input type="radio" class="hidden" id="input2" name="inputs">
-                <label class="entry" for="input2"><div class="circle"></div><div class="entry-label">Horse</div></label>
-                <input type="radio" class="hidden" id="input3" name="inputs">
-                <label class="entry" for="input3"><div class="circle"></div><div class="entry-label">Computer</div></label>
-                <div class="highlight"></div>
-                <div class="overlay"></div>
+        <script type="text/javascript">
+            //<![CDATA[
+            var theForm = document.forms['aspnetForm'];
+            if (!theForm) {
+                theForm = document.aspnetForm;
+            }
+
+            function __doPostBack(eventTarget, eventArgument) {
+                if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+                    theForm.__EVENTTARGET.value = eventTarget;
+                    theForm.__EVENTARGUMENT.value = eventArgument;
+                    theForm.submit();
+                }
+            }
+            //]]>
+        </script>
+
+
+        <script src="/WebResource.axd?d=Y3ht0BmDbGGtdNs3sKyuz6bwlousdBzauZKC9OVujYrDFYrdQ8Gl6vAocKSjpNfLPPLhI-7KD4iOyZqnJldZy8rVEsArc7u0_pzyd5__LPc1&amp;t=637454266754849868" type="text/javascript"></script>
+
+
+        <script src="/ScriptResource.axd?d=lRVnEdBtCj7_RpZk9TWVBN60TZbA6ihcmKsrBBxFMP_RF5alvmr2jZZds0QK3yQ8Bh0LO18ytJ71dL1iL3AnlEOxM2aNuWZYI1E2VFEmLiTgmCW5iap95-bn2Mxo40bKTihYxok1qPUpNABm-ZXkT7aov2kTxk0Y7fQKK9Z4VDvdi37Pzjs71NxRFoivuB9W0&amp;t=363be08" type="text/javascript"></script>
+        <script type="text/javascript">
+            //<![CDATA[
+            if (typeof(Sys) === 'undefined') throw new Error('ASP.NET Ajax client-side framework failed to load.');
+            //]]>
+        </script>
+
+        <script src="/ScriptResource.axd?d=J3njNW-pHWdJwx3cixu5Y5FSQmuV8T6CRmz87GJBGWBF7zuoVxzG4FmtManIVY5Oev2blgVXbZ8X1DZBGPsFKY05t7FBt0P3J--bN19I1Xz0y2tFPbtopB_aLoZcuUAOHRcEdPlvxqxWcPjpXAL7ccfxcsxnjQk9fFT7oITovmcYmyrwEGmxdXJwZtJ-Plv_0&amp;t=363be08" type="text/javascript"></script>
+        <script src="../Admission/dashBoardService.asmx/jsdebug" type="text/javascript"></script>
+        <script src="../Admission/BindReg.asmx/jsdebug" type="text/javascript"></script>
+        <script src="StudentPanel.asmx/jsdebug" type="text/javascript"></script>
+        <div>
+
+            <input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="3ABFE6B0" />
+        </div>
+        <div style="background: linear-gradient(to bottom, #4baadb 5%, #043159 100%); background-color: rgba(0, 0, 0, 0);
+        position: fixed; left: 0; right: 0; z-index: 999; margin-bottom: 100px">
+            <div class="form-group" style="margin-bottom: 0 !important">
+                <div class="row hidden-lg hidden-md" style="text-align: center">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <a href="../Student/StudentIndex.aspx" style="color: wheat">
+                            <img src="../images/school-erp.png" alt="Home" height="35px" />
+                            <br /> Home </a>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <a href="../Student/UpdateAdmission.aspx" style="color: wheat">
+                            <img src="../image/img/staff.png" alt="Home" />
+                            <br /> Profile </a>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+                        <a href="../Student/Payfee.aspx" style="color: wheat">
+                            <img src="../image/img/fee.png" alt="Fee" />
+                            <br /> Pay Fee </a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <a href="../Student/StudentHomeWork.aspx" style="color: wheat">
+                            <img src="../image/img/library.png" alt="Homework" />
+                            <br /> Homework </a>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                        <a href="../Student/StudentAnalysisTest.aspx" style="color: wheat">
+                            <img src="../image/img/Curriculum.png" alt="Syllabus" />
+                            <br /> OnlineTest </a>
+                    </div>
+                </div>
             </div>
         </div>
-        <svg width="0" height="0" viewBox="0 0 40 140">
-        <defs>
-            <mask id="holes">
-                <rect x="0" y="0" width="100" height="140" fill="white" />
-          <circle r="12" cx="20" cy="20" fill="black"/>
-          <circle r="12" cx="20" cy="70" fill="black"/>
-          <circle r="12" cx="20" cy="120" fill="black"/>
-        </mask>
-      </defs>
-    </svg>
+        <div class="row hidden-lg hidden-md" style="background-color: #0c6b9d; margin-bottom: 50px">
+        </div>
+        <div id="navbar" class="navbar navbar-default">
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('navbar', 'fixed')
+                } catch (e) {}
+            </script>
+            <div class="navbar-container" id="navbar-container">
+                <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span> <span class="icon-bar"></span><span class="icon-bar">
+                </span><span class="icon-bar"></span>
+            </button>
+                <div class="navbar-header pull-left hidden-xs hidden-sm">
+                    <a href="../Student/StudentIndex.aspx" class="navbar-brand">
+                        <label>
+                        <img src="../images/client-logo.png" height="40px" alt="Logo" />
+                        <label>
+                            
+                        </label>
+                        </label>
+                    </a>
+                </div>
+                <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                    <ul class="nav ace-nav">
+                        <li style="margin-top: 10px; float: right !important">
 
-    </div>
+                            <input type="image" name="ctl00$lnkLogout" id="ctl00_lnkLogout" title="Logout" class="imgbtncss" src="../Images/button-logout.png" alt="Logout" style="height:40px;width:40px;border-width:0px;" />
+                        </li>
+                        <li style="margin-top: 10px; float: right !important">
+                            <select name="ctl00$DDLSession" onchange="javascript:setTimeout(&#39;__doPostBack(\&#39;ctl00$DDLSession\&#39;,\&#39;\&#39;)&#39;, 0)" id="ctl00_DDLSession" class="txtcss">
+	<option value="21">2020-21</option>
+	<option selected="selected" value="22">2021-22</option>
+
+</select>
+                            <img id="ctl00_ImgProfile" class="imgcss" src="../../images/dummy.jpg" style="height:40px;width:40px;border-width:0px;" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /.navbar-container -->
+        </div>
+        <div class="main-container" id="main-container">
+            <script type="text/javascript">
+                //<![CDATA[
+                Sys.WebForms.PageRequestManager._initialize('ctl00$ScriptManager1', 'aspnetForm', [], [], [], 90, 'ctl00');
+                //]]>
+            </script>
+
+            <script type="text/javascript">
+                try {
+                    ace.settings.check('main-container', 'fixed')
+                } catch (e) {}
+            </script>
+
+            <div id="sidebar" class="sidebar                  responsive">
+                <script type="text/javascript">
+                    try {
+                        ace.settings.check('sidebar', 'fixed')
+                    } catch (e) {}
+                </script>
+                <!-- /.sidebar-shortcuts -->
+                <ul class="nav nav-list">
+
+                    <li><a href='StudentIndex.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><i class='fa fa-dashboard'></i><span class='menu-text'> Dashboard </span></a></li>
+                    <li>
+                        <a href='UpdateAdmission.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/staff-ico.png' height='25' width='25' align='absmiddle' /><span class='menu-text'> Profile</span></a>
+                    </li>
+                    <li>
+                        <a href='PayFee.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/fee-icon.jpg' height='25' width='25' align='absmiddle' /> <span class='menu-text'> Pay Fee</span></a>
+                    </li>
+                    <li>
+                        <a href='PayementOrderDetail.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/payment-ico.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Payment Status</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentSmsDetail.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/message-ico.png' height='25' width='25' align='absmiddle' /><span class='menu-text'> SMS Details</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentCertificateAchivements.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/notice.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Certificate & Achivements</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentHomeWork.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/reciption-ico.png' height='25' width='25' align='absmiddle' /><span class='menu-text'>Online Classes</li><li><a href='StudentAnalysisTest.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/exam-ico.png' height='25' width='25' align='absmiddle'/><span class='menu-text'> Online Test</span></a>
+                    </li>
+                    <li>
+                        <a href='ExaminationReports.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/exam-report-ico.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Exam Result</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentLibraryTransaction.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/library-ico.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Library Transaction</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentAttendanceReport.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/attendance-ico.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Attendance</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentNotice.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/notice.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Notice & Circular</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentLedger.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/Curriculum-ico.png' height='25' width='25' align='absmiddle' /><span class='menu-text'> Ledger Detail</span></a>
+                    </li>
+                    <li>
+                        <a href='StudentLoginDetail.aspx' style='color:#000; font-size:13px; font-family:Verdana, Geneva, sans-serif'><img src='icons/password-reset-ico.jpg' height='25' width='25' align='absmiddle' /><span class='menu-text'> Change Password</span></a>
+                    </li>
+                    <!-- /.nav-list -->
+                    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+                        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+                    </div>
+                    <script type="text/javascript">
+                        try {
+                            ace.settings.check('sidebar', 'collapsed')
+                        } catch (e) {}
+                    </script>
+            </div>
+            <div class="main-content">
+                <div class="main-content-inner">
+                    <div class="breadcrumbs" id="breadcrumbs">
+                        <script type="text/javascript">
+                            try {
+                                ace.settings.check('breadcrumbs', 'fixed')
+                            } catch (e) {}
+                        </script>
+                        <ul class="breadcrumb">
+
+                            <li class="active" style="color: #0483c3; font-size: 16px; font-weight: bold; text-align: ">
+                                WELCOME SIDDHARTHA ROY
+                            </li>
+                        </ul>
+                        <!-- /.breadcrumb -->
+                        <!-- /.nav-search -->
+                    </div>
+                    <div class="widget-box">
+                        <div class="widget-header">
+                            <h4 class="widget-title">
+                                <span id="ctl00_LblFrmName" class="label" style="font-size: 17px; color: #000;">Student Online Test</span>
+                            </h4>
+                        </div>
+                        <div class="page-content">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="page-content">
+                                        <div class="row">
+                                            <div class="col-xs-12" style="padding-left: 2%; padding-bottom: 5%">
+                                                <!-- PAGE CONTENT BEGINS -->
+                                                <input type="hidden" name="ctl00$hidFrmUrl" id="ctl00_hidFrmUrl" />
+                                                <input type="hidden" name="ctl00$hidSessionstdregno" id="ctl00_hidSessionstdregno" value="XI/0120/20-21" />
+                                                <input type="hidden" name="ctl00$hidSessionId" id="ctl00_hidSessionId" value="22" />
+                                                <span id="ctl00_lblMsg" class="label" style="display:inline-block;color:#3A0000;font-size:14pt;width:100%;"><div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>Please Contact School.!</div></span>
+
+                                                <div class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <ul class="nav nav-tabs">
+                                                            <li class="active"><a href="#ObjectiveExamDetails" data-toggle="tab">Online Exam
+                    </a> </li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <link href="../CSS/timer.css" rel="stylesheet" type="text/css" />
+
+                                                <script type="text/javascript">
+                                                    function SaveGiveQuesAnsStd(id) {
+                                                        var GivenAns = id[id.length - 1]
+                                                        var QuestionId = document.getElementById(id.replace('rdbOpt1', 'hidCode').replace('rdbOpt2', 'hidCode').replace('rdbOpt3', 'hidCode').replace('rdbOpt4', 'hidCode')).value;
+
+                                                        document.getElementById(id).checked = false;
+                                                        document.getElementById(id.replace('rdbOpt1', 'lblSelctedStatus').replace('rdbOpt2', 'lblSelctedStatus').replace('rdbOpt3', 'lblSelctedStatus').replace('rdbOpt4', 'lblSelctedStatus')).innerHTML = "<span style='width: 100%; font-weight: bold; font-size: 2.2em; color: #f2a510;'>Please Wait while saving the Option....</span>";
+
+                                                        StudentPanel.UpdateInsertGiveQuesAnsStd(document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value, document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value, document.getElementById('ctl00_ContentPlaceHolder1_hidSEA_DTES_CODE').value, QuestionId, GivenAns, document.getElementById('ctl00_ContentPlaceHolder1_hidSessionstdregno').value, bindGiveQuesAnsStdStatus, errorSave, id);
+                                                    }
+
+                                                    function errorSave(result, id) {
+                                                        document.getElementById(id.replace('rdbOpt1', 'lblSelctedStatus').replace('rdbOpt2', 'lblSelctedStatus').replace('rdbOpt3', 'lblSelctedStatus').replace('rdbOpt4', 'lblSelctedStatus')).innerHTML = "<span style='width: 100%; font-weight: bold; font-size: 2.2em; color: #8e0a0a;'>You answer is not accepted. Please check you Session OR Internet.</span>";
+                                                        document.getElementById('ctl00_lblMsg').innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You answer is not accepted. Please check you Session OR Internet.</div>";
+                                                        alert("Your session has been expire please Login again.");
+                                                    }
+
+                                                    function bindGiveQuesAnsStdStatus(result, id) {
+                                                        if (result == "0") {
+                                                            document.getElementById(id.replace('rdbOpt1', 'lblSelctedStatus').replace('rdbOpt2', 'lblSelctedStatus').replace('rdbOpt3', 'lblSelctedStatus').replace('rdbOpt4', 'lblSelctedStatus')).innerHTML = "<span style='width: 100%; font-weight: bold; font-size: 2.2em; color: #8e0a0a;'>You answer is not accepted due to time up or Session Expire. Please Login Again.</span>";
+                                                            document.getElementById('ctl00_lblMsg').innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You answer is not accepted due to time up or Session Expire. Please Login Again.</div>";
+                                                            alert("You answer is not accepted due to time up or Session Expire. Please Login Again!!!");
+                                                        } else if (result == "-1") {
+                                                            document.getElementById('ctl00_lblMsg').innerHTML = "<div class='alert alert-danger alert-dismissable'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>×</button>You answer is not accepted due to time up or Session Expire. Please Login Again.</div>";
+                                                            document.getElementById(id.replace('rdbOpt1', 'lblSelctedStatus').replace('rdbOpt2', 'lblSelctedStatus').replace('rdbOpt3', 'lblSelctedStatus').replace('rdbOpt4', 'lblSelctedStatus')).innerHTML = "You answer is not accepted due to time up or Session Expire. Please Login Again.";
+                                                            alert("You answer is not accepted due to time up or Session Expire. Please Login Again!!!");
+                                                        } else {
+                                                            document.getElementById(id.replace('rdbOpt1', 'lblSelctedStatus').replace('rdbOpt2', 'lblSelctedStatus').replace('rdbOpt3', 'lblSelctedStatus').replace('rdbOpt4', 'lblSelctedStatus')).innerHTML = "<span style='width: 100%; font-weight: bold; font-size: 2.2em; color: #54680d;'>Thanks For giving the Answer.</span>";
+                                                            document.getElementById(id).checked = true;
+                                                            document.getElementById(id.replace('gvStudentAnalysisTestDtl', 'GVQuestionStatus').replace('rdbOpt1', 'btnStatus').replace('rdbOpt2', 'btnStatus').replace('rdbOpt3', 'btnStatus').replace('rdbOpt4', 'btnStatus')).setAttribute("class", "btn btn-success");
+                                                        }
+                                                    }
+
+                                                    function MoveToQuestion(id) {
+                                                        document.getElementById(id.replace('GVQuestionStatus', 'gvStudentAnalysisTestDtl').replace('btnStatus', 'rdbOpt1')).focus();
+                                                        return false;
+                                                    }
+
+                                                    function SetStatusOfAllQuestion() {
+                                                        for (var i = 1; i <= document.getElementById('ctl00_ContentPlaceHolder1_hidTotalQuestion').value; i++) {
+                                                            if (i < 10) {
+                                                                if (document.getElementById('ctl00_ContentPlaceHolder1_GVQuestionStatus_ctl0' + i + '_hidSEQ_READED').value == "Y") {
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_GVQuestionStatus_ctl0' + i + '_btnStatus').setAttribute("class", "btn btn-success");
+                                                                }
+                                                            } else {
+                                                                if (document.getElementById('ctl00_ContentPlaceHolder1_GVQuestionStatus_ctl' + i + '_hidSEQ_READED').value == "Y") {
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_GVQuestionStatus_ctl' + i + '_btnStatus').setAttribute("class", "btn btn-success");
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </script>
+
+                                                <script type="text/javascript">
+                                                    var jq = jQuery.noConflict();
+
+                                                    //-----------------for timer--------------------
+
+                                                    var min = 0;
+                                                    var sec = 60;
+                                                    var tim;
+
+                                                    function myFunction(minutes, second) {
+                                                        min = minutes;
+                                                        sec = second;
+
+                                                        setInterval(function() {
+                                                            Timer();
+                                                        }, 1000);
+                                                    }
+
+                                                    function Timer() {
+                                                        if (document.getElementById('ctl00_ContentPlaceHolder1_hidPageLoad').value == "0") {
+                                                            SetStatusOfAllQuestion();
+                                                            document.getElementById('ctl00_ContentPlaceHolder1_hidPageLoad').value = 1;
+                                                        }
+
+                                                        if (document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value == "")
+                                                            document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value = "0";
+                                                        if (document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value == "")
+                                                            document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value = "0";
+
+                                                        if (document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value != "0")
+                                                            min = document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value;
+                                                        if (document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value != "0")
+                                                            sec = document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value;
+
+                                                        if (parseInt(sec) > 0) {
+
+                                                            sec = parseInt(sec) - 1;
+                                                            document.getElementById('ctl00_ContentPlaceHolder1_lblTimer').innerHTML = min + " Min " + sec + " Sec";
+                                                            document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value = sec;
+
+                                                            var minutes, seconds;
+                                                            var countdown = document.getElementById("tiles");
+                                                            countdown.innerHTML = "<span>" + min + "</br><div class='labels'>Min</div></span><span>" + sec + "</br><div class='labels'>Sec</div></span>";
+
+                                                        } else {
+
+                                                            if (parseInt(sec) == 0) {
+                                                                sec = 60;
+                                                                document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value = sec;
+
+                                                                if (parseInt(min) <= 0) {
+                                                                    sec = 0;
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_hidsec').value = sec;
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value = min;
+                                                                    StudentPanel.UpdateInsertExamTime(0, 0, document.getElementById('ctl00_ContentPlaceHolder1_hidSEA_DTES_CODE').value, document.getElementById('ctl00_ContentPlaceHolder1_hidSessionstdregno').value);
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_chkConfirm').checked = true;
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_btnSubmit').click();
+                                                                } else {
+                                                                    min = parseInt(min) - 1;
+                                                                    StudentPanel.UpdateInsertExamTime(min, sec, document.getElementById('ctl00_ContentPlaceHolder1_hidSEA_DTES_CODE').value, document.getElementById('ctl00_ContentPlaceHolder1_hidSessionstdregno').value);
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_hidMin').value = min;
+                                                                    document.getElementById('ctl00_ContentPlaceHolder1_lblTimer').innerHTML = min + " Min " + sec + " Sec";
+                                                                    var minutes, seconds;
+                                                                    var countdown = document.getElementById("tiles");
+                                                                    countdown.innerHTML = "<span>" + min + "</br> <div class='labels'>Min</div></span><span>" + sec + "</br><div class='labels'>Sec</div></span>";
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+
+                                                    function FinalSubmit() {
+                                                        if (document.getElementById('ctl00_ContentPlaceHolder1_chkConfirm').checked == true) {
+                                                            document.getElementById('ctl00_ContentPlaceHolder1_btnSubmit').click();
+                                                        } else {
+                                                            alert("Please agree for paper attempted then click on Submit");
+                                                        }
+                                                    }
+
+
+
+                                                    //-----------------------end timer-------------------------------------
+                                                </script>
+
+                                                <script type="text/javascript">
+                                                    function ShowPopupPreConfirmation() {
+                                                        StudentPanel.CheckTestStatus(document.getElementById('ctl00_ContentPlaceHolder1_hidSEA_DTES_CODE').value, document.getElementById('ctl00_ContentPlaceHolder1_hidSessionstdregno').value, SetConfirmStatus, null, null);
+                                                    }
+
+                                                    function SetConfirmStatus(result) {
+                                                        $("#MyPopup .modal-body").html(result);
+                                                        $("#MyPopup").modal("show");
+                                                    }
+                                                </script>
+
+                                                <script src="../JS/jquery.min.js"></script>
+
+                                                <script src="../JS/bootstrap.min.js"></script>
+
+                                                <input type="hidden" name="ctl00$ContentPlaceHolder1$hidSessionstdregno" id="ctl00_ContentPlaceHolder1_hidSessionstdregno" value="XI/0120/20-21" />
+                                                <input type="hidden" name="ctl00$ContentPlaceHolder1$hidSessionId" id="ctl00_ContentPlaceHolder1_hidSessionId" value="22" />
+                                                <input type="hidden" name="ctl00$ContentPlaceHolder1$hidTotalQuestion" id="ctl00_ContentPlaceHolder1_hidTotalQuestion" value="0" />
+                                                <input type="hidden" name="ctl00$ContentPlaceHolder1$hidExamType" id="ctl00_ContentPlaceHolder1_hidExamType" value="O" />
+                                                <input type="hidden" name="ctl00$ContentPlaceHolder1$hidQuestionSequence" id="ctl00_ContentPlaceHolder1_hidQuestionSequence" value="1" />
+                                                <div id="ctl00_ContentPlaceHolder1_Summary" class="form-horizontal">
+                                                    <div class="form-group" style="overflow: auto;">
+                                                        <div>
+                                                            <table class="table table-striped table-bordered table-hover " cellspacing="0" rules="all" border="1" id="ctl00_ContentPlaceHolder1_gvStudentAnalysisTest" style="width:100%;border-collapse:collapse;">
+                                                                <tr class="linkbg2" style="height:22px;">
+                                                                    <th scope="col">S.No</th>
+                                                                    <th scope="col">Status</th>
+                                                                    <th scope="col">Date</th>
+                                                                    <th scope="col">Type</th>
+                                                                    <th scope="col">Validity</th>
+                                                                    <th scope="col">Subject</th>
+                                                                    <th scope="col">Chapters</th>
+                                                                    <th scope="col">Duration</th>
+                                                                </tr>
+                                                                <tr class="bodytext1">
+                                                                    <td align="center">
+                                                                        1
+                                                                        <input type="hidden" name="ctl00$ContentPlaceHolder1$gvStudentAnalysisTest$ctl02$hidCode" id="ctl00_ContentPlaceHolder1_gvStudentAnalysisTest_ctl02_hidCode" value="1128" />
+                                                                        <input type="hidden" name="ctl00$ContentPlaceHolder1$gvStudentAnalysisTest$ctl02$hidDTES_CODE_Actual" id="ctl00_ContentPlaceHolder1_gvStudentAnalysisTest_ctl02_hidDTES_CODE_Actual" value="1128" />
+                                                                        <input type="hidden" name="ctl00$ContentPlaceHolder1$gvStudentAnalysisTest$ctl02$hidDTES_SHOW_RESULT" id="ctl00_ContentPlaceHolder1_gvStudentAnalysisTest_ctl02_hidDTES_SHOW_RESULT" value="N" />
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <a id="ctl00_ContentPlaceHolder1_gvStudentAnalysisTest_ctl02_LnkStatus" class="link1" href="javascript:__doPostBack(&#39;ctl00$ContentPlaceHolder1$gvStudentAnalysisTest$ctl02$LnkStatus&#39;,&#39;&#39;)">Time Up</a>
+                                                                    </td>
+                                                                    <td class="user" align="center">14 Sep 2021</td>
+                                                                    <td class="user" align="center">Subjective</td>
+                                                                    <td class="user" align="center">4:00PM-4:10PM</td>
+                                                                    <td class="user" align="center">DEMO SUBJECT</td>
+                                                                    <td class="user" align="center">
+                                                                        MID TERM</td>
+                                                                    <td class="user" align="center">10</td>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <img id="ctl00_ContentPlaceHolder1_imgCaptcha" class="imgcss" src="../Security/Captcha.ashx?w=305&amp;h=92&amp;c=Tpebcvd7f9XYPXzmi/69Uw==&amp;bc=#ffffff" style="height:66px;width:50%;border-width:0px;" />
+                                                        <input name="ctl00$ContentPlaceHolder1$txtCaptcha" type="text" value="5nyYF" id="ctl00_ContentPlaceHolder1_txtCaptcha" class="txtcss" placeholder="Please Enter Code Shown Above" onpaste="return true;" style="width:100%;" />
+                                                    </div>
+                                                </div>
+
+
+                                                <script type="text/javascript" src="../JS/loader.js"></script>
+
+                                                <script type="text/javascript">
+                                                    var geojsonPassFail = [
+                                                        ['Pass', 'Fail'],
+
+                                                    ]
+
+                                                    function drawChart() {
+                                                        var dataPassFail = google.visualization.arrayToDataTable(geojsonPassFail);
+                                                        var optionsPassFail = {
+                                                            'title': 'Test PassFail',
+                                                            'width': 250,
+                                                            'height': 200,
+                                                            is3D: true
+                                                        };
+                                                        var chartPassFail = new google.visualization.PieChart(document.getElementById('piechartPassFail'));
+                                                        chartPassFail.draw(dataPassFail, optionsPassFail);
+                                                    }
+                                                </script>
+
+                                                <div id="ctl00_ContentPlaceHolder1_SummaryResult" class="form-horizontal">
+                                                    <div class="form-group">
+                                                        <div class="col-xs-12 col-sm-9">
+
+                                                        </div>
+                                                        <div class="col-xs-12 col-sm-3">
+                                                            <div id="piechartPassFail">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group" style="overflow: auto;">
+                                                        <div class="col-xs-12 col-sm-12">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- PAGE CONTENT ENDS -->
+                                            </div>
+                                            <!-- /.col -->
+                                        </div>
+                                        <!-- /.row -->
+                                    </div>
+                                </div>
+                                <!-- /.col -->
+                            </div>
+                            <!-- /.row -->
+                        </div>
+                        <!-- /.page-content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.main-content -->
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <p>
+                        <span class="blue bolder">Welcome</span> Logged in : XI/0120/20-21 &nbsp; &nbsp; | &nbsp; &nbsp; Date : 14-Sep-2021
+                    </p>
+                </div>
+            </div>
+        </div>
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse"><i class="ace-icon fa fa-angle-double-up icon-only bigger-110">
+    </i></a></div>
+    </form>
+    <script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script src="../JS/jquery.min.js" type="text/javascript"></script>
+    <script src="../JS/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../js/ace.min.js" type="text/javascript"></script>
 </body>
 
 </html>
