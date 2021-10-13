@@ -7,7 +7,7 @@ from itsdangerous import URLSafeTimedSerializer
 import string
 import random
 
-URI = "mysql://udy5gbibqkt2beci:3cneeL99r0nDxI3pg0jD@bgalto0h3kbgjyciovmb-mysql.services.clever-cloud.com:3306/bgalto0h3kbgjyciovmb"
+URI = "mysql://ujigrbdynqpm6opc:AIK3lXlm26VwmGpUF8TO@bohavmu1apu495z0c20m-mysql.services.clever-cloud.com:3306/bohavmu1apu495z0c20m"
 
 from sqlalchemy import create_engine
 e = create_engine(
@@ -154,7 +154,7 @@ def save():
             credentials = Users.query.filter_by(username=username).first()
             linktype = credentials.linktype
             list_linktype = get_linktype(linktype)
-            print(list_linktype)
+            # print(list_linktype)
             # get old edited inklist
             oldlist_linktype = []
             oldlist_linkurl = []
@@ -357,7 +357,7 @@ def link(username):
             linkdic[key] = value
             list_linkurl.remove(value)
             break
-    print(linkdic)
+    # print(linkdic)
     return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
 
 
