@@ -12,7 +12,7 @@ def api_conv(linkdic):
         dic["name"] = item
         data.append(dic)
 
-    data = json.dumps(data)
+    # data = json.dumps(data)
     return data
 
 #         var data = [
