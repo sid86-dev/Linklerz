@@ -1,4 +1,5 @@
-from flask import Flask, render_template, session, request, redirect
+from typing_extensions import final
+from flask import Flask, render_template, session, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import hashlib
 from mailer import send_email
@@ -95,14 +96,12 @@ def settings(username):
 # home route
 @app.route('/home/<string:username>')
 def home(username):
-    try:
+    if ('user' in session and session['user'] == username):
         credentials = Users.query.filter_by(username=username).first()
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)
-
         return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
-    except:
-        return redirect('/login')
+    return redirect('/login')
 
 # edit route
 
@@ -339,6 +338,7 @@ def logout():
         return redirect('/login')
     except:
         return render_template('404.html')
+        
 
 
 # render link
@@ -359,6 +359,26 @@ def link(username):
             break
     # print(linkdic)
     return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
+
+@app.route(
+    '/api/<string:username>')
+def api(username):
+    try:
+        credentials = Users.query.filter_by(username=username).first()
+        linktype = credentials.linktype
+        linkurl = credentials.linkurl
+        list_linktype = get_linktype(linktype)
+        list_linkurl = get_linktype(linkurl)
+    
+        linkdic = {}
+        for key in list_linktype:
+            for value in list_linkurl:
+                linkdic[key] = value
+                list_linkurl.remove(value)
+                break
+        return jsonify(username=username,data=linkdic)
+    except:
+        return jsonify(username='Does not exist')
 
 
 if __name__ == "__main__":
