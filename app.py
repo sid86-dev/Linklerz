@@ -360,6 +360,8 @@ def link(username):
     # print(linkdic)
     return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
 
+from api import*
+
 @app.route(
     '/api/<string:username>')
 def api(username):
@@ -376,7 +378,8 @@ def api(username):
                 linkdic[key] = value
                 list_linkurl.remove(value)
                 break
-        return jsonify(username=username,data=linkdic)
+
+        return api_conv(linkdic)
     except:
         return jsonify(username='Does not exist')
 
