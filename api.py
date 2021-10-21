@@ -1,6 +1,6 @@
 import json
 
-linkdic = {"Github":"https://github.com/sid86-dev","Linkedln":"https://www.linkedin.com/in/siddhartha-roy-9052771b8/","Portfolio":"https://www.sid86.xyz/","Store":"https://trelerz.com/","Twitter":"https://twitter.com/yourboysid_"}
+linkdic = {}
 
 
 def api_conv(linkdic):
@@ -8,11 +8,21 @@ def api_conv(linkdic):
     for item in linkdic:
         dic = {}
         # print(linkdic[item])
-        dic["link"] = linkdic[item]
-        dic["name"] = item
+        try:
+            dic["link"] = linkdic[item]
+            dic["name"] = item
+        except:
+            pass
         data.append(dic)
 
-    # data = json.dumps(data)
+    dic = {}
+    if len(data) == 5:
+        pass
+    else:
+        for _ in range(5-len(data)):
+            dic["link"] = "noarg"
+            dic["name"] = "noarg"
+            data.append(dic)
     return data
 
 #         var data = [
@@ -24,4 +34,5 @@ def api_conv(linkdic):
 if __name__ == "__main__":
     data = api_conv(linkdic)
     print(data)
-    print(type(data))
+    # print(type(data))
+    print(len(data))
