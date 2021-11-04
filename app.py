@@ -243,6 +243,7 @@ def signup():
         confirmpass_get = request.form.get('password_confirm').lower()
         try:
             credentials = Users.query.filter_by(username=username_get).first()
+            username = credentials.username
             user_exist = "YES"
             return render_template('signup.html', user_exist=user_exist)
         except:
@@ -251,6 +252,7 @@ def signup():
                 try:
                     credentials = Users.query.filter_by(
                         email=useremail_get).first()
+                    useremail = credentials.email
                     email_exist = "yes"
                     return render_template('signup.html', user_exist=user_exist, email_exist=email_exist)
                 except:
