@@ -1,7 +1,7 @@
 import smtplib
 from email.message import EmailMessage
 from string import Template
-from credentials import EMAIL_ADDRESS, EMAIL_PASSWORD
+from mail.credentials import EMAIL_ADDRESS, EMAIL_PASSWORD
 
 def send_email(to, username, token):
     # get_token = token
