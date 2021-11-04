@@ -1,19 +1,12 @@
 import smtplib
 from email.message import EmailMessage
 from string import Template
-import json
-
-with open('config.json', 'r') as f:
-    params = json.load(f)["params"]
-
-EMAIL_ADDRESS = params['email']
-EMAIL_PASSWORD = params['password']
-
+from credentials import EMAIL_ADDRESS, EMAIL_PASSWORD
 
 def send_email(to, username, token):
     # get_token = token
     msg = EmailMessage()
-    msg['From'] = params['email']
+    msg['From'] = EMAIL_ADDRESS
     msg['To'] = to
     msg['Subject'] = f"Confirm Your Account {username} | Linklerz"
     msg.set_content("This email was send by Linklerz")

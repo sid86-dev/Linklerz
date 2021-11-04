@@ -2,14 +2,12 @@ import smtplib
 from email.message import EmailMessage
 from string import Template
 import emoji
-EMAIL_ADDRESS = 'linklerz.li@gmail.com'
-EMAIL_PASSWORD = 'linklerz2021'
-
+from credentials import EMAIL_ADDRESS, EMAIL_PASSWORD
 
 def delete_email(to, username):
     # get_token = token
     msg = EmailMessage()
-    msg['From'] = 'infosid86@gmail.com'
+    msg['From'] = EMAIL_ADDRESS
     msg['To'] = to
     msg['Subject'] = emoji.emojize(
         f"Account Deleted | We will miss you {username} :pensive_face: ")
