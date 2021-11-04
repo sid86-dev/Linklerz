@@ -304,6 +304,14 @@ def delete_account(username):
         word = f"{username}{keyword}"
         return render_template('delete.html', username=username, word=word)
 
+def delete_data(username):
+    credentials = Users.query.filter_by(username=username).first()
+    # delete data
+    email = credentials.email
+    db.session.delete(credentials)
+    db.session.commit()
+    return email
+
 @app.route('/deletecheck/<string:username>/<string:word>', methods=['GET', 'POST'])
 def delete_check(username, word):
     if request.method == "POST":
@@ -311,11 +319,7 @@ def delete_check(username, word):
         if inputtext != word:
             return redirect(f'/deletelog/{username}')
         else:
-            credentials = Users.query.filter_by(username=username).first()
-            email = credentials.email
-            # delete data
-            db.session.delete(credentials)
-            db.session.commit()
+            email = delete_data(username)
             # send email
             delete_email(email, username)
 
@@ -334,7 +338,7 @@ def logout():
         
 
 
-# render link
+# render links
 @app.route(
     '/li.<string:username>')
 def link(username):
