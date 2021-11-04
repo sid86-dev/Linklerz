@@ -326,7 +326,6 @@ def delete_check(username, word):
             return redirect('/logout')
     return redirect('/login')
 
-
 # Logging out
 @app.route('/logout')
 def logout():
@@ -335,8 +334,6 @@ def logout():
         return redirect('/login')
     except:
         return render_template('404.html')
-        
-
 
 # render links
 @app.route(
