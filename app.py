@@ -212,6 +212,7 @@ def login():
             return redirect(f'/home/{username}')
     except:
         login_fail = ""
+        login_type = "Member"
         if request.method == 'POST':
             username_get = request.form.get('username').lower()
             userpass_get = request.form.get('password').lower()
@@ -225,11 +226,11 @@ def login():
                     return redirect(f'/home/{credentials.username}')
                 else:
                     login_fail = "Username and Password do not match"
-                    return render_template('login.html', login_fail=login_fail)
+                    return render_template('login.html', login_fail=login_fail, login_type=login_type)
             except:
                 login_fail = "Username and Password do not match"
-                return render_template('login.html', login_fail=login_fail)
-        return render_template('login.html', login_fail=login_fail)
+                return render_template('login.html', login_fail=login_fail, login_type=login_type)
+        return render_template('login.html', login_fail=login_fail, login_type=login_type)
 
 # signup route
 @app.route('/signup', methods=['GET', 'POST'])
@@ -242,7 +243,6 @@ def signup():
         confirmpass_get = request.form.get('password_confirm').lower()
         try:
             credentials = Users.query.filter_by(username=username_get).first()
-            username = credentials.username
             user_exist = "YES"
             return render_template('signup.html', user_exist=user_exist)
         except:
@@ -251,7 +251,6 @@ def signup():
                 try:
                     credentials = Users.query.filter_by(
                         email=useremail_get).first()
-                    useremail = credentials.email
                     email_exist = "yes"
                     return render_template('signup.html', user_exist=user_exist, email_exist=email_exist)
                 except:
@@ -334,6 +333,32 @@ def logout():
         return redirect('/login')
     except:
         return render_template('404.html')
+
+
+@app.route('/admin', methods=['POST', 'GET'])
+def admin():
+    login_fail = ""
+    login_type = "Admin"
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        if username == params['admin_username'] and password == params['admin_password']:
+            session['admin_user'] = params['admin_username']
+            return redirect('/admin_dashboard')            
+        login_fail = "Username and Password do not match"
+    try:
+        return render_template('login.html', login_fail=login_fail, login_type=login_type)
+    except:
+        return render_template('404.html')
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    try:
+        if session['admin_user'] == params['admin_username']:
+            credentials = Users.query.filter_by().all()
+            return render_template('admin_dashboard.html', credentials=credentials)
+    except:
+        return redirect('/admin')
 
 # render links
 @app.route(

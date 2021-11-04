@@ -2,6 +2,8 @@
     "params":
      {
          "email": "linklerz.li@gmail.com",
+         "admin_username" : "sid86_",
+         "admin_password" : "Siddharth8604",
          "password": "linklerz2021",
          "database_uri":"mysql://ujigrbdynqpm6opc:AIK3lXlm26VwmGpUF8TO@bohavmu1apu495z0c20m-mysql.services.clever-cloud.com:3306/bohavmu1apu495z0c20m",
          "app_key": "b95hS2YkaGGjIQSeFl9Ez58O0WAobjyY"
