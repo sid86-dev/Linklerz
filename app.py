@@ -1,20 +1,32 @@
-from typing_extensions import final
+# flask modules
 from flask import Flask, render_template, session, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
-import hashlib
-from mailer import send_email
-from delete_mailer import delete_email
 from itsdangerous import URLSafeTimedSerializer
+from sqlalchemy import create_engine
+
+# python tool modules
+import hashlib
 import string
 import random
+import threading
+import json
 
-URI = "mysql://ujigrbdynqpm6opc:AIK3lXlm26VwmGpUF8TO@bohavmu1apu495z0c20m-mysql.services.clever-cloud.com:3306/bohavmu1apu495z0c20m"
+# local modules
+from mail.delete_mailer import delete_email
+from mail.mailer import send_email
+from api.api import api_conv
 
-from sqlalchemy import create_engine
+with open('config.json', 'r') as f:
+    params = json.load(f)["params"]
+
+
+URI = params['database_uri']
+
 e = create_engine(
     URI, pool_recycle=1800)
 app = Flask(__name__)
-app.secret_key = 'b95hS2YkaGGjIQSeFl9Ez58O0WAobjyY'
+
+app.secret_key = params['app_key']
 app.config['SQLALCHEMY_DATABASE_URI'] = URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -50,17 +62,11 @@ def entry(username_get, userpass_encrypt, useremail_get):
 
 def get_linktype(linktype):
     list_lintype = linktype.split(">")
-    # print(list_lintype)
-    # for i in list_lintype:
-    #     if i == "":
-    #         list_lintype.remove(i)
     return list_lintype
-
 
 def gen_token(email):
     token = s.dumps(email, salt='email-confirm')
     return token
-
 
 def gen_word():
     letters = string.ascii_lowercase + string.ascii_uppercase
@@ -70,21 +76,16 @@ def gen_word():
         return rand_letters
 
 # index route
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# inbuilt function which takes error as parameter
-
-
+# error handler route
 @app.errorhandler(404)
 def not_found(e):
-    # defining function
     return render_template("404.html")
 
-
+# setting route
 @app.route('/settings/<string:username>')
 def settings(username):
     if ('user' in session and session['user'] == username):
@@ -104,8 +105,6 @@ def home(username):
     return redirect('/login')
 
 # edit route
-
-
 @app.route('/edit')
 def edit():
     username = session['user']
@@ -143,8 +142,6 @@ def profile(username):
         return redirect('/login')
 
 # saving data
-
-
 @app.route('/save', methods=['GET', 'POST'])
 def save():
     if request.method == "POST":
@@ -182,8 +179,6 @@ def save():
             return redirect(f'/home/{username}')
 
 # delete route
-
-
 @app.route('/delete/<link_name>')
 def delete(link_name):
     username = session['user']
@@ -209,8 +204,6 @@ def delete(link_name):
     return redirect('/edit')
 
 # login route
-
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     try:
@@ -239,8 +232,6 @@ def login():
         return render_template('login.html', login_fail=login_fail)
 
 # signup route
-
-
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     user_exist = "NO"
@@ -265,9 +256,17 @@ def signup():
                     return render_template('signup.html', user_exist=user_exist, email_exist=email_exist)
                 except:
                     userpass_encrypt = encrypt(userpass_get)
-                    entry(username_get, userpass_encrypt, useremail_get)
                     session['user'] = username_get
-                    return redirect(f'/sendconfirm/{useremail_get}')
+
+                    token = gen_token(useremail_get)
+                    final_token = f"https://lerz.herokuapp.com/confirm/{token}"
+                    # entry to database
+                    threading.Thread(target=entry, args=(username_get, userpass_encrypt, useremail_get), name='thread_function').start()
+
+                    # send confirmation email
+                    threading.Thread(target=send_email, args=(useremail_get, username_get, final_token), name='thread_function').start()
+
+                    return render_template('confirm.html', email_address=useremail_get)
             else:
                 match = "NO"
                 return render_template('signup.html', user_exist=user_exist, match=match)
@@ -298,18 +297,12 @@ def confirm_email(token):
     return render_template('confirm_email.html', credentials=credentials)
 
 # delete account
-
-
 @app.route('/deletelog/<string:username>')
 def delete_account(username):
-    # try:
     if ('user' in session and session['user'] == username):
         keyword = gen_word()
         word = f"{username}{keyword}"
         return render_template('delete.html', username=username, word=word)
-    # except:
-        # return redirect('/login')
-
 
 @app.route('/deletecheck/<string:username>/<string:word>', methods=['GET', 'POST'])
 def delete_check(username, word):
@@ -328,9 +321,9 @@ def delete_check(username, word):
 
             return redirect('/logout')
     return redirect('/login')
+
+
 # Logging out
-
-
 @app.route('/logout')
 def logout():
     try:
@@ -357,11 +350,9 @@ def link(username):
             linkdic[key] = value
             list_linkurl.remove(value)
             break
-    # print(linkdic)
     return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
 
-from api import*
-
+# api for linklerz.li
 @app.route(
     '/api/<string:username>')
 def api(username):
