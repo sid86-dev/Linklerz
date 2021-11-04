@@ -66,7 +66,7 @@
 
             <input type="email " class="form__field " style="font-family: Montserrat-SemiBold;" value="{{items}}"
                 disabled />
-            <a href="/edit">
+            <a href="/edit/{{credentials.username}}">
                 <button type="submit" style="font-family: Montserrat-Black; "
                     class="btn btn--primary btn--inside uppercase ">Edit</button>
             </a>
@@ -90,7 +90,7 @@
     </style>
     <br><br>
     <div class="outer ">
-        <a href="/edit ">
+        <a href="/edit/{{credentials.username}}">
             <div class="container-contact100-form-btn inner " style="margin-top: 0px; ">
                 <button class="button "
                     style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">

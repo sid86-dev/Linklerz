@@ -105,9 +105,8 @@ def home(username):
     return redirect('/login')
 
 # edit route
-@app.route('/edit')
-def edit():
-    username = session['user']
+@app.route('/edit/<string:username>')
+def edit(username):
     if ('user' in session and session['user'] == username):
         credentials = Users.query.filter_by(username=username).first()
         linktype = credentials.linktype
@@ -200,8 +199,8 @@ def delete(link_name):
         credentials.linkurl = y
 
         db.session.commit()
-        return redirect('/edit')
-    return redirect('/edit')
+        return redirect(f'/edit/{username}')
+    return redirect(f'/edit/{username}')
 
 # login route
 @app.route('/login', methods=['GET', 'POST'])
