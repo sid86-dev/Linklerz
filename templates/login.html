@@ -26,7 +26,8 @@
     <meta name="msapplication-square150x150logo" content="/static/favicon/mstile-150x150.png" />
     <meta name="msapplication-wide310x150logo" content="/static/favicon/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="/static/favicon/mstile-310x310.png" />
-
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    
     <!-- end -->
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/static/img/icons/favicon.ico" />
@@ -43,6 +44,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/static/css_login/util.css">
     <link rel="stylesheet" type="text/css" href="/static/css_login/main.css">
+    <link rel="stylesheet" href="/static/css_login/google_btn.css">
     <!--===============================================================================================-->
 </head>
 
@@ -87,10 +89,18 @@
                         </div>
 
                         <div class="container-login100-form-btn">
-
-                            <button class="login100-form-btn">
+                            <a href="" style="cursor: pointer;">
+                                <div class="google-btn" >
+                                    <div class="google-icon-wrapper">
+                                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                                    </div>
+                                    <p class="btn-text"><b>Sign in with google</b></p>
+                                </div>
+                            </a>
+                                <button class="login100-form-btn mt-4">
                                 Login
                             </button>
+                            
                         </div>
 
                         <div class="text-center p-t-12">
@@ -102,6 +112,7 @@
                             </a>
                         </div>
 
+                        
                         <div class="text-center p-t-50">
                             <a class="txt2" href="/signup" style="font-size: larger;">
                                 Create your Account
