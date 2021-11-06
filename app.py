@@ -5,6 +5,7 @@ from itsdangerous import URLSafeTimedSerializer
 from sqlalchemy import create_engine
 
 # python tool modules
+from functools import lru_cache
 import hashlib
 import string
 import random
@@ -52,6 +53,11 @@ def encrypt(password):
     hash = hashlib.sha256(password.encode()).hexdigest()
     return hash
 
+@lru_cache(maxsize=5)
+def get_credentials(variable):
+    credentials = Users.query.filter_by(username=variable).first()
+
+    return credentials
 
 def entry(username_get, userpass_encrypt, useremail_get):
     entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free', confirmation='no', linktype="", linkurl=""
@@ -98,11 +104,13 @@ def settings(username):
 @app.route('/home/<string:username>')
 def home(username):
     if ('user' in session and session['user'] == username):
-        credentials = Users.query.filter_by(username=username).first()
+        # credentials = Users.query.filter_by(username=username).first()
+        credentials = get_credentials(username)
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)
         return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
     return redirect('/login')
+
 
 # edit route
 @app.route('/edit/<string:username>')
@@ -133,10 +141,33 @@ def edit(username):
 # profile route
 @app.route("/profile/<string:username>", methods=['GET', 'POST'])
 def profile(username):
+    error = ''
+    if request.method == "POST":
+        get_username = request.form.get('username')
+        try:
+            if get_username == username:
+                return redirect(f'/home/{get_username}')
+            credentials = Users.query.filter_by(username=get_username).first()
+            # to verify
+            email = credentials.email
+
+            # return to the same route with error
+            credentials = Users.query.filter_by(username=username).first()
+            error = 'Username already exist'
+            return render_template('profile.html', credentials=credentials, error=error)
+        except:
+            credentials = Users.query.filter_by(username=username).first()
+            credentials.username = get_username
+            db.session.commit()
+            # handle log info
+            session.pop('user')
+            session['user'] = get_username
+            return redirect(f'/home/{get_username}')
+
     try:
         if ('user' in session and session['user'] == username):
             credentials = Users.query.filter_by(username=username).first()
-            return render_template('profile.html', credentials=credentials)
+            return render_template('profile.html', credentials=credentials, error=error)
     except:
         return redirect('/login')
 
@@ -402,5 +433,8 @@ def api(username):
         return jsonify(username='Does not exist')
 
 
+# if __name__ == "__main__":
+#     app.run(host="0.0.0.0")
+
 if __name__ == "__main__":
-    app.run(host="0.0.0.0")
+    app.run(debug=True)

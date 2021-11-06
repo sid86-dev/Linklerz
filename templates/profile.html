@@ -65,22 +65,23 @@
             /* position: relative; */
             box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
         }
-        
+
         .box:active {
             transform: scale(0.98);
             /* Scaling button to 0.98 to its original size */
             box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
             /* Lowering the shadow */
         }
-        
+
         .vertical {
             writing-mode: vertical-rl;
             text-orientation: mixed;
             font-family: Poppins-Regular, sans-serif;
             padding-top: 5px;
         }
+
         /* The snackbar - position it at the bottom and in the middle of the screen */
-        
+
         #snackbar {
             visibility: hidden;
             /* Hidden by default. Visible on click */
@@ -108,8 +109,9 @@
             /* 30px from the bottom */
             font-family: Montserrat-SemiBold;
         }
+
         /* Show the snackbar when clicking on a button (class added with JavaScript) */
-        
+
         #snackbar.show {
             visibility: visible;
             /* Show the snackbar */
@@ -118,46 +120,51 @@
             -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
             animation: fadein 0.5s, fadeout 0.5s 2.5s;
         }
+
         /* Animations to fade the snackbar in and out */
-        
+
         @-webkit-keyframes fadein {
             from {
                 bottom: 0;
                 opacity: 0;
             }
+
             to {
                 bottom: 30px;
                 opacity: 1;
             }
         }
-        
+
         @keyframes fadein {
             from {
                 bottom: 0;
                 opacity: 0;
             }
+
             to {
                 bottom: 30px;
                 opacity: 1;
             }
         }
-        
+
         @-webkit-keyframes fadeout {
             from {
                 bottom: 30px;
                 opacity: 1;
             }
+
             to {
                 bottom: 0;
                 opacity: 0;
             }
         }
-        
+
         @keyframes fadeout {
             from {
                 bottom: 30px;
                 opacity: 1;
             }
+
             to {
                 bottom: 0;
                 opacity: 0;
@@ -177,44 +184,63 @@
         <div class="wrap-contact100" style="padding-bottom: 0px;padding-top: 20px;">
             <div class="float-right">
                 <a onclick="goBack()" style="cursor: pointer;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor"
+                        class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
                     </svg>
                 </a>
             </div>
 
-            <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
+            <span class="contact100-form-title"
+                style="padding: 30px; font-family: Montserrat-SemiBold;font-size: x-large;">
                 {{credentials.username}}
-                {% if credentials.plan == "premium" %} 
+                {% if credentials.plan == "premium" %}
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
-                data-bs-placement="top" title="Pro Badge">
+                    data-bs-placement="top" title="Pro Badge">
                 {% endif %}
-             {% if credentials.confirmation == "no" %}
-            <a href="/sendconfirm/{{credentials.email}}">
-                <h3 class="mt-3" style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please confirm Your email </h3>
-            </a>
-        </span> {% endif %}
+                {% if credentials.confirmation == "no" %}
+                <a href="/sendconfirm/{{credentials.email}}">
+                    <h3 class="mt-3"
+                        style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">
+                        Please confirm Your email </h3>
+                </a>
+            </span> {% endif %}
             <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
-<!-- 
+                <!-- 
                 <h3 class="mb-4" style="font-family: Montserrat-SemiBold; font-size: x-large;">Just few more steps!</h3> -->
                 <!-- <h3 class="mb-3" style="font-family: Montserrat-SemiBold; font-size: large;">Already have account? <a href="/home" style="text-decoration: underline;font-family: Montserrat-SemiBold; font-size: large;">Login</a> </h3> -->
-            <form class="contact100-form validate-form mt-4" action="/profile" method="POST">
-                <div class="outer">
+                <form class="contact100-form validate-form mt-4" action="/profile/{{credentials.username}}"
+                    method="POST">
+                    <div class="outer">
 
-                    <!-- <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
+                        <!-- <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
                         <span class="label-input100 float-left">Email *</span>
 
         </div> -->
-        <!-- {% if user_exist == "YES" %}
+                        <!-- {% if user_exist == "YES" %}
         <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Username already exist</h3>
         {% endif %} -->
-        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
-            <span class="label-input100 float-left">Username *</span>
-            <input class="input100" type="text" name="username" value="{{credentials.username}}" required>
+        <div class="text-center pb-3">
+            <a class="txt2" href="#" style="color: red;">
+                {{error}}
+            </a>
         </div>
+                        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4"
+                            data-validate="Your Username (e@a.x)">
+                            <span class="label-input100 float-left">Username *</span>
+                            <input class="input100" type="text" name="username" value="{{credentials.username}}"
+                                required>
+                        </div>
+                        <!-- email address -->
+                        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4"
+                            data-validate="Your Email (e@a.x)">
+                            <span class="label-input100 float-left">Email *</span>
+                            <input class="input100" type="text" name="username" value="{{credentials.email}}" required
+                                disabled>
+                        </div>
 
-        <!--<div class="wrap-input100 bg1 rs1-wrap-input100 inner mb-4">
+                        <!--<div class="wrap-input100 bg1 rs1-wrap-input100 inner mb-4">
             <span class="label-input100 float-left">Plan *</span>
             <input class="input100" type="text" name="password" placeholder="" required>
         </div>
@@ -223,92 +249,97 @@
             <span class="label-input100 float-left">Retype Password *</span>
             <input class="input100" type="password" name="password_confirm" placeholder="Confirm your Password" required>
         </div> -->
-        <!-- <div class="w-full dis-none js-show-service"> -->
-        <div class="wrap-contact100-form-radio">
-            <span class="label-input100">Select Linklerz Your Theme</span>
+                        <!-- <div class="w-full dis-none js-show-service"> -->
+                        <div class="wrap-contact100-form-radio">
+                            <span class="label-input100">Select Linklerz Your Theme</span>
 
-            <div class="contact100-form-radio m-t-15">
-                <input class="input-radio100" id="radio1" type="radio" name="theme" value="default" checked="checked">
-                <label class="label-radio100" for="radio1">
-                        Default
-                    </label>
-            </div>
+                            <div class="contact100-form-radio m-t-15">
+                                <input class="input-radio100" id="radio1" type="radio" name="theme" value="default"
+                                    checked="checked">
+                                <label class="label-radio100" for="radio1">
+                                    Default
+                                </label>
+                            </div>
 
-            <div class="contact100-form-radio">
-                <input class="input-radio100" id="radio2" type="radio" name="theme" value="eco">
-                <label class="label-radio100" for="radio2">
-                        Eco
-                    </label>
-            </div>
+                            <div class="contact100-form-radio">
+                                <input class="input-radio100" id="radio2" type="radio" name="theme" value="eco">
+                                <label class="label-radio100" for="radio2">
+                                    Eco
+                                </label>
+                            </div>
 
-            <div class="contact100-form-radio">
-                <input class="input-radio100" id="radio3" type="radio" name="theme" value="gradient">
-                <label class="label-radio100" for="radio3">
-                        Gradient™
-                    </label>
-            </div>
-            <button class="box mt-4 mb-5">
-                <a href="/profile">
-                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">{{credentials.plan}}</h4>
-                </a>
-            </button>
+                            <div class="contact100-form-radio">
+                                <input class="input-radio100" id="radio3" type="radio" name="theme" value="gradient">
+                                <label class="label-radio100" for="radio3">
+                                    Gradient™
+                                </label>
+                            </div>
+                            <button class="box mt-4 mb-5">
+                                <a href="/profile">
+                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">{{credentials.plan}}
+                                    </h4>
+                                </a>
+                            </button>
+
+                        </div>
+                        <!-- </div> -->
+                    </div>
+
+                    <div class=" outer">
+                        <div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
+                            <button class="button" type="submit"
+                                style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
+                                Save
+                            </button>
+                        </div>
+                        <a href="/deletelog/{{credentials.username}}">
+                            <h4 class="mb-1"
+                                style="font-family: Montserrat-SemiBold; font-size: large; text-decoration: underline;">
+                                Delete Account</h4>
+                        </a>
+                    </div>
+                </form>
+                <script>
+                    function copyText() {
+                        /* Get the text field */
+                        var copyText = document.getElementById("myInput ");
+
+                        /* Select the text field */
+                        copyText.select();
+                        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+                        /* Copy the text inside the text field */
+                        document.execCommand("copy ");
+
+                        /* Alert the copied text */
+                        // alert("Copied the text: " + copyText.value);
+                        // Get the snackbar DIV
+                        var x = document.getElementById("snackbar ");
+
+                        // Add the "show " class to DIV
+                        x.className = "show ";
+
+                        // After 3 seconds, remove the show class from DIV
+                        setTimeout(function () {
+                            x.className = x.className.replace("show ", " ");
+                        }, 3000);
+                    }
+                </script>
+
+                <style>
+                    .inner {
+                        display: table;
+                        margin: 0 auto;
+                        /* border: 1px solid black; */
+                    }
+
+                    .outer {
+                        /* border: 1px solid red; */
+                        width: 100%
+                    }
+                </style>
 
         </div>
-        <!-- </div> -->
-    </div>
-
-    <div class=" outer">
-        <div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
-            <button class="button" type="submit" style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
-                Save
-            </button>
-        </div>
-        <a href="/deletelog/{{credentials.username}}">
-            <h4 class="mb-1" style="font-family: Montserrat-SemiBold; font-size: large; text-decoration: underline;">Delete Account</h4>
-        </a>
-    </div>
-    </form>
-    <script>
-        function copyText() {
-            /* Get the text field */
-            var copyText = document.getElementById("myInput ");
-
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-            /* Copy the text inside the text field */
-            document.execCommand("copy ");
-
-            /* Alert the copied text */
-            // alert("Copied the text: " + copyText.value);
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar ");
-
-            // Add the "show " class to DIV
-            x.className = "show ";
-
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function() {
-                x.className = x.className.replace("show ", " ");
-            }, 3000);
-        }
-    </script>
-
-    <style>
-        .inner {
-            display: table;
-            margin: 0 auto;
-            /* border: 1px solid black; */
-        }
-        
-        .outer {
-            /* border: 1px solid red; */
-            width: 100%
-        }
-    </style>
-
-    </div>
     </div>
 
     <!--===============================================================================================-->
@@ -321,15 +352,15 @@
     <!--===============================================================================================-->
     <script src="/static/vendor_home/select2/select2.min.js "></script>
     <script>
-        $(".js-select2 ").each(function() {
+        $(".js-select2 ").each(function () {
             $(this).select2({
                 minimumResultsForSearch: 20,
                 dropdownParent: $(this).next('.dropDownSelect2')
             });
 
 
-            $(".js-select2 ").each(function() {
-                $(this).on('select2:close', function(e) {
+            $(".js-select2 ").each(function () {
+                $(this).on('select2:close', function (e) {
                     if ($(this).val() == "Please chooses ") {
                         $('.js-show-service').slideUp();
                     } else {
@@ -364,7 +395,7 @@
             document.getElementById('value-upper')
         ];
 
-        filterBar.noUiSlider.on('update', function(values, handle) {
+        filterBar.noUiSlider.on('update', function (values, handle) {
             skipValues[handle].innerHTML = Math.round(values[handle]);
             $('.contact100-form-range-value input[name="from-value "]').val($('#value-lower').html());
             $('.contact100-form-range-value input[name="to-value "]').val($('#value-upper').html());
