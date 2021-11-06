@@ -104,8 +104,8 @@ def settings(username):
 @app.route('/home/<string:username>')
 def home(username):
     if ('user' in session and session['user'] == username):
-        # credentials = Users.query.filter_by(username=username).first()
-        credentials = get_credentials(username)
+        credentials = Users.query.filter_by(username=username).first()
+        # credentials = get_credentials(username)
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)
         return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
