@@ -1,4 +1,6 @@
 # flask modules
+from os import abort
+import re
 from flask import Flask, render_template, session, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import URLSafeTimedSerializer
@@ -11,16 +13,28 @@ import string
 import random
 import threading
 import json
+import requests
+
+# external modules
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
+from pip._vendor import cachecontrol
+import google.auth.transport.requests
 
 # local modules
 from mail.delete_mailer import delete_email
 from mail.mailer import send_email
 from api.api import api_conv
+from google_auth import*
+
 
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]
 
+# app variables
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
+# clever cloud db uri
 URI = params['database_uri']
 
 e = create_engine(
@@ -236,6 +250,8 @@ def delete(link_name):
 # login route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    authorization_url, state = flow.authorization_url()
+    session['state'] = state
     try:
         username = session['user']
         if ('user' in session and session['user'] == username):
@@ -248,23 +264,91 @@ def login():
             userpass_get = request.form.get('password').lower()
             userpass_encrypt = encrypt(userpass_get)
             try:
-                credentials = Users.query.filter_by(
-                    password=userpass_encrypt).first()
-                if credentials.username == username_get and credentials.password == userpass_encrypt:
-                    # set the session variable
-                    session['user'] = credentials.username
-                    return redirect(f'/home/{credentials.username}')
-                else:
-                    login_fail = "Username and Password do not match"
-                    return render_template('login.html', login_fail=login_fail, login_type=login_type)
+                if '@' in username_get:
+                    credentials = Users.query.filter_by(
+                    email=username_get).first()
+                    password = credentials.password 
+                    if password == 'google_auth':
+                        login_fail = "Please sign in using Google"
+                        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+
+                    elif password == userpass_encrypt:
+                        session['user'] = credentials.username
+                        return redirect(f'/home/{credentials.username}')
+                    else:
+                        login_fail = "Username and Password do not match"
+                        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+
+                elif '@' not in username_get:
+                    credentials = Users.query.filter_by(username=username_get).first()
+                    if credentials.password == userpass_encrypt:
+                        # set the session variable
+                        session['user'] = credentials.username
+                        return redirect(f'/home/{credentials.username}')
+                    else:
+                        login_fail = "Username and Password do not match"
+                        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
             except:
                 login_fail = "Username and Password do not match"
-                return render_template('login.html', login_fail=login_fail, login_type=login_type)
-        return render_template('login.html', login_fail=login_fail, login_type=login_type)
+                return render_template('login.html', login_fail=login_fail, login_type=login_type,authorization_url=authorization_url)
+        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+
+@app.route("/callback")
+def callback():
+    flow.fetch_token(authorization_response=request.url)
+
+    if not session["state"] == request.args["state"]:
+        abort(500)  # State does not match!
+
+    credentials = flow.credentials
+    request_session = requests.session()
+    cached_session = cachecontrol.CacheControl(request_session)
+    token_request = google.auth.transport.requests.Request(session=cached_session)
+
+    id_info = id_token.verify_oauth2_token(
+        id_token=credentials._id_token,
+        request=token_request,
+        audience=GOOGLE_CLIENT_ID
+    )
+    try:
+        username = login_with_google(id_info)
+        return redirect(f'/home/{username}')
+    except:
+        email = signup_with_google(id_info)
+        return render_template('confirm.html', email_address=email)
+
+def login_with_google(info):
+    email = info['email']
+    credentials = Users.query.filter_by(email=email).first()
+    username = credentials.username
+    session['user'] = username
+    return username
+
+def signup_with_google(info):
+    email = info['email']
+    f_name = info['given_name']
+    l_name = info['family_name']
+
+    num = random.randint(11,500)
+    username = f"{f_name[:4]}{l_name}{num}"
+
+    token = gen_token(email)
+    final_token = f"https://lerz.herokuapp.com/confirm/{token}"
+    # entry to database
+    threading.Thread(target=entry, args=(username, "google_auth", email), name='thread_function').start()
+
+    # send confirmation email
+    threading.Thread(target=send_email, args=(email, username, final_token), name='thread_function').start()
+    # add username session variable
+    session['user'] = username
+
+    return email
 
 # signup route
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
+    authorization_url, state = flow.authorization_url()
+    session['state'] = state
     user_exist = "NO"
     if request.method == 'POST':
         useremail_get = request.form.get('email').lower()
@@ -275,7 +359,7 @@ def signup():
             credentials = Users.query.filter_by(username=username_get).first()
             username = credentials.username
             user_exist = "YES"
-            return render_template('signup.html', user_exist=user_exist)
+            return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
         except:
             user_exist = "NO"
             if userpass_get == confirmpass_get:
@@ -284,7 +368,7 @@ def signup():
                         email=useremail_get).first()
                     useremail = credentials.email
                     email_exist = "yes"
-                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist)
+                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist, authorization_url=authorization_url)
                 except:
                     userpass_encrypt = encrypt(userpass_get)
                     session['user'] = username_get
@@ -300,8 +384,8 @@ def signup():
                     return render_template('confirm.html', email_address=useremail_get)
             else:
                 match = "NO"
-                return render_template('signup.html', user_exist=user_exist, match=match)
-    return render_template('signup.html', user_exist=user_exist)
+                return render_template('signup.html', user_exist=user_exist, match=match, authorization_url=authorization_url)
+    return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
 
 
 # email send

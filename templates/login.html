@@ -27,7 +27,7 @@
     <meta name="msapplication-wide310x150logo" content="/static/favicon/mstile-310x150.png" />
     <meta name="msapplication-square310x310logo" content="/static/favicon/mstile-310x310.png" />
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-    
+
     <!-- end -->
     <!--===============================================================================================-->
     <link rel="icon" type="image/png" href="/static/img/icons/favicon.ico" />
@@ -54,7 +54,7 @@
         <div class="container-login100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
             <div class="wrap-login100">
                 <div class="login100-pic js-tilt" data-tilt>
-                    <img src="/static/img/tree.png" alt="IMG">
+                    <img src="/static/img/linklerz_logo.png" alt="IMG">
                 </div>
                 {% if login_type == "Member" %}
                 <form class="login100-form validate-form" action="/login" method="POST">
@@ -63,7 +63,7 @@
                         {% endif %}
                         <span class="login100-form-title">
                             {{login_type}} Login
-                        </span> {% if login_fail == "Username and Password do not match" -%}
+                        </span> {% if login_fail != "" -%}
                         <div class="text-center pb-3">
                             <a class="txt2" href="#" style="color: red;">
                                 {{login_fail}}
@@ -89,18 +89,19 @@
                         </div>
 
                         <div class="container-login100-form-btn">
-                            <a href="" style="cursor: pointer;">
-                                <div class="google-btn" >
+                            <a href="{{authorization_url}}" style="cursor: pointer;">
+                                <div class="google-btn">
                                     <div class="google-icon-wrapper">
-                                        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"/>
+                                        <img class="google-icon"
+                                            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
                                     </div>
                                     <p class="btn-text"><b>Sign in with google</b></p>
                                 </div>
                             </a>
-                                <button class="login100-form-btn mt-4">
+                            <button class="login100-form-btn mt-4">
                                 Login
                             </button>
-                            
+
                         </div>
 
                         <div class="text-center p-t-12">
@@ -112,7 +113,7 @@
                             </a>
                         </div>
 
-                        
+
                         <div class="text-center p-t-50">
                             <a class="txt2" href="/signup" style="font-size: larger;">
                                 Create your Account

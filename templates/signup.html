@@ -54,6 +54,8 @@
     <link rel="stylesheet" type="text/css" href="/static/css/field.css">
     <link rel="stylesheet" type="text/css" href="/static/css/button.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
+    <link rel="stylesheet" href="/static/css_login/google_btn.css">
     <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
     <!--===============================================================================================-->
     <style>
@@ -167,6 +169,7 @@
 </head>
 
 <body style="font-family: Montserrat-SemiBold">
+    
     <div class="container-contact100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
 
         <div class="wrap-contact100" style="padding-bottom: 0px;padding-top: 20px;">
@@ -182,6 +185,16 @@
             <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: xx-large;">
                 <img src="/static/img/logo.png" alt=""> Welcome to Linklerz™
             </span>
+            
+            <a href="{{authorization_url}}" style="cursor: pointer;" class="inner mb-3">
+                <div class="google-btn">
+                    <div class="google-icon-wrapper">
+                        <img class="google-icon" 
+                            src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" />
+                    </div>
+                    <p class="btn-text"><b>Sign up with google</b></p>
+                </div>
+            </a>
             <span class="contact100-form-title" style="font-size: large; padding-bottom: 20px;">
 <!-- 
                 <h3 class="mb-4" style="font-family: Montserrat-SemiBold; font-size: x-large;">Just few more steps!</h3> -->
@@ -220,14 +233,16 @@
 
     </div>
 
-    <div class=" outer">
+    <div class="outer">
         <div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
+            
             <button class="button" type="submit" style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
                 Signup
             </button>
         </div>
     </div>
     </form>
+    
     <script>
         function copyText() {
             /* Get the text field */
@@ -269,6 +284,7 @@
     </style>
 
     </div>
+    
     </div>
 
     <!--===============================================================================================-->

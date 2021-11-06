@@ -1,7 +1,7 @@
 # Linklerz 
 
 <p align="center">
-<img alt="" src="/static/img/tree.png" width="150px">
+<img alt="" src="/static/img/linklerz_logo.png" width="150px">
 </p>
 
 Name | Endpoint | Quicklink
