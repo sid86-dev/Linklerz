@@ -10,7 +10,7 @@ development = False
 if development == True:
     uri = 'http://127.0.0.1:5000/callback'
 else:
-    uri = 'https://linklerz.herokuapp.com/callback'
+    uri = 'https://lerz.herokuapp.com/callback'
 
 GOOGLE_CLIENT_ID = '983066542456-1gsapcu2uta11718lp1l6j9c7f5pnf5k.apps.googleusercontent.com'
 client_secrets_file = os.path.join(pathlib.Path(__file__).parent, 'client_secret.json')
