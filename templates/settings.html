@@ -164,6 +164,7 @@
             }
         }
     </style>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <body style="font-family: Montserrat-SemiBold">
@@ -224,7 +225,7 @@
                             </a>
                         </button>
                         <button class="box mt-4">
-                            <a href="/logout">
+                            <a onclick="confirmbox()">
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
                             </a>
                         </button>
@@ -258,6 +259,27 @@
                 <script>
                     function goBack() {
                         window.history.back();
+                    }
+                </script>
+                <script>
+                    function confirmbox(){
+                        Swal.fire({
+                            title: 'Do you want to logout?',
+                            text: "you may need to login again",
+                            showCancelButton: true,
+                            confirmButtonColor: '#2EE59D',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes'
+                          }).then((result) => {
+                            if (result.isConfirmed) {
+                              Swal.fire(
+                                'Logged out!',
+                                'Your have been logged out',
+                                'success'
+                              )
+                              window.location.replace("/logout");
+                            }
+                          })
                     }
                 </script>
                 <style>
