@@ -432,9 +432,37 @@ def api(username):
     except:
         return jsonify(username='Does not exist')
 
+@app.route('/community')
+def community():
+    return render_template('community_select.html')
 
-# if __name__ == "__main__":
-#     app.run(host="0.0.0.0")
+@app.route('/recovery', methods=['GET','POST'])
+def recovery():
+    fixed_credentials = {'username':'Help Center'}
+    arg = ''
+    if request.method == 'POST':
+        recoveryinput = request.form.get('recoveryinput')
+        print(recoveryinput)
+        try:
+            if '@' in recoveryinput:
+                credentials = Users.query.filter_by(email=recoveryinput).first()
+                email = credentials.email
+                username = credentials.username
+            else:
+                credentials = get_credentials(recoveryinput)
+                email = credentials.email
+                username = credentials.username
+            arg = 'success'
+            delete_email(email, username)
+            return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
+        except:
+            arg = 'Username or Email does not exist'
+            return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
+    return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
+
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0")
+
+# if __name__ == "__main__":
+#     app.run(debug=True)
