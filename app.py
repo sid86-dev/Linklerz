@@ -512,14 +512,17 @@ def link(username):
 
 @app.route('/appearance/<string:username>', methods=['GET', 'POST'])
 def appearance(username):
-    credentials = Users.query.filter_by(username=username).first()
-    if request.method == 'POST':
-        theme = request.form.get('slider')
-        # print((theme).upper())
-        credentials.theme = theme
-        db.session.commit()
-        return redirect(f'/home/{{credentials.username}}')
-    return render_template('appearance.html', credentials=credentials)
+    if ('user' in session and session['user'] == username):
+        credentials = Users.query.filter_by(username=username).first()
+        if request.method == 'POST':
+            theme = request.form.get('slider')
+            # print((theme).upper())
+            credentials.theme = theme
+            db.session.commit()
+            return redirect(f'/home/{{credentials.username}}')
+        return render_template('appearance.html', credentials=credentials)
+    else:
+        return redirect('/login')
 
 # api for linklerz.li
 @app.route(
