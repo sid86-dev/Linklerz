@@ -10,6 +10,12 @@
         "redirect_uris": [
             "http://127.0.0.1:5000/login",
             "http://127.0.0.1:5000/callback"
-        ]
+        ],
+        "twitter_consumer_api_key":"vZ73VQNoUD2bDu8GdgB83XcHT",
+        "twitter_consumer_secret_key":"jcxYiM81j0UZqpVuSt7NuqVcPPxHuom07WkBTeSqIaSHkVzCtz",
+        "twitter_access_token":"1245293113041539074-VtZktCJgxDRifHIy5GPrVqfdXwKDTb",
+        "twitter_access_token_secret":"102A5NwyKEeySSFwVjLZKGGGyhtc7sLjq2Nrwldu2pKst",
+        "facebook_client_id":"315825553338166",
+        "facebook_client_secret":"db71aabfc42b6feac0d76df2c65ccda3"
     }
 }

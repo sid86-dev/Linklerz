@@ -6,6 +6,7 @@ with open('config.json', 'r') as f:
     params = json.load(f)["params"]
 
 development = False
+# development = True
 
 if development == True:
     uri = 'http://127.0.0.1:5000/callback'

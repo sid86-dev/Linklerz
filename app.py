@@ -420,31 +420,34 @@ def confirm_email(token):
     return render_template('confirm_email.html', credentials=credentials)
 
 # delete account
-@app.route('/deletelog/<string:username>')
-def delete_account(username):
+@app.route('/deletelog/<string:email>/<string:username>')
+def delete_account(email, username):
     if ('user' in session and session['user'] == username):
         keyword = gen_word()
         word = f"{username}{keyword}"
-        return render_template('delete.html', username=username, word=word)
+        # credentials = Users.query.filter_by(username=username).first()
+        return render_template('delete.html', username=username, word=word, email=email)
 
 def delete_data(username):
     credentials = Users.query.filter_by(username=username).first()
     # delete data
-    email = credentials.email
+    # email = credentials.email
     db.session.delete(credentials)
     db.session.commit()
-    return email
+    # return email
 
-@app.route('/deletecheck/<string:username>/<string:word>', methods=['GET', 'POST'])
-def delete_check(username, word):
+@app.route('/deletecheck/<string:username>/<string:word>/<string:email>', methods=['GET', 'POST'])
+def delete_check(username, word, email):
     if request.method == "POST":
         inputtext = request.form.get('inputtext')
         if inputtext != word:
             return redirect(f'/deletelog/{username}')
         else:
-            email = delete_data(username)
-            # send email
-            delete_email(email, username)
+            # query to database
+            threading.Thread(target=delete_data, args=(username,), name='thread_function').start()
+
+            # send delete email
+            threading.Thread(target=delete_email, args=(email, username,), name='thread_function').start()
 
             return redirect('/logout')
     return redirect('/login')
