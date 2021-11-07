@@ -508,7 +508,7 @@ def link(username):
             list_linkurl.remove(value)
             break
     # return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
-    return render_template(f'{theme}.html', credentials=credentials, linkdic=linkdic)
+    return render_template(f'{params[credentials.theme]}.html', credentials=credentials, linkdic=linkdic)
 
 @app.route('/appearance/<string:username>', methods=['GET', 'POST'])
 def appearance(username):
