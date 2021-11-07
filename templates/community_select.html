@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Linklerz™ | Community</title>
-    <link rel="stylesheet" href="/static/css/community_style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="/static/css/community_style.css">
 </head>
-<body>
-  <div class="card">
-    <input checked="checked" id="rad1" name="rad" type="radio">/</input>
-    <div for="rad1">
-      <h1>1</h1>
-      <div class="btn"></div>
-    </div>
-    <input id="rad2" name="rad" type="radio">/</input>
-    <div for="rad2">
-      <h1>2</h1>
-      <div class="btn"></div>
-    </div>
-    <input id="rad3" name="rad" type="radio">/</input>
-    <div for="rad3">
-      <h1>3</h1>
-      <div class="btn"></div>
-    </div>
-    <input type="checkbox">/</input>
-    <a>Read More</a>
-    <p>Phasellus nec sem in justo pellentesque facilisis. In hac habitasse platea dictumst. Praesent metus tellus, elementum eu, semper a, adipiscing nec, purus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-    <div class="shapes"></div>
-    <div class="photo">
-      
-    </div>
-    <div class="blob">
-      <div class="glob"></div>
-    </div>
+
+<body onload="myfunc()">
+  <!-- <button onclick="myfunc()">Click here</button> -->
+  <div class="battery">
+    <div class="battery-level" id="blevel" style="height:100%;"></div>
   </div>
-  <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
-  <defs>
-  <filter id="goo">
-  <feGaussianBlur in="SourceGraphic" stdDeviation="12" result="blur" />
-  <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-  <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
-  </filter>
-  </defs>
-  </svg>
-  <svg class="svg" viewBox="0 0 400 400">
-  <defs>
-  <filter id="duotone-filter-post-one">
-  <feColorMatrix type="matrix" values="0.14453125 0 0 0 0.33203125 0.71875 0 0 0 0.27734375 -0.34765625 0 0 0 0.73046875 0 0 0 1 0"></feColorMatrix>
-  </filter>
-  </defs>
-  </svg>
   
+  <p id="text1"></p>
+  <p id="text2"></p>
+  <script>
+    function myfunc() {
+      var battery = navigator.battery || navigator.webkitBattery || navigator.mozBattery;
+
+      function logBattery(battery) {
+        var battery_level = battery.level * 100;
+        document.getElementById("text1").innerHTML ="Your charge is " + battery_level + '%'
+
+        document.getElementById("blevel").style.height = battery_level + '%'
+        if (battery_level<20) {
+          document.getElementById("blevel").className = 'battery-level warn'
+        } 
+        if (battery_level<10) {
+          document.getElementById("blevel").className = 'battery-level alert'
+        } 
+
+        var charging = battery.charging
+        document.getElementById("text2").innerHTML = charging
+        console.log(dischargingTime);
+
+        battery.addEventListener('chargingchange', function () {
+          console.log('Battery chargingchange event: ' + battery.charging);
+        }, false);
+      }
+
+      if (navigator.getBattery) {
+        navigator.getBattery().then(logBattery);
+      } else if (battery) {
+        logBattery(battery);
+      }
+      // Check support
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(success);
+      }
+
+      function success(position) {
+        console.log('Latitude: ' + position.coords.latitude);
+        console.log('Longitude: ' + position.coords.longitude);
+      }
+    }
+  </script>
 </body>
+
 </html>
