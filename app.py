@@ -510,6 +510,17 @@ def link(username):
     # return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
     return render_template(f'{theme}.html', credentials=credentials, linkdic=linkdic)
 
+@app.route('/appearance/<string:username>', methods=['GET', 'POST'])
+def appearance(username):
+    credentials = Users.query.filter_by(username=username).first()
+    if request.method == 'POST':
+        theme = request.form.get('slider')
+        # print((theme).upper())
+        credentials.theme = theme
+        db.session.commit()
+        return redirect(f'/home/{{credentials.username}}')
+    return render_template('appearance.html', credentials=credentials)
+
 # api for linklerz.li
 @app.route(
     '/api/<string:username>')
