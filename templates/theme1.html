@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="https://res.cloudinary.com/phonerefer/image/upload/v1575096088/ve0o2n85nfvgdatgqer2.jpg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#343a40" />
+  <meta
+          name="description"
+          content="Links To My Accounts | Developed By - Your Name"
+  />  
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+   <!-- favicons -->
+   <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/favicon/apple-touch-icon-114x114.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/favicon/apple-touch-icon-72x72.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/favicon/apple-touch-icon-144x144.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static/favicon/apple-touch-icon-120x120.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static/favicon/apple-touch-icon-76x76.png" />
+   <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static/favicon/apple-touch-icon-152x152.png" />
+   <link rel="icon" type="image/png" href="/static/favicon/favicon-196x196.png" sizes="196x196" />
+   <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96" />
+   <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32" />
+   <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16" />
+   <link rel="icon" type="image/png" href="/static/favicon/favicon-128.png" sizes="128x128" />
+   <meta name="application-name" content="&nbsp;" />
+   <meta name="msapplication-TileColor" content="#FFFFFF" />
+   <meta name="msapplication-TileImage" content="/static/favicon/mstile-144x144.png" />
+   <meta name="msapplication-square70x70logo" content="/static/favicon/mstile-70x70.png" />
+   <meta name="msapplication-square150x150logo" content="/static/favicon/mstile-150x150.png" />
+   <meta name="msapplication-wide310x150logo" content="/static/favicon/mstile-310x150.png" />
+   <meta name="msapplication-square310x310logo" content="/static/favicon/mstile-310x310.png" />
+   <!-- end -->
+    <title>Linklerz™ | {{credentials.username}}</title>
+
+     <style>
+       body{
+         background-color: #faf8ef;
+       }
+       h5{
+             color: #343a40;
+       }
+       .name{
+           color: #343a40;
+       }
+       .love{
+           color: #343a40 !important;
+       }
+       /*----------------- Mail-------------------- */
+       #email{
+           text-decoration: none;
+           float: right;
+           color:#343a40;
+       }
+       .footer{
+           margin-top: 5% !important;
+           margin-bottom: 10px;
+       }
+       @media (max-width: 479px) {
+            .footer{
+            margin-top: 35% !important;
+            }
+       }
+     </style>
+</head>
+<body>
+<div class="container">
+  <div class="media mt-5">
+    <img src="/static/img/linklerz_logo.png" class="m-3" alt="image" width="75px" height="75px">
+    <div class="media-body m-2">
+      <h5 class="align-items-center mt-2">@{{credentials.username}}</h5>
+    </div>
+  </div>
+  <div class="mt-4">
+      {% for items in linkdic %} {% if items != "" %}<a href="{{linkdic[items]}}" class="btn btn-outline-dark btn-block" style="padding-top: 15px;padding-bottom: 15px;" role="button" target="_blank">{{items}}</a><br>{% endif %} {% endfor %}
+      
+  
+</div>
+        <!--------------------Footer---------------------------->
+  <div class="footer mt-5">
+    <hr/>
+    <a href="https://linklerz.xyz/" class="name" target="_blank">
+        <h6>Linklerz™<span class="love"> x</span> Throttlerz</h6>
+    </a>
+      <!-- <a href="/" class="name" target="_blank"> (Your Name) </a> -->
+      <!-- <a id="email" href="mailto:Your Mail"> <i class="fa fa-envelope"> </i> </a> -->
+  </div>
+</div>
+</body>
+  
+</html>

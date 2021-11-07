@@ -59,6 +59,8 @@ class Users(db.Model):
     confirmation = db.Column(db.String(20), nullable=False)
     linktype = db.Column(db.String(500), nullable=False)
     linkurl = db.Column(db.String(500), nullable=False)
+    userid = db.Column(db.String(50), nullable=False)
+    theme = db.Column(db.String(50), nullable=False)
 
 
 # global functions
@@ -74,8 +76,9 @@ def get_credentials(variable):
     return credentials
 
 def entry(username_get, userpass_encrypt, useremail_get):
-    entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free', confirmation='no', linktype="", linkurl=""
-                  )
+    w = gen_word()
+    userid = f"{w}{random.randint(1000,9999)}"
+    entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free', confirmation='no', linktype="", linkurl="", userid=userid, theme='default')
     db.session.add(entry)
     db.session.commit()
 
@@ -496,6 +499,7 @@ def link(username):
     linkurl = credentials.linkurl
     list_linktype = get_linktype(linktype)
     list_linkurl = get_linktype(linkurl)
+    theme = credentials.theme
 
     linkdic = {}
     for key in list_linktype:
@@ -503,7 +507,8 @@ def link(username):
             linkdic[key] = value
             list_linkurl.remove(value)
             break
-    return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
+    # return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
+    return render_template(f'{theme}.html', credentials=credentials, linkdic=linkdic)
 
 # api for linklerz.li
 @app.route(
