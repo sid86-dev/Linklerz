@@ -69,16 +69,19 @@ def encrypt(password):
     hash = hashlib.sha256(password.encode()).hexdigest()
     return hash
 
+
 @lru_cache(maxsize=5)
 def get_credentials(variable):
     credentials = Users.query.filter_by(username=variable).first()
 
     return credentials
 
+
 def entry(username_get, userpass_encrypt, useremail_get):
     w = gen_word()
     userid = f"{w}{random.randint(1000,9999)}"
-    entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free', confirmation='no', linktype="", linkurl="", userid=userid, theme='default')
+    entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free',
+                  confirmation='no', linktype="", linkurl="", userid=userid, theme='DEFAULT THEME')
     db.session.add(entry)
     db.session.commit()
 
@@ -87,9 +90,11 @@ def get_linktype(linktype):
     list_lintype = linktype.split(">")
     return list_lintype
 
+
 def gen_token(email):
     token = s.dumps(email, salt='email-confirm')
     return token
+
 
 def gen_word():
     letters = string.ascii_lowercase + string.ascii_uppercase
@@ -99,16 +104,22 @@ def gen_word():
         return rand_letters
 
 # index route
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 # error handler route
+
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
 
 # setting route
+
+
 @app.route('/settings/<string:username>')
 def settings(username):
     if ('user' in session and session['user'] == username):
@@ -189,6 +200,8 @@ def profile(username):
         return redirect('/login')
 
 # saving data
+
+
 @app.route('/save', methods=['GET', 'POST'])
 def save():
     if request.method == "POST":
@@ -226,6 +239,8 @@ def save():
             return redirect(f'/home/{username}')
 
 # delete route
+
+
 @app.route('/delete/<link_name>')
 def delete(link_name):
     username = session['user']
@@ -251,6 +266,8 @@ def delete(link_name):
     return redirect(f'/edit/{username}')
 
 # login route
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     authorization_url, state = flow.authorization_url()
@@ -269,8 +286,8 @@ def login():
             try:
                 if '@' in username_get:
                     credentials = Users.query.filter_by(
-                    email=username_get).first()
-                    password = credentials.password 
+                        email=username_get).first()
+                    password = credentials.password
                     if password == 'google_auth':
                         login_fail = "Please sign in using Google"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
@@ -283,7 +300,8 @@ def login():
                         return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
 
                 elif '@' not in username_get:
-                    credentials = Users.query.filter_by(username=username_get).first()
+                    credentials = Users.query.filter_by(
+                        username=username_get).first()
                     if credentials.password == userpass_encrypt:
                         # set the session variable
                         session['user'] = credentials.username
@@ -293,8 +311,9 @@ def login():
                         return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
             except:
                 login_fail = "Username and Password do not match"
-                return render_template('login.html', login_fail=login_fail, login_type=login_type,authorization_url=authorization_url)
+                return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
         return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+
 
 @app.route("/callback")
 def callback():
@@ -306,7 +325,8 @@ def callback():
     credentials = flow.credentials
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
-    token_request = google.auth.transport.requests.Request(session=cached_session)
+    token_request = google.auth.transport.requests.Request(
+        session=cached_session)
 
     id_info = id_token.verify_oauth2_token(
         id_token=credentials._id_token,
@@ -320,13 +340,15 @@ def callback():
         email = signup_with_google(id_info)
         return redirect(f'/datapolicy/{email}')
 
-@app.route('/datapolicy/<string:email>', methods=['GET','POST'])
+
+@app.route('/datapolicy/<string:email>', methods=['GET', 'POST'])
 def datapolicy(email):
     if request.method == "POST":
         return render_template('confirm.html', email_address=email)
     arg = ''
-    credentials = {'username':'Data Policy','email':email}
-    return render_template('google_policy.html', credentials=credentials,arg=arg)
+    credentials = {'username': 'Data Policy', 'email': email}
+    return render_template('google_policy.html', credentials=credentials, arg=arg)
+
 
 def login_with_google(info):
     email = info['email']
@@ -335,27 +357,32 @@ def login_with_google(info):
     session['user'] = username
     return username
 
+
 def signup_with_google(info):
     email = info['email']
     f_name = info['given_name']
     l_name = info['family_name']
 
-    num = random.randint(11,500)
+    num = random.randint(11, 500)
     username = f"{f_name[:4]}{l_name}{num}"
 
     token = gen_token(email)
     final_token = f"https://lerz.herokuapp.com/confirm/{token}"
     # entry to database
-    threading.Thread(target=entry, args=(username, "google_auth", email), name='thread_function').start()
+    threading.Thread(target=entry, args=(
+        username, "google_auth", email), name='thread_function').start()
 
     # send confirmation email
-    threading.Thread(target=send_email, args=(email, username, final_token), name='thread_function').start()
+    threading.Thread(target=send_email, args=(
+        email, username, final_token), name='thread_function').start()
     # add username session variable
     session['user'] = username
 
     return email
 
 # signup route
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     authorization_url, state = flow.authorization_url()
@@ -387,10 +414,12 @@ def signup():
                     token = gen_token(useremail_get)
                     final_token = f"https://lerz.herokuapp.com/confirm/{token}"
                     # entry to database
-                    threading.Thread(target=entry, args=(username_get, userpass_encrypt, useremail_get), name='thread_function').start()
+                    threading.Thread(target=entry, args=(
+                        username_get, userpass_encrypt, useremail_get), name='thread_function').start()
 
                     # send confirmation email
-                    threading.Thread(target=send_email, args=(useremail_get, username_get, final_token), name='thread_function').start()
+                    threading.Thread(target=send_email, args=(
+                        useremail_get, username_get, final_token), name='thread_function').start()
 
                     return render_template('confirm.html', email_address=useremail_get)
             else:
@@ -423,6 +452,8 @@ def confirm_email(token):
     return render_template('confirm_email.html', credentials=credentials)
 
 # delete account
+
+
 @app.route('/deletelog/<string:email>/<string:username>')
 def delete_account(email, username):
     if ('user' in session and session['user'] == username):
@@ -430,6 +461,7 @@ def delete_account(email, username):
         word = f"{username}{keyword}"
         # credentials = Users.query.filter_by(username=username).first()
         return render_template('delete.html', username=username, word=word, email=email)
+
 
 def delete_data(username):
     credentials = Users.query.filter_by(username=username).first()
@@ -439,6 +471,7 @@ def delete_data(username):
     db.session.commit()
     # return email
 
+
 @app.route('/deletecheck/<string:username>/<string:word>/<string:email>', methods=['GET', 'POST'])
 def delete_check(username, word, email):
     if request.method == "POST":
@@ -447,15 +480,19 @@ def delete_check(username, word, email):
             return redirect(f'/deletelog/{username}')
         else:
             # query to database
-            threading.Thread(target=delete_data, args=(username,), name='thread_function').start()
+            threading.Thread(target=delete_data, args=(
+                username,), name='thread_function').start()
 
             # send delete email
-            threading.Thread(target=delete_email, args=(email, username,), name='thread_function').start()
+            threading.Thread(target=delete_email, args=(
+                email, username,), name='thread_function').start()
 
             return redirect('/logout')
     return redirect('/login')
 
 # Logging out
+
+
 @app.route('/logout')
 def logout():
     try:
@@ -474,12 +511,13 @@ def admin():
         password = request.form.get('password')
         if username == params['admin_username'] and password == params['admin_password']:
             session['admin_user'] = params['admin_username']
-            return redirect('/admin_dashboard')            
+            return redirect('/admin_dashboard')
         login_fail = "Username and Password do not match"
     try:
         return render_template('login.html', login_fail=login_fail, login_type=login_type)
     except:
         return render_template('404.html')
+
 
 @app.route('/admin_dashboard')
 def admin_dashboard():
@@ -491,6 +529,8 @@ def admin_dashboard():
         return redirect('/admin')
 
 # render links
+
+
 @app.route(
     '/li.<string:username>')
 def link(username):
@@ -510,6 +550,7 @@ def link(username):
     # return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
     return render_template(f'{params[credentials.theme]}.html', credentials=credentials, linkdic=linkdic)
 
+
 @app.route('/appearance/<string:username>', methods=['GET', 'POST'])
 def appearance(username):
     if ('user' in session and session['user'] == username):
@@ -525,6 +566,8 @@ def appearance(username):
         return redirect('/login')
 
 # api for linklerz.li
+
+
 @app.route(
     '/api/<string:username>')
 def api(username):
@@ -534,7 +577,7 @@ def api(username):
         linkurl = credentials.linkurl
         list_linktype = get_linktype(linktype)
         list_linkurl = get_linktype(linkurl)
-    
+
         linkdic = {}
         for key in list_linktype:
             for value in list_linkurl:
@@ -546,20 +589,23 @@ def api(username):
     except:
         return jsonify(username='Does not exist')
 
+
 @app.route('/community')
 def community():
     return render_template('community_select.html')
 
-@app.route('/recovery', methods=['GET','POST'])
+
+@app.route('/recovery', methods=['GET', 'POST'])
 def recovery():
-    fixed_credentials = {'username':'Help Center'}
+    fixed_credentials = {'username': 'Help Center'}
     arg = ''
     if request.method == 'POST':
         recoveryinput = request.form.get('recoveryinput')
         print(recoveryinput)
         try:
             if '@' in recoveryinput:
-                credentials = Users.query.filter_by(email=recoveryinput).first()
+                credentials = Users.query.filter_by(
+                    email=recoveryinput).first()
                 email = credentials.email
                 username = credentials.username
             else:
