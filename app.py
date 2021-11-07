@@ -315,7 +315,15 @@ def callback():
         return redirect(f'/home/{username}')
     except:
         email = signup_with_google(id_info)
+        return redirect(f'/datapolicy/{email}')
+
+@app.route('/datapolicy/<string:email>', methods=['GET','POST'])
+def datapolicy(email):
+    if request.method == "POST":
         return render_template('confirm.html', email_address=email)
+    arg = ''
+    credentials = {'username':'Data Policy','email':email}
+    return render_template('google_policy.html', credentials=credentials,arg=arg)
 
 def login_with_google(info):
     email = info['email']
@@ -545,8 +553,8 @@ def recovery():
     return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
 
 
-if __name__ == "__main__":
-    app.run(host="0.0.0.0")
-
 # if __name__ == "__main__":
-#     app.run(debug=True)
+    # app.run(host="0.0.0.0")
+
+if __name__ == "__main__":
+    app.run(debug=True)
