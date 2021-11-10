@@ -32,9 +32,9 @@ with open('config.json', 'r') as f:
     params = json.load(f)["params"]
 
 # app variables
-# os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
-# clever cloud db uri
+# cloud db uri
 URI = params['database_uri_2']
 
 e = create_engine(
