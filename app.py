@@ -35,7 +35,7 @@ with open('config.json', 'r') as f:
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 
 # cloud db uri
-URI = params['database_uri_2']
+URI = params['database_uri_1']
 
 e = create_engine(
     URI, pool_recycle=1800)
