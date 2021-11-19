@@ -65,22 +65,23 @@
             /* position: relative; */
             box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
         }
-        
+
         .box:active {
             transform: scale(0.98);
             /* Scaling button to 0.98 to its original size */
             box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
             /* Lowering the shadow */
         }
-        
+
         .vertical {
             writing-mode: vertical-rl;
             text-orientation: mixed;
             font-family: Poppins-Regular, sans-serif;
             padding-top: 5px;
         }
+
         /* The snackbar - position it at the bottom and in the middle of the screen */
-        
+
         #snackbar {
             visibility: hidden;
             /* Hidden by default. Visible on click */
@@ -108,8 +109,9 @@
             /* 30px from the bottom */
             font-family: Montserrat-SemiBold;
         }
+
         /* Show the snackbar when clicking on a button (class added with JavaScript) */
-        
+
         #snackbar.show {
             visibility: visible;
             /* Show the snackbar */
@@ -118,50 +120,59 @@
             -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
             animation: fadein 0.5s, fadeout 0.5s 2.5s;
         }
+
         /* Animations to fade the snackbar in and out */
-        
+
         @-webkit-keyframes fadein {
             from {
                 bottom: 0;
                 opacity: 0;
             }
+
             to {
                 bottom: 30px;
                 opacity: 1;
             }
         }
-        
+
         @keyframes fadein {
             from {
                 bottom: 0;
                 opacity: 0;
             }
+
             to {
                 bottom: 30px;
                 opacity: 1;
             }
         }
-        
+
         @-webkit-keyframes fadeout {
             from {
                 bottom: 30px;
                 opacity: 1;
             }
+
             to {
                 bottom: 0;
                 opacity: 0;
             }
         }
-        
+
         @keyframes fadeout {
             from {
                 bottom: 30px;
                 opacity: 1;
             }
+
             to {
                 bottom: 0;
                 opacity: 0;
             }
+        }
+
+        h4 {
+            padding-top: 15px;
         }
     </style>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -173,14 +184,16 @@
         <div class="wrap-contact100" style="padding-bottom: 0px;padding-top: 20px;">
             <div class="float-right">
                 <a onclick="goBack()" style="cursor: pointer;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor"
+                        class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
                         <path fill-rule="evenodd"
                             d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
                     </svg>
                 </a>
             </div>
 
-            <span class="contact100-form-title" style="padding: 20px; font-family: Montserrat-SemiBold;font-size: x-large;">
+            <span class="contact100-form-title"
+                style="padding: 20px; font-family: Montserrat-SemiBold;font-size: x-large;">
                 {{username}}
                 {% if plan == "premium" %}
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
@@ -204,36 +217,38 @@
                             <div id="snackbar">link is copied to clipboard</div>
                         </div>
                         <!-- <div class="outer"> -->
-                        <button class="box mt-2">
-                            <a href="/login">
+                        <a class="box mt-2" href="/login">
+                            <button>
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Home</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="/appearance/{{username}}">
+                            </button>
+                        </a>
+
+                        <a class="box mt-4" href="/appearance/{{username}}">
+                            <button>
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Appearance</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="/profile/{{username}}">
+                            </button>
+                        </a>
+
+                        <a class="box mt-4" href="/profile/{{username}}">
+                            <button>
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Edit Profile</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="">
+                            </button>
+                        </a>
+                        <a href="" class="box mt-4">
+                            <button>
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Plans</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a href="">
+                            </button>
+                        </a>
+                        <a href="" class="box mt-4">
+                            <button>
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Help</h4>
-                            </a>
-                        </button>
-                        <button class="box mt-4">
-                            <a onclick="confirmbox()">
+                            </button>
+                        </a>
+                        <a class="box mt-4" onclick="confirmbox()">
+                            <button>
                                 <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">Logout</h4>
-                            </a>
-                        </button>
+                            </button>
+                        </a>
                         <!-- </div> -->
                     </div>
                 </div>
@@ -267,7 +282,7 @@
                     }
                 </script>
                 <script>
-                    function confirmbox(){
+                    function confirmbox() {
                         Swal.fire({
                             title: 'Do you want to logout?',
                             text: "you may need to login again",
@@ -275,16 +290,16 @@
                             confirmButtonColor: '#2EE59D',
                             cancelButtonColor: '#d33',
                             confirmButtonText: 'Yes'
-                          }).then((result) => {
+                        }).then((result) => {
                             if (result.isConfirmed) {
-                              Swal.fire(
-                                'Logged out!',
-                                'Your have been logged out',
-                                'success'
-                              )
-                              window.location.replace("/logout");
+                                Swal.fire(
+                                    'Logged out!',
+                                    'Your have been logged out',
+                                    'success'
+                                )
+                                window.location.replace("/logout");
                             }
-                          })
+                        })
                     }
                 </script>
                 <style>
