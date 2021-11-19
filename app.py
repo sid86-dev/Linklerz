@@ -280,8 +280,10 @@ def login():
         login_fail = ""
         login_type = "Member"
         if request.method == 'POST':
-            username_get = request.form.get('username').lower()
-            userpass_get = request.form.get('password').lower()
+            username_get = request.form.get('username')
+            # if '.com' in username_get:
+                # username_get = username_get.lower()
+            userpass_get = request.form.get('password')
             userpass_encrypt = encrypt(userpass_get)
             try:
                 if '@' in username_get:
@@ -390,9 +392,11 @@ def signup():
     user_exist = "NO"
     if request.method == 'POST':
         useremail_get = request.form.get('email').lower()
-        username_get = request.form.get('username').lower()
-        userpass_get = request.form.get('password').lower()
-        confirmpass_get = request.form.get('password_confirm').lower()
+        userpass_get = request.form.get('password')
+        confirmpass_get = request.form.get('password_confirm')
+        full_name = request.form.get('username')
+        num = random.randint(11, 500)
+        username_get = f"{full_name[:4]}{full_name[-3:]}{num}"
         try:
             credentials = Users.query.filter_by(username=username_get).first()
             username = credentials.username

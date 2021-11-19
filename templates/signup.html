@@ -213,10 +213,10 @@
         {% if user_exist == "YES" %}
         <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Username already exist</h3>
         {% endif %}
-        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Email (e@a.x)">
-            <span class="label-input100 float-left">Username *</span>
+        <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Full Name (e@Sid)">
+            <span class="label-input100 float-left">Fullname *</span>
             <input class="input100" type="text" value="{{
-                request.form.username }}" name="username" placeholder="linklerz.xyz.li/your username" required>
+                request.form.username }}" name="username" placeholder="Enter your full name" required>
         </div>
         {% if match == "NO" %}
         <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Password do not match</h3>
