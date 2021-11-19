@@ -280,7 +280,7 @@ def login():
         login_fail = ""
         login_type = "Member"
         if request.method == 'POST':
-            username_get = request.form.get('username')
+            username_get = request.form.get('username').lower()
             # if '.com' in username_get:
                 # username_get = username_get.lower()
             userpass_get = request.form.get('password')
@@ -361,9 +361,9 @@ def login_with_google(info):
 
 
 def signup_with_google(info):
-    email = info['email']
-    f_name = info['given_name']
-    l_name = info['family_name']
+    email = info['email'].lower()
+    f_name = info['given_name'].lower()
+    l_name = info['family_name'].lower()
 
     num = random.randint(11, 500)
     username = f"{f_name[:4]}{l_name}{num}"
@@ -394,7 +394,7 @@ def signup():
         useremail_get = request.form.get('email').lower()
         userpass_get = request.form.get('password')
         confirmpass_get = request.form.get('password_confirm')
-        full_name = request.form.get('username')
+        full_name = request.form.get('username').lower()
         num = random.randint(11, 500)
         username_get = f"{full_name[:4]}{full_name[-3:]}{num}"
         try:
@@ -569,9 +569,18 @@ def appearance(username):
     else:
         return redirect('/login')
 
+
+# @app.route('/bug')
+# def bug():
+#     credentials = Users.query.filter_by(username='sid86_').first()
+#     password = encrypt(password='Siddharth8604')
+#     credentials.password = password
+#     db.session.commit()
+#     return 'Done'
+
+
+
 # api for linklerz.li
-
-
 @app.route(
     '/api/<string:username>')
 def api(username):

@@ -221,11 +221,11 @@
                         <!-- {% if user_exist == "YES" %}
         <h3 class="mb-2" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">Username already exist</h3>
         {% endif %} -->
-        <div class="text-center pb-3">
-            <a class="txt2" href="#" style="color: red;">
-                {{error}}
-            </a>
-        </div>
+                        <div class="text-center pb-3">
+                            <a class="txt2" href="#" style="color: red;">
+                                {{error}}
+                            </a>
+                        </div>
                         <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4"
                             data-validate="Your Username (e@a.x)">
                             <span class="label-input100 float-left">Username *</span>
@@ -239,50 +239,19 @@
                             <input class="input100" type="text" name="username" value="{{credentials.email}}" required
                                 disabled>
                         </div>
+                        <button class="box mt-3 mb-3">
+                            <a href="/profile">
+                                <h5 class="mb-2" style="font-family: Montserrat-SemiBold; ">{{credentials.plan}}
+                                </h5>
+                            </a>
+                        </button>
+                        <button class="box mt-3 mb-3">
+                            <a onclick="goBack()">
+                                <h6 class="mb-2" style="font-family: Montserrat-SemiBold; ">{{credentials.theme}}
+                                </h6>
+                            </a>
+                        </button>
 
-                        <!--<div class="wrap-input100 bg1 rs1-wrap-input100 inner mb-4">
-            <span class="label-input100 float-left">Plan *</span>
-            <input class="input100" type="text" name="password" placeholder="" required>
-        </div>
-
-        <div class="wrap-input100 bg1 rs1-wrap-input100 inner mb-4">
-            <span class="label-input100 float-left">Retype Password *</span>
-            <input class="input100" type="password" name="password_confirm" placeholder="Confirm your Password" required>
-        </div> -->
-                        <!-- <div class="w-full dis-none js-show-service"> -->
-                        <div class="wrap-contact100-form-radio">
-                            <span class="label-input100">Select Linklerz Your Theme</span>
-
-                            <div class="contact100-form-radio m-t-15">
-                                <input class="input-radio100" id="radio1" type="radio" name="theme" value="default"
-                                    checked="checked">
-                                <label class="label-radio100" for="radio1">
-                                    Default
-                                </label>
-                            </div>
-
-                            <div class="contact100-form-radio">
-                                <input class="input-radio100" id="radio2" type="radio" name="theme" value="eco">
-                                <label class="label-radio100" for="radio2">
-                                    Eco
-                                </label>
-                            </div>
-
-                            <div class="contact100-form-radio">
-                                <input class="input-radio100" id="radio3" type="radio" name="theme" value="gradient">
-                                <label class="label-radio100" for="radio3">
-                                    Gradient™
-                                </label>
-                            </div>
-                            <button class="box mt-3 mb-3">
-                                <a href="/profile">
-                                    <h4 class="mb-2" style="font-family: Montserrat-SemiBold; ">{{credentials.plan}}
-                                    </h4>
-                                </a>
-                            </button>
-
-                        </div>
-                        <!-- </div> -->
                     </div>
 
                     <div class=" outer">
