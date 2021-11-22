@@ -1,10 +1,12 @@
 # flask modules
 from os import abort
 import re
-from flask import Flask, render_template, session, request, redirect, jsonify
+from flask import Flask, render_template, session, request, redirect, jsonify,url_for
 from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import URLSafeTimedSerializer
 from sqlalchemy import create_engine
+from authlib.integrations.flask_client import OAuth
+
 
 # python tool modules
 from functools import lru_cache
@@ -26,7 +28,7 @@ from mail.delete_mailer import delete_email
 from mail.mailer import send_email
 from api.api import api_conv
 from google_auth import*
-
+# from facebook_auth import*
 
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]
@@ -44,8 +46,11 @@ app = Flask(__name__)
 app.secret_key = params['app_key']
 app.config['SQLALCHEMY_DATABASE_URI'] = URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+oauth = OAuth(app)
 
 db = SQLAlchemy(app)
+app.config['SERVER_NAME'] = 'localhost:5000'
+
 
 s = URLSafeTimedSerializer('Linklerz.li')
 
@@ -316,6 +321,68 @@ def login():
                 return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
         return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
 
+# facebook auth
+@app.route('/facebook/')
+def facebook():
+
+	# Facebook Oauth Config
+	FACEBOOK_CLIENT_ID = params['facebook_client_id']
+	FACEBOOK_CLIENT_SECRET = params['facebook_client_secret']
+	oauth.register(
+		name='facebook',
+		client_id=FACEBOOK_CLIENT_ID,
+		client_secret=FACEBOOK_CLIENT_SECRET,
+		access_token_url='https://graph.facebook.com/oauth/access_token',
+		access_token_params=None,
+		authorize_url='https://www.facebook.com/dialog/oauth',
+		authorize_params=None,
+		api_base_url='https://graph.facebook.com/',
+		client_kwargs={'scope': 'email'},
+	)
+	redirect_uri = url_for('facebook_auth', _external=True)
+	return oauth.facebook.authorize_redirect(redirect_uri)
+
+
+def login_with_facebook(email):
+    credentials = Users.query.filter_by(email=email).first()
+    username = credentials.username
+    session['user'] = username
+    return username
+
+def signup_with_facebook(email,name):
+    num = random.randint(11, 500)
+    username = f"{name[:4]}{name[-3:-1]}{num}"
+
+    token = gen_token(email)
+    final_token = f"https://lerz.herokuapp.com/confirm/{token}"
+
+    # entry to database
+    threading.Thread(target=entry, args=(
+        username, "facebook_auth", email), name='thread_function').start()
+
+    # send confirmation email
+    threading.Thread(target=send_email, args=(
+        email, username, final_token), name='thread_function').start()
+
+    session['user'] = username
+
+
+@app.route('/facebook/auth/')
+def facebook_auth():
+    token = oauth.facebook.authorize_access_token()
+    resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+    profile = resp.json()
+    email = profile['email']
+    name = profile['name'] 
+
+    try:
+        username = login_with_facebook(email)
+        return redirect(f'/home/{username}')
+
+    except:
+        signup_with_facebook(email, name)
+        return redirect(f'/datapolicy/{email}')
+
 
 @app.route("/callback")
 def callback():
@@ -349,7 +416,7 @@ def datapolicy(email):
         return render_template('confirm.html', email_address=email)
     arg = ''
     credentials = {'username': 'Data Policy', 'email': email}
-    return render_template('google_policy.html', credentials=credentials, arg=arg)
+    return render_template('data_policy.html', credentials=credentials, arg=arg)
 
 
 def login_with_google(info):

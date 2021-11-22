@@ -39,7 +39,7 @@
         <h3 class="mb-2 inner" style="font-family: Montserrat-SemiBold; font-size: small; color: rgb(57, 197, 38);">Successfully Verified, please check your email</h3>
     <meta http-equiv="refresh" content="2;url=/login" />
 {% endif %}
-<form action="/datapolicy/{{credentials.email}}" method="post">
+<form action="/datapolicy/{{credentials['email']}}" method="post">
     
     <p class="contact100-form-title inner" style="padding: 25px; font-family: Montserrat-SemiBold;font-size: medium;"><input style="width: 17px; height:17px; margin-right:5px;" type="checkbox" value="yes" id="accept" name="accept" required>
         I hereby read and accept the above policy of Linklerz
