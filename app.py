@@ -49,7 +49,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 oauth = OAuth(app)
 
 db = SQLAlchemy(app)
-app.config['SERVER_NAME'] = 'localhost:5000'
+# app.config['SERVER_NAME'] = 'localhost:5000'
 
 
 s = URLSafeTimedSerializer('Linklerz.li')
