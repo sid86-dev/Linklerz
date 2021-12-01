@@ -1,4 +1,6 @@
-from app import settings
+from app.modules import*
+from app.db import*
+from app.builder import*
 
 def login_with_facebook(email):
     credentials = Users.query.filter_by(email=email).first()

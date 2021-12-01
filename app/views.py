@@ -1,9 +1,10 @@
 from app import app
-from app import settings
-from app import db
+from app.modules import*
+from app.db import*
+
 # auth
-from auth import facebook
-from auth import google
+from auth.facebook import*
+from auth.google import*
 
 # index route
 @app.route('/')

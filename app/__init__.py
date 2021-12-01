@@ -1,8 +1,8 @@
-from app import settings
+from app.modules import*
 
 app = Flask(__name__)
 
-from app import views
-from app import config
-from app import db
-from app import builder
+from app.settings import*
+from app.db import*
+from app.builder import*
+from app.views import*

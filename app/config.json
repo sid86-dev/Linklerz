@@ -1,0 +1,26 @@
+{
+    "params": {
+        "email": "linklerz.li@gmail.com",
+        "admin_username": "sid86_",
+        "admin_password": "Siddharth8604",
+        "password": "linklerz2021",
+        "database_uri_1": "mysql://ujigrbdynqpm6opc:AIK3lXlm26VwmGpUF8TO@bohavmu1apu495z0c20m-mysql.services.clever-cloud.com:3306/bohavmu1apu495z0c20m",
+        "database_uri_2": "mysql://sql5450035:ChEECPVERG@sql5.freesqldatabase.com:3306/sql5450035",
+        "app_key": "b95hS2YkaGGjIQSeFl9Ez58O0WAobjyY",
+        "client_id": "983066542456-1gsapcu2uta11718lp1l6j9c7f5pnf5k.apps.googleusercontent.com",
+        "redirect_uris": [
+            "http://127.0.0.1:5000/login",
+            "http://127.0.0.1:5000/callback"
+        ],
+        "twitter_consumer_api_key":"vZ73VQNoUD2bDu8GdgB83XcHT",
+        "twitter_consumer_secret_key":"jcxYiM81j0UZqpVuSt7NuqVcPPxHuom07WkBTeSqIaSHkVzCtz",
+        "twitter_access_token":"1245293113041539074-VtZktCJgxDRifHIy5GPrVqfdXwKDTb",
+        "twitter_access_token_secret":"102A5NwyKEeySSFwVjLZKGGGyhtc7sLjq2Nrwldu2pKst",
+        "facebook_client_id":"315825553338166",
+        "facebook_client_secret":"db71aabfc42b6feac0d76df2c65ccda3",
+        "MELLO X THROTTLERZ":"theme1",
+        "DARK THEME":"theme2",
+        "CHROMA":"theme3",
+        "DEFAULT THEME":"theme0"
+    }
+}
