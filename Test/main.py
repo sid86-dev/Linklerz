@@ -50,7 +50,7 @@ def google():
 	redirect_uri = url_for('google_auth', _external=True)
 	return oauth.google.authorize_redirect(redirect_uri)
 
-@app.route('/google/auth/')
+@app.route('/google/Auth/')
 def google_auth():
 	token = oauth.google.authorize_access_token()
 	user = oauth.google.parse_id_token(token)
@@ -79,7 +79,7 @@ def twitter():
 	redirect_uri = url_for('twitter_auth', _external=True)
 	return oauth.twitter.authorize_redirect(redirect_uri)
 
-@app.route('/twitter/auth/')
+@app.route('/twitter/Auth/')
 def twitter_auth():
 	token = oauth.twitter.authorize_access_token()
 	resp = oauth.twitter.get('account/verify_credentials.json')
@@ -107,7 +107,7 @@ def facebook():
 	redirect_uri = url_for('facebook_auth', _external=True)
 	return oauth.facebook.authorize_redirect(redirect_uri)
 
-@app.route('/facebook/auth/')
+@app.route('/facebook/Auth/')
 def facebook_auth():
 	token = oauth.facebook.authorize_access_token()
 	resp = oauth.facebook.get(

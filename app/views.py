@@ -2,9 +2,9 @@ from app import app
 from app.modules import*
 from app.db import*
 
-# auth
-from auth.facebook import*
-from auth.google import*
+# Auth
+from Auth.facebook import*
+from Auth.google import*
 
 # index route
 @app.route('/')
@@ -215,7 +215,7 @@ def login():
                 return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
         return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
 
-# facebook auth
+# facebook Auth
 @app.route('/facebook/')
 def facebook():
 
@@ -238,7 +238,7 @@ def facebook():
 
 
 
-@app.route('/facebook/auth/')
+@app.route('/facebook/Auth/')
 def facebook_auth():
     token = oauth.facebook.authorize_access_token()
     resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')

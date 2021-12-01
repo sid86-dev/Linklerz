@@ -2,7 +2,7 @@ import smtplib
 from email.message import EmailMessage
 from string import Template
 import emoji
-from mail.credentials import EMAIL_ADDRESS, EMAIL_PASSWORD
+from mailer.credentials import EMAIL_ADDRESS, EMAIL_PASSWORD
 
 
 def delete_email(to, username):

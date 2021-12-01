@@ -25,8 +25,8 @@ import google.auth.transport.requests
 from google_auth_oauthlib.flow import Flow
 
 # local modules
-from mail.delete_mailer import delete_email
-from mail.mailer import send_email
+from mailer.delete_mailer import delete_email
+from mailer.mailer import send_email
 from api.api import api_conv
 # from facebook_auth import*
 import os
