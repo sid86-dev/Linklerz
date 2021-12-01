@@ -1,0 +1,99 @@
+{% extends 'home_base.html' %} {% block content %}
+
+<style>
+    .inner {
+        display: table;
+        margin: 0 auto;
+        /* border: 1px solid black; */
+    }
+    
+    .outer {
+        /* border: 1px solid red; */
+        width: 100%
+    }
+</style>
+
+<form action="/save" method="POST">
+    <input type="text" value="{{username}}" name=username style="display: none;">
+    <div class="outer">
+        {% for item in linkdic %} {% if item != "" %}
+
+        <div class="wrap-input100 bg1 rs1-wrap-input100 mb-4 inner ">
+            <span class="label-input100 ">{{item}}</span>
+            <input type="text" name="{{item}}type" style="display: none;" value="{{item}}" placeholder="{{item}}">
+            <input class="input100 " type="text" name="{{item}}" value="{{linkdic[item]}}" placeholder="{{linkdic[item]}}" required>
+            <a style="cursor: pointer;" href="/delete/{{item}}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash float-right" style="color: red;" viewBox="0 0 16 16">
+                    <path
+                        d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                    <path fill-rule="evenodd"
+                        d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                </svg>
+            </a>
+            </input>
+        </div>
+
+        {% endif %} {% endfor %}
+    </div>
+
+    {% if num != 0 %}
+    <br>
+    <div class="wrap-input100 input100-select bg1 ">
+        <span class="label-input100 ">LINK TITLE *</span>
+        <div>
+            <select class="js-select2 " name="new_linktype">
+                <option value="">Please chooses</option>
+                <option value="Instagram">Instagram</option>
+                <option value="Sponsor">Sponsor</option>
+                <option value="Tiktok">Tiktok</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Youtube">Youtube</option>
+                <option value="Telegram">Telegram</option>
+                <option value="Snapchat">Snapchat</option>
+                <option value="Pinterest">Pinterest</option>
+                <option value="Line">Line</option>
+                <option value="Tumblr">Tumblr</option>
+                <option value="Spotify">Spotify</option>
+                <option value="Store">Store</option>
+                <option value="Discord">Discord</option>
+                <option value="WeChat">WeChat</option>
+                <option value="Portfolio">Portfolio</option>
+                <option value="Shop">Shop</option>
+                <option value="Twitch">Twitch</option>
+                <option value="Ebay">Ebay</option>
+                <option value="Linkedln">Linkedln</option>
+                <option value="Whatsapp">Whatsapp</option>
+                <option value="Reddit">Reddit</option>
+                <option value="Github">Github</option>
+                <option value="Online Store">Online Store</option>
+                <option value="Twitter">Twitter</option>
+                <option value="Website">Website</option>
+                <!-- <option>Telegram</option> -->
+                <!-- <option>Telegram</option> -->
+            </select>
+            <div class="dropDownSelect2 "></div>
+        </div>
+    </div>
+
+    <div class="w-full dis-none js-show-service ">
+        <div class="wrap-input100 validate-input bg1 " data-validate="Please Type Your Name ">
+            <span class="label-input100 ">NEW LINK *</span>
+            <input class="input100 " type="text " name="new_linkurl" placeholder="Paste link here">
+        </div>
+
+    </div>
+
+    <br> {% endif %} {% if num == 0 %}
+    <p class="fs-20 inner" style="font-family: Poppins-Regular, sans-serif; ">Upgrade to pro for more links</p>
+    {% endif %}
+    <div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
+        <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
+            Save
+        </button>
+    </div>
+</form>
+
+</div>
+</div>
+
+{% endblock %}

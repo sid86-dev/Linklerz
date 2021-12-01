@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Linklerz™ | {{username}}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta http-equiv="refresh" content="8;url=/login" /> -->
+    <!-- favicons -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/static/favicon/apple-touch-icon-57x57.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/favicon/apple-touch-icon-114x114.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/favicon/apple-touch-icon-72x72.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/static/favicon/apple-touch-icon-144x144.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/static/favicon/apple-touch-icon-60x60.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/static/favicon/apple-touch-icon-120x120.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/static/favicon/apple-touch-icon-76x76.png" />
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/static/favicon/apple-touch-icon-152x152.png" />
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-196x196.png" sizes="196x196" />
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-16x16.png" sizes="16x16" />
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-128.png" sizes="128x128" />
+    <meta name="application-name" content="&nbsp;" />
+    <meta name="msapplication-TileColor" content="#FFFFFF" />
+    <meta name="msapplication-TileImage" content="/static/favicon/mstile-144x144.png" />
+    <meta name="msapplication-square70x70logo" content="/static/favicon/mstile-70x70.png" />
+    <meta name="msapplication-square150x150logo" content="/static/favicon/mstile-150x150.png" />
+    <meta name="msapplication-wide310x150logo" content="/static/favicon/mstile-310x150.png" />
+    <meta name="msapplication-square310x310logo" content="/static/favicon/mstile-310x310.png" />
+
+    <!-- end -->
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/animate/animate.css">
+    <!--=========================================/static/======_home================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/css-hamburgers/hamburgers.min.css">
+    <!--=========================================/static/======_home================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/animsition/css/animsition.min.css">
+    <!--=========================================/static/======_home================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/select2/select2.min.css">
+    <!--=========================================/static/======_home================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/daterangepicker/daterangepicker.css">
+    <!--=========================================/static/======_home================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/vendor_home/noui/nouislider.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/static/css_home/util.css">
+    <link rel="stylesheet" type="text/css" href="/static/css_home/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/field.css">
+    <link rel="stylesheet" type="text/css" href="/static/css/button.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
+    <!--===============================================================================================-->
+    <script>
+        function startTimer(duration, display) {
+            var timer = duration,
+                minutes, seconds;
+            setInterval(function() {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.textContent = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    timer = duration;
+                }
+            }, 1000);
+        }
+
+        window.onload = function() {
+            var fiveMinutes = 7,
+                display = document.querySelector('#time');
+            startTimer(fiveMinutes, display);
+        };
+    </script>
+    <style>
+        .box {
+            width: 85%;
+            height: 60px;
+            border: 2px solid black;
+            margin: auto;
+            /* position: relative; */
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        }
+        
+        .box:active {
+            transform: scale(0.98);
+            /* Scaling button to 0.98 to its original size */
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+        
+        .vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: Poppins-Regular, sans-serif;
+            padding-top: 5px;
+        }
+        /* The snackbar - position it at the bottom and in the middle of the screen */
+        
+        #snackbar {
+            visibility: hidden;
+            /* Hidden by default. Visible on click */
+            min-width: 250px;
+            /* Set a default minimum width */
+            margin-left: -125px;
+            /* Divide value of min-width by 2 */
+            background-color: #333;
+            /* Black background color */
+            color: #fff;
+            /* White text color */
+            text-align: center;
+            /* Centered text */
+            border-radius: 2px;
+            /* Rounded borders */
+            padding: 16px;
+            /* Padding */
+            position: fixed;
+            /* Sit on top of the screen */
+            z-index: 1;
+            /* Add a z-index if needed */
+            left: 50%;
+            /* Center the snackbar */
+            bottom: 30px;
+            /* 30px from the bottom */
+            font-family: Montserrat-SemiBold;
+        }
+        /* Show the snackbar when clicking on a button (class added with JavaScript) */
+        
+        #snackbar.show {
+            visibility: visible;
+            /* Show the snackbar */
+            /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+        /* Animations to fade the snackbar in and out */
+        
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+        
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+        
+        .input::placeholder {
+            font-size: small;
+        }
+    </style>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</head>
+
+<body style="font-family: Montserrat-SemiBold">
+
+    <div class="container-contact100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
+
+        <div class="wrap-contact100" style="padding-bottom: 0px;padding-top: 20px;">
+            <div class="float-right">
+                <a onclick="goBack()" style="cursor: pointer;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="27" height="27" fill="currentColor" class="bi bi-arrow-90deg-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd"
+                            d="M1.146 4.854a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 4H12.5A2.5 2.5 0 0 1 15 6.5v8a.5.5 0 0 1-1 0v-8A1.5 1.5 0 0 0 12.5 5H2.707l3.147 3.146a.5.5 0 1 1-.708.708l-4-4z" />
+                    </svg>
+                </a>
+
+            </div>
+            <div class="outer">
+                <!-- <img src="/static/img/email.png" alt="" class="inner mt-5"> -->
+                <p class="contact100-form-title inner" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: large;">
+                    Type the words for verification
+                </p>
+                <form action="/deletecheck/{{username}}/{{word}}/{{email}}" method="POST">
+                    <input name="confirmtext" readonly disabled class="inner py-2 text-center mb-5" value="{{word}}" placeholder="{{word}}" style="border: 2px solid black; font-size: x-large;width: 85%;" />
+                    <input name="inputtext" class="inner py-2 text-center input" id="input" style="border: 2px solid black; font-size: x-large; width: 85%"></input>
+
+                    <a class=" inner box text-center pt-2 mt-5 " target="_blank " style="font-size: large; font-family: Montserrat-SemiBold; background-color: rgb(223, 30, 30); ">
+                        <button style="color: white; " type="submit">
+                        Delete Account
+                    </button>
+                    </a>
+                </form>
+            </div>
+            <span class="contact100-form-title " style="font-size: large; padding-bottom: 20px; ">
+
+                <h3 class="mb-4 mt-5 " style="font-family: Montserrat-SemiBold; font-size: small; ">Deleting your account will result in loss of all your data which cannot be retreived in the future</h3>
+            
+
+    <style>
+        .inner {
+            display: table;
+            margin: 0 auto;
+            /* border: 1px solid black; */
+        }
+        
+        .outer {
+            /* border: 1px solid red; */
+            width: 100%
+        }
+    </style>
+
+    </div>
+    </div>
+
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/jquery/jquery-3.2.1.min.js "></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/animsition/js/animsition.min.js "></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/bootstrap/js/popper.js "></script>
+    <script src="/static/vendor_home/bootstrap/js/bootstrap.min.js "></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/select2/select2.min.js "></script>
+    <script>
+        $(".js-select2 ").each(function() {
+            $(this).select2({
+                minimumResultsForSearch: 20,
+                dropdownParent: $(this).next('.dropDownSelect2')
+            });
+
+
+            $(".js-select2 ").each(function() {
+                $(this).on('select2:close', function(e) {
+                    if ($(this).val() == "Please chooses ") {
+                        $('.js-show-service').slideUp();
+                    } else {
+                        $('.js-show-service').slideUp();
+                        $('.js-show-service').slideDown();
+                    }
+                });
+            });
+        })
+    </script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/daterangepicker/moment.min.js "></script>
+    <script src="/static/vendor_home/daterangepicker/daterangepicker.js "></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/countdowntime/countdowntime.js "></script>
+    <!--===============================================================================================-->
+    <script src="/static/vendor_home/noui/nouislider.min.js "></script>
+    <script>
+        var filterBar = document.getElementById('filter-bar');
+
+        noUiSlider.create(filterBar, {
+            start: [1500, 3900],
+            connect: true,
+            range: {
+                'min': 1500,
+                'max': 7500
+            }
+        });
+
+        var skipValues = [
+            document.getElementById('value-lower'),
+            document.getElementById('value-upper')
+        ];
+
+        filterBar.noUiSlider.on('update', function(values, handle) {
+            skipValues[handle].innerHTML = Math.round(values[handle]);
+            $('.contact100-form-range-value input[name="from-value "]').val($('#value-lower').html());
+            $('.contact100-form-range-value input[name="to-value "]').val($('#value-upper').html());
+        });
+    </script>
+    <!--===============================================================================================-->
+    <script src="/static/js/main.js "></script>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13 "></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+
+</body>
+
+</html>
+<!--===============================================================================================-->
+<script src="/static/js/main.js "></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13 "></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+    gtag('js', new Date());
+
+    gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+
+</html>

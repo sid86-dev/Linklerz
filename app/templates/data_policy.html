@@ -1,0 +1,71 @@
+{% extends 'home_base.html' %} {% block content %}
+
+<style>
+    .inner {
+        display: table;
+        margin: 0 auto;
+        /* border: 1px solid black; */
+    }
+
+    .outer {
+        /* border: 1px solid red; */
+        width: 100%
+    }
+</style>
+
+
+    <!-- <div class="wrap-input100 validate-input bg1 " data-validate="Please Type Your Userame or Email "> -->
+        <span class="label-input100 ">Read this Carefully *</span>
+        <span class="input100 mt-2" style="font-size: small;" type="text">
+        When you sign up for or use Linklerz, you give us certain
+        information voluntarily. This includes your name, email address, profile photo and any other
+        information you give us. If you buy something on Linklerz, we
+        collect payment information, contact information (address and
+        phone number) and details of what you bought.<br></span>
+        <span class="input100 mt-3" style="font-size: small;" type="text">
+        If you link your Facebook or Google account or accounts from
+        other third party services to Linklerz, we also get information
+        from those accounts (such as your friends or contacts). The
+        information we get from those services depends on your
+        settings and their privacy policies, so please check what those
+        are.
+        "</span>
+    <!-- </div> -->
+    <div class="outer">
+        {% if arg != 'success' %}
+    <h3 class="mb-2 inner" style="font-family: Montserrat-SemiBold; font-size: small; color: red;">{{arg}}</h3>
+    {% endif %}
+        {% if arg == 'success' %}
+        <h3 class="mb-2 inner" style="font-family: Montserrat-SemiBold; font-size: small; color: rgb(57, 197, 38);">Successfully Verified, please check your email</h3>
+    <meta http-equiv="refresh" content="2;url=/login" />
+{% endif %}
+<form action="/datapolicy/{{credentials['email']}}" method="post">
+    
+    <p class="contact100-form-title inner" style="padding: 25px; font-family: Montserrat-SemiBold;font-size: medium;"><input style="width: 17px; height:17px; margin-right:5px;" type="checkbox" value="yes" id="accept" name="accept" required>
+        I hereby read and accept the above policy of Linklerz
+        <div id="snackbar">processing...</div>
+    </p>
+</div>
+<div class="container-contact100-form-btn mb-5 " style="margin-top: 0px; ">
+    <button class="button " style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px "  onclick="showSnackbar()">
+        Accept
+    </button>
+</div>
+</form>
+
+<script>
+    function showSnackbar() {
+        var x = document.getElementById("snackbar");
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+</script>
+
+</div>
+</div>
+
+{% endblock %}

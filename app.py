@@ -1,9 +1,123 @@
+# flask modules
+from os import abort
+import re
+from flask import Flask, render_template, session, request, redirect, jsonify,url_for
+from flask_sqlalchemy import SQLAlchemy
+from itsdangerous import URLSafeTimedSerializer
+from sqlalchemy import create_engine
+from authlib.integrations.flask_client import OAuth
+
+
+# python tool modules
+from functools import lru_cache
+import hashlib
+import string
+import random
+import threading
+import json
+import requests
+
+# external modules
+from google.oauth2 import id_token
+from google_auth_oauthlib.flow import Flow
+from pip._vendor import cachecontrol
+import google.auth.transport.requests
+
+# local modules
+from mail.delete_mailer import delete_email
+from mail.mailer import send_email
+from api.api import api_conv
+from google_auth import*
+# from facebook_auth import*
+
+with open('config.json', 'r') as f:
+    params = json.load(f)["params"]
+
+# app variables
+os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+
+# cloud db uri
+URI = params['database_uri_1']
+
+e = create_engine(
+    URI, pool_recycle=1800)
+app = Flask(__name__)
+
+app.secret_key = params['app_key']
+app.config['SQLALCHEMY_DATABASE_URI'] = URI
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+oauth = OAuth(app)
+
+db = SQLAlchemy(app)
+# app.config['SERVER_NAME'] = 'localhost:5000'
+
+
+s = URLSafeTimedSerializer('Linklerz.li')
+
+
+class Users(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(50), nullable=False)
+    password = db.Column(db.String(50), nullable=False)
+    email = db.Column(db.String(50), nullable=False)
+    plan = db.Column(db.String(12), nullable=False)
+    confirmation = db.Column(db.String(20), nullable=False)
+    linktype = db.Column(db.String(500), nullable=False)
+    linkurl = db.Column(db.String(500), nullable=False)
+    userid = db.Column(db.String(50), nullable=False)
+    theme = db.Column(db.String(50), nullable=False)
+
+
+# global functions
+
+def encrypt(password):
+    hash = hashlib.sha256(password.encode()).hexdigest()
+    return hash
+
+
+@lru_cache(maxsize=5)
+def get_credentials(variable):
+    credentials = Users.query.filter_by(username=variable).first()
+
+    return credentials
+
+
+def entry(username_get, userpass_encrypt, useremail_get):
+    w = gen_word()
+    userid = f"{w}{random.randint(1000,9999)}"
+    entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free',
+                  confirmation='no', linktype="", linkurl="", userid=userid, theme='DEFAULT THEME')
+    db.session.add(entry)
+    db.session.commit()
+
+
+def get_linktype(linktype):
+    list_lintype = linktype.split(">")
+    return list_lintype
+
+
+def gen_token(email):
+    token = s.dumps(email, salt='email-confirm')
+    return token
+
+
+def gen_word():
+    letters = string.ascii_lowercase + string.ascii_uppercase
+    while True:
+        rand_letters = random.choices(letters, k=4)
+        rand_letters = "".join(rand_letters)
+        return rand_letters
+
 # index route
+
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
 # error handler route
+
+
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
@@ -228,6 +342,29 @@ def facebook():
 	redirect_uri = url_for('facebook_auth', _external=True)
 	return oauth.facebook.authorize_redirect(redirect_uri)
 
+
+def login_with_facebook(email):
+    credentials = Users.query.filter_by(email=email).first()
+    username = credentials.username
+    session['user'] = username
+    return username
+
+def signup_with_facebook(email,name):
+    num = random.randint(11, 500)
+    username = f"{name[:4]}{name[-3:-1]}{num}"
+
+    token = gen_token(email)
+    final_token = f"https://lerz.herokuapp.com/confirm/{token}"
+
+    # entry to database
+    threading.Thread(target=entry, args=(
+        username, "facebook_auth", email), name='thread_function').start()
+
+    # send confirmation email
+    threading.Thread(target=send_email, args=(
+        email, username, final_token), name='thread_function').start()
+
+    session['user'] = username
 
 
 @app.route('/facebook/auth/')
