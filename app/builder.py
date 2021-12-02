@@ -41,3 +41,22 @@ def gen_word():
         rand_letters = random.choices(letters, k=4)
         rand_letters = "".join(rand_letters)
         return rand_letters
+
+def cache_details(userid):
+
+    r = redis.Redis(host=params['redis_host'], port=params['redis_port'],
+                    password=params['redis_password'])
+
+    r.mset({'id':userid})
+
+    # r.psetex('name', 1000, "siddharth")  # milisecond
+
+    # print(r.get('name'))
+    # print(r.get('age'))
+
+    if (r.exists('id')):
+        return r.get('id')
+    else:
+        return "cannot find the key"
+
+

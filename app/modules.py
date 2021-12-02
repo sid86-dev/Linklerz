@@ -23,6 +23,7 @@ from google_auth_oauthlib.flow import Flow
 from pip._vendor import cachecontrol
 import google.auth.transport.requests
 from google_auth_oauthlib.flow import Flow
+import redis
 
 # local modules
 from mailer.delete_mailer import delete_email
