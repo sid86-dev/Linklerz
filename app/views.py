@@ -1,20 +1,23 @@
 from app import app
-from app.modules import*
-from app.db import*
+from app.modules import *
+from app.db import *
 
 # Auth
-from Auth.facebook import*
-from Auth.google import*
+from Auth.facebook import *
+from Auth.google import *
+
 
 # index route
 @app.route('/')
 def index():
     return render_template('index.html')
 
+
 # error handler route
 @app.errorhandler(404)
 def not_found(e):
     return render_template("404.html")
+
 
 # setting route
 
@@ -98,6 +101,7 @@ def profile(username):
     except:
         return redirect('/login')
 
+
 # saving data
 
 
@@ -137,6 +141,7 @@ def save():
             db.session.commit()
             return redirect(f'/home/{username}')
 
+
 # delete route
 
 
@@ -164,6 +169,7 @@ def delete(link_name):
         return redirect(f'/edit/{username}')
     return redirect(f'/edit/{username}')
 
+
 # login route
 
 
@@ -181,7 +187,7 @@ def login():
         if request.method == 'POST':
             username_get = request.form.get('username').lower()
             # if '.com' in username_get:
-                # username_get = username_get.lower()
+            # username_get = username_get.lower()
             userpass_get = request.form.get('password')
             userpass_encrypt = encrypt(userpass_get)
             try:
@@ -191,14 +197,16 @@ def login():
                     password = credentials.password
                     if password == 'google_auth':
                         login_fail = "Please sign in using Google"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                                               authorization_url=authorization_url)
 
                     elif password == userpass_encrypt:
                         session['user'] = credentials.username
                         return redirect(f'/home/{credentials.username}')
                     else:
                         login_fail = "Username and Password do not match"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                                               authorization_url=authorization_url)
 
                 elif '@' not in username_get:
                     credentials = Users.query.filter_by(
@@ -209,33 +217,35 @@ def login():
                         return redirect(f'/home/{credentials.username}')
                     else:
                         login_fail = "Username and Password do not match"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                                               authorization_url=authorization_url)
             except:
                 login_fail = "Username and Password do not match"
-                return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
-        return render_template('login.html', login_fail=login_fail, login_type=login_type, authorization_url=authorization_url)
+                return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                                       authorization_url=authorization_url)
+        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                               authorization_url=authorization_url)
+
 
 # facebook Auth
 @app.route('/facebook/')
 def facebook():
-
-	# Facebook Oauth Config
-	FACEBOOK_CLIENT_ID = params['facebook_client_id']
-	FACEBOOK_CLIENT_SECRET = params['facebook_client_secret']
-	oauth.register(
-		name='facebook',
-		client_id=FACEBOOK_CLIENT_ID,
-		client_secret=FACEBOOK_CLIENT_SECRET,
-		access_token_url='https://graph.facebook.com/oauth/access_token',
-		access_token_params=None,
-		authorize_url='https://www.facebook.com/dialog/oauth',
-		authorize_params=None,
-		api_base_url='https://graph.facebook.com/',
-		client_kwargs={'scope': 'email'},
-	)
-	redirect_uri = url_for('facebook_auth', _external=True)
-	return oauth.facebook.authorize_redirect(redirect_uri)
-
+    # Facebook Oauth Config
+    FACEBOOK_CLIENT_ID = params['facebook_client_id']
+    FACEBOOK_CLIENT_SECRET = params['facebook_client_secret']
+    oauth.register(
+        name='facebook',
+        client_id=FACEBOOK_CLIENT_ID,
+        client_secret=FACEBOOK_CLIENT_SECRET,
+        access_token_url='https://graph.facebook.com/oauth/access_token',
+        access_token_params=None,
+        authorize_url='https://www.facebook.com/dialog/oauth',
+        authorize_params=None,
+        api_base_url='https://graph.facebook.com/',
+        client_kwargs={'scope': 'email'},
+    )
+    redirect_uri = url_for('facebook_auth', _external=True)
+    return oauth.facebook.authorize_redirect(redirect_uri)
 
 
 @app.route('/facebook/Auth/')
@@ -244,7 +254,7 @@ def facebook_auth():
     resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     email = profile['email']
-    name = profile['name'] 
+    name = profile['name']
 
     try:
         username = login_with_facebook(email)
@@ -316,7 +326,8 @@ def signup():
                         email=useremail_get).first()
                     useremail = credentials.email
                     email_exist = "yes"
-                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist, authorization_url=authorization_url)
+                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist,
+                                           authorization_url=authorization_url)
                 except:
                     userpass_encrypt = encrypt(userpass_get)
                     session['user'] = username_get
@@ -334,7 +345,8 @@ def signup():
                     return render_template('confirm.html', email_address=useremail_get)
             else:
                 match = "NO"
-                return render_template('signup.html', user_exist=user_exist, match=match, authorization_url=authorization_url)
+                return render_template('signup.html', user_exist=user_exist, match=match,
+                                       authorization_url=authorization_url)
     return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
 
 
@@ -360,6 +372,7 @@ def confirm_email(token):
     credentials.confirmation = "yes"
     db.session.commit()
     return render_template('confirm_email.html', credentials=credentials)
+
 
 # delete account
 
@@ -400,6 +413,7 @@ def delete_check(username, word, email):
             return redirect('/logout')
     return redirect('/login')
 
+
 # Logging out
 
 
@@ -437,6 +451,7 @@ def admin_dashboard():
             return render_template('admin_dashboard.html', credentials=credentials)
     except:
         return redirect('/admin')
+
 
 # render links
 
@@ -483,7 +498,6 @@ def appearance(username):
 #     credentials.password = password
 #     db.session.commit()
 #     return 'Done'
-
 
 
 # api for linklerz.li
@@ -538,4 +552,3 @@ def recovery():
             arg = 'Username or Email does not exist'
             return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
     return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
-

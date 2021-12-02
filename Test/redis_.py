@@ -4,12 +4,10 @@ import json
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]
 
-
-
 r = redis.Redis(host=params['redis_host'], port=params['redis_port'], password=params['redis_password'])
 
-def add_cache(userid, list):
 
+def add_cache_list(userid, list):
     # r.mset({userid:list})
     r.rpush(userid, *list)
     # r.psetex('name', 1000, "siddharth")  # milisecond
@@ -22,9 +20,19 @@ def add_cache(userid, list):
     # r.rpush(noSQLList, "Riak", "CouchDB")
 
 
+def add_cache(userid, code):
+    # r.mset({userid:list})
+    r.psetex(userid, 60000, code)  # milisecond
+
 
 def get_cache(userid):
+    if (r.exists(userid)):
+        return r.get(userid)
+    else:
+        return "Code Expired"
 
+
+def get_cache_list(userid):
     # if (r.exists(userid)):
     #     return r.r(userid)
     # else:
@@ -40,6 +48,6 @@ def get_cache(userid):
 
 if __name__ == '__main__':
     user_id = 'sdc8s44'
-    add_cache(user_id, ['applo','banana','pinaple'])
+    add_cache(user_id, ['applo', 'banana', 'pinaple'])
     id = get_cache(user_id)
     print(id)
