@@ -1,5 +1,10 @@
 from app.db import *
 from app.modules import *
+# Auth
+from Auth.facebook import *
+from Auth.twilio_ import *
+from Auth.google import *
+from Auth.redis_ import *
 
 s = URLSafeTimedSerializer('Linklerz.li')
 
