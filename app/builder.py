@@ -20,7 +20,7 @@ def entry(username_get, userpass_encrypt, useremail_get):
     w = gen_word()
     userid = f"{w}{random.randint(1000,9999)}"
     entry = Users(username=username_get, password=userpass_encrypt,  email=useremail_get, plan='free',
-                  confirmation='no', linktype="", linkurl="", userid=userid, theme='DEFAULT THEME')
+                  confirmation='no', linktype="", linkurl="", userid=userid, theme='DEFAULT THEME', auth='no', phone='')
     db.session.add(entry)
     db.session.commit()
 
