@@ -34,5 +34,13 @@ import os
 import pathlib
 import json
 
+# Auth
+from Auth.facebook import *
+from Auth.twilio_ import *
+from Auth.google import *
+from Auth.redis_ import *
+
+
+
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]

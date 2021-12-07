@@ -1,4 +1,4 @@
-from app.modules import*
+from app.modules import *
 from app import app
 
 with open('config.json', 'r') as f:
@@ -12,7 +12,6 @@ URI = params['database_uri_1']
 
 e = create_engine(
     URI, pool_recycle=1800)
-
 
 app.secret_key = params['app_key']
 app.config['SQLALCHEMY_DATABASE_URI'] = URI

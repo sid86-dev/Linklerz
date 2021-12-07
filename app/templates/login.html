@@ -49,7 +49,7 @@
     <!--===============================================================================================-->
 </head>
 
-<body>
+<body onload="openwindow()">
 
 <div class="limiter">
     <div class="container-login100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
@@ -89,12 +89,26 @@
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
                     </div>
-                   
-                    <button class="login100-form-btn mt-4" style="display: none;" type="button" data-bs-toggle="modal"
+                    {% if auth == 'yes' %}
+                    <script>
+                    function openwindow() {
+<!--                    console.log('authon');-->
+                    document.getElementById("authwindow").click(); // Click on the checkbox
+                    }
+                    </script>
+                  {% else %}
+                    <script>
+                        function openwindow() {
+<!--                        console.log('noauth');-->
+                        }
+                    </script>
+                  {% endif %}
+
+                    <button style="display: none;" class="login100-form-btn mt-4" id="authwindow" type="button" data-bs-toggle="modal"
                             data-bs-target="#myModal">
                         Login
                     </button>
-                    <button class="login100-form-btn mt-4" >
+                    <button class="login100-form-btn mt-4">
                         Login
                     </button>
                     <!-- The Modal -->
@@ -108,7 +122,7 @@
                                             <div class="position-relative">
                                                 <div class="card p-2 text-center">
                                                     <h6>Please enter the one time password <br> &nbsp;</h6>
-                                                    <div><span> sent to</span> <small>+1******4343</small></div>
+                                                    <div><span> sent to</span> <small>{{ phone }}</small></div>
                                                     <div id="otp"
                                                          class="inputs d-flex flex-row justify-content-center mt-2">
                                                         <input
@@ -125,7 +139,7 @@
                                                             v-on:keyup="inputenter(4)"
                                                             type="text" id="input4" maxlength="1"/></div>
                                                     <div class="mt-4">
-                                                        <button class="login100-form-btn mt-4" >
+                                                        <button class="login100-form-btn mt-4">
                                                             Verify
                                                         </button>
                                                     </div>
@@ -207,6 +221,8 @@
         $('.js-tilt').tilt({
             scale: 1.1
         })
+
+
 
 
 </script>

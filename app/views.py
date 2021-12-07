@@ -2,10 +2,6 @@ from app import app
 from app.modules import *
 from app.db import *
 
-# Auth
-from Auth.facebook import *
-from Auth.google import *
-
 
 # index route
 @app.route('/')
@@ -175,6 +171,20 @@ def delete(link_name):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    auth = "no"
+
+    args_authid = request.args.get('auth')
+    args_userid = request.args.get('userid')
+    args_phone = request.args.get('phone')
+    phone = args_phone
+    try:
+        get_user_id = get_userid(args_authid)
+        # print(get_user_id)
+        if get_user_id.decode('ascii') == args_userid:
+            auth = 'yes'
+    except:
+        auth = 'no'
+
     authorization_url, state = flow.authorization_url()
     session['state'] = state
     try:
@@ -198,33 +208,47 @@ def login():
                     if password == 'google_auth':
                         login_fail = "Please sign in using Google"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url)
+                                               authorization_url=authorization_url, auth=auth, phone=phone)
 
                     elif password == userpass_encrypt:
-                        session['user'] = credentials.username
-                        return redirect(f'/home/{credentials.username}')
+                        if credentials.auth == 'no':
+                            session['user'] = credentials.username
+                            return redirect(f'/home/{credentials.username}')
+                        elif credentials.auth == 'yes':
+                            auth = 'yes'
+                            phone = credentials.phone
+                            userid = credentials.userid
+                            verify_user(userid, phone)
+
                     else:
                         login_fail = "Username and Password do not match"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url)
+                                               authorization_url=authorization_url, auth=auth, phone=phone)
 
                 elif '@' not in username_get:
                     credentials = Users.query.filter_by(
                         username=username_get).first()
                     if credentials.password == userpass_encrypt:
                         # set the session variable
-                        session['user'] = credentials.username
-                        return redirect(f'/home/{credentials.username}')
+                        if credentials.auth == 'no':
+                            session['user'] = credentials.username
+                            return redirect(f'/home/{credentials.username}')
+                        elif credentials.auth == 'yes':
+                            auth = 'yes'
+                            phone = credentials.phone
+                            userid = credentials.userid
+                            verify_user(userid, phone)
+
                     else:
                         login_fail = "Username and Password do not match"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url)
+                                               authorization_url=authorization_url, auth=auth, phone=phone)
             except:
                 login_fail = "Username and Password do not match"
                 return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                       authorization_url=authorization_url)
+                                       authorization_url=authorization_url, auth=auth, phone=phone)
         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                               authorization_url=authorization_url)
+                               authorization_url=authorization_url, auth=auth, phone=phone)
 
 
 # facebook Auth
