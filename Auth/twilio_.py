@@ -1,7 +1,6 @@
 from twilio.rest import Client
-from Test.redis_ import*
+from Test.redis_ import *
 import random
-
 
 twilio_recover_code = 'FvSlfeiRjbH600qcyq2CtikudV1Ad2oFS6UOtXKt'
 account_sid = "AC27a055842d8fbdbc2943caf2d5962165"
@@ -20,6 +19,7 @@ def send_sms_code(code, phone):
 
     return message.sid
 
+
 def gen_code():
     code = ''
     for i in range(6):
@@ -29,12 +29,9 @@ def gen_code():
 
 
 if __name__ == '__main__':
-   user_id = 'sdc8s44'
+    user_id = 'sdc8s44'
 
-   code = gen_code()
-   send_sms_code(code)
+    code = gen_code()
+    send_sms_code(code)
 
-   add_cache(user_id, code)
-
-
-
+    add_cache(user_id, code)

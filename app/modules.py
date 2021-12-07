@@ -1,12 +1,11 @@
 # flask modules
-from flask import Flask, render_template, session, request, redirect, jsonify,url_for
+from flask import Flask, render_template, session, request, redirect, jsonify, url_for
 import re
 from os import abort
 from flask_sqlalchemy import SQLAlchemy
 from itsdangerous import URLSafeTimedSerializer
 from sqlalchemy import create_engine
 from authlib.integrations.flask_client import OAuth
-
 
 # python tool modules
 from functools import lru_cache
@@ -39,8 +38,6 @@ from Auth.facebook import *
 from Auth.twilio_ import *
 from Auth.google import *
 from Auth.redis_ import *
-
-
 
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]

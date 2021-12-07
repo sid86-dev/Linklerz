@@ -1,5 +1,5 @@
-from app.db import*
-from app.modules import*
+from app.db import *
+from app.modules import *
 
 s = URLSafeTimedSerializer('Linklerz.li')
 

@@ -1,6 +1,7 @@
-from app.modules import*
-from app.db import*
-from app.builder import*
+from app.modules import *
+from app.db import *
+from app.builder import *
+
 
 def login_with_facebook(email):
     credentials = Users.query.filter_by(email=email).first()
@@ -8,7 +9,8 @@ def login_with_facebook(email):
     session['user'] = username
     return username
 
-def signup_with_facebook(email,name):
+
+def signup_with_facebook(email, name):
     num = random.randint(11, 500)
     username = f"{name[:4]}{name[-3:-1]}{num}"
 

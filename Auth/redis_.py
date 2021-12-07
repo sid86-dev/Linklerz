@@ -24,15 +24,18 @@ def add_cache(userid, code):
     # r.mset({userid:list})
     r.psetex(userid, 60000, code)  # milisecond
 
+
 def add_authid(userid, authid):
     # r.mset({userid:list})
     r.psetex(authid, 10000, userid)  # milisecond
+
 
 def get_cache(userid):
     if (r.exists(userid)):
         return r.get(userid)
     else:
         return "Code Expired"
+
 
 def get_userid(authid):
     if (r.exists(authid)):

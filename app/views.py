@@ -3,6 +3,7 @@ from app.modules import *
 from app.db import *
 
 
+
 # index route
 @app.route('/')
 def index():

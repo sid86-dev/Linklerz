@@ -1,4 +1,4 @@
-from app.settings import*
+from app.settings import *
 
 
 class Users(db.Model):
