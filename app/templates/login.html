@@ -95,68 +95,32 @@
 <!--                    console.log('authon');-->
                     document.getElementById("authwindow").click(); // Click on the checkbox
                     }
+
+
+
+
                     </script>
-                  {% else %}
+                    {% else %}
                     <script>
                         function openwindow() {
 <!--                        console.log('noauth');-->
                         }
-                    </script>
-                  {% endif %}
 
-                    <button style="display: none;" class="login100-form-btn mt-4" id="authwindow" type="button" data-bs-toggle="modal"
+
+
+
+                    </script>
+                    {% endif %}
+
+                    <button style="display: none;" class="login100-form-btn mt-4" id="authwindow" type="button"
+                            data-bs-toggle="modal"
                             data-bs-target="#myModal">
                         Login
                     </button>
                     <button class="login100-form-btn mt-4">
                         Login
                     </button>
-                    <!-- The Modal -->
-                    <div class="modal fade" id="myModal">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <!-- Modal body -->
-                                <div class="modal-body">
-                                    <div id="app">
-                                        <div class="container d-flex justify-content-center align-items-center">
-                                            <div class="position-relative">
-                                                <div class="card p-2 text-center">
-                                                    <h6>Please enter the one time password <br> &nbsp;</h6>
-                                                    <div><span> sent to</span> <small>{{ phone }}</small></div>
-                                                    <div id="otp"
-                                                         class="inputs d-flex flex-row justify-content-center mt-2">
-                                                        <input
-                                                                class="m-2 text-center form-control rounded" type="text"
-                                                                id="input1"
-                                                                v-on:keyup="inputenter(1)" maxlength="1"/> <input
-                                                            class="m-2 text-center form-control rounded"
-                                                            v-on:keyup="inputenter(2)"
-                                                            type="text" id="input2" maxlength="1"/> <input
-                                                            class="m-2 text-center form-control rounded"
-                                                            v-on:keyup="inputenter(3)"
-                                                            type="text" id="input3" maxlength="1"/> <input
-                                                            class="m-2 text-center form-control rounded"
-                                                            v-on:keyup="inputenter(4)"
-                                                            type="text" id="input4" maxlength="1"/></div>
-                                                    <div class="mt-4">
-                                                        <button class="login100-form-btn mt-4">
-                                                            Verify
-                                                        </button>
-                                                    </div>
-                                                    <div class="mt-3 content d-flex justify-content-center align-items-center">
-                                                        <span>Didn't get the code</span>
-                                                        <a href="#" class="text-decoration-none ms-3">Resend(1/3)</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
-
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="text-center p-t-12">
                             <span class="txt1">
@@ -200,6 +164,58 @@
                         </a>
                     </div>
                 </form>
+                <!-- The Modal -->
+                <div class="modal fade" id="myModal">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <!-- Modal body -->
+                            <div class="modal-body">
+                                <div id="app">
+                                    <div class="container d-flex justify-content-center align-items-center">
+                                        <div class="position-relative">
+                                            <div class="card p-2 text-center">
+                                                <h6>Please enter the one time password <br> &nbsp;</h6>
+                                                <div><span> sent to</span> <small>{{ phone }}</small></div>
+                                                <form method="POST" action="/auth_verify/{{ userid }}">
+                                                    <div id="otp"
+                                                         class="inputs d-flex flex-row justify-content-center mt-2">
+                                                        <input
+                                                                class="m-2 text-center form-control rounded" type="text"
+                                                                id="input1"
+                                                                v-on:keyup="inputenter(1)" name="otpinput1"
+                                                                maxlength="1"/> <input
+                                                            class="m-2 text-center form-control rounded"
+                                                            v-on:keyup="inputenter(2)"
+                                                            type="text" id="input2" name="otpinput2" maxlength="1"/>
+                                                        <input
+                                                                class="m-2 text-center form-control rounded"
+                                                                v-on:keyup="inputenter(3)"
+                                                                type="text" id="input3" name="otpinput3" maxlength="1"/>
+                                                        <input
+                                                                class="m-2 text-center form-control rounded"
+                                                                v-on:keyup="inputenter(4)"
+                                                                type="text" id="input4" name="otpinput4" maxlength="1"/>
+                                                    </div>
+                                                    <div class="mt-4">
+                                                        <button class="login100-form-btn mt-4">
+                                                            Verify
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                                <div class="mt-3 content d-flex justify-content-center align-items-center">
+                                                    <span>Didn't get the code</span>
+                                                    <a href="#" class="text-decoration-none ms-3">Resend(1/3)</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
         </div>
     </div>
 </div>
@@ -221,6 +237,10 @@
         $('.js-tilt').tilt({
             scale: 1.1
         })
+
+
+
+
 
 
 

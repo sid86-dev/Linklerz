@@ -1,4 +1,4 @@
-from Test.twilio_ import *
+from Auth.twilio_ import *
 import threading
 
 
@@ -14,24 +14,28 @@ def code_verification(userid):
 
 
 if __name__ == '__main__':
-    user_id = 'sdc11s44'
+    code = gen_code()
 
-    code_verification(user_id)
-
-    while True:
-        code = get_cache(user_id)
-        i = input("Enter the code: ")
-
-        try:
-            if int(code.decode('ascii')) == int(i):
-                print("Verification Successfull")
-
-            elif code == 'Code Expired':
-                print('Code Expired')
-
-            else:
-                print('Verification Failed')
-
-
-        except:
-            print('Verification Failed')
+    phone = '918389046987'
+    send_sms_code(code=code, phone=phone)
+#     user_id = 'sdc11s44d'
+#
+#     code_verification(user_id)
+#
+#     while True:
+#         code = get_cache(user_id)
+#         i = input("Enter the code: ")
+#
+#         try:
+#             if int(code.decode('ascii')) == int(i):
+#                 print("Verification Successfull")
+#
+#             elif code == 'Code Expired':
+#                 print('Code Expired')
+#
+#             else:
+#                 print('Verification Failed')
+#
+#
+#         except:
+#             print('Verification Failed')

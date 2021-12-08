@@ -61,8 +61,17 @@ def verify_user(userid, phone):
                          authid,
                      ),
                      name='thread_function').start()
-    return redirect(f"/login?auth={authid}&userid={userid}&phone={phone}")
 
+    userid+=userid
+    # add cache to redis
+    threading.Thread(target=add_cache,
+                     args=(
+                         userid,
+                         code,
+                     ),
+                     name='thread_function').start()
+
+    return authid
 
 def get_linktype(linktype):
     list_lintype = linktype.split(">")

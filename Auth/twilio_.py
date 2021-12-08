@@ -22,7 +22,7 @@ def send_sms_code(code, phone):
 
 def gen_code():
     code = ''
-    for i in range(6):
+    for i in range(4):
         n = str(random.randrange(0, 9))
         code += n
     return code
