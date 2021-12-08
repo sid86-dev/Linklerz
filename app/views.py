@@ -210,6 +210,8 @@ def login():
     args_phone = request.args.get('phone')
     phone = args_phone
     authid = args_authid
+    userid = args_userid
+
     try:
         get_user_id = get_userid(args_authid)
         # print(get_user_id)
@@ -242,7 +244,7 @@ def login():
                         login_fail = "Please sign in using Google"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
-                                               authid=authid)
+                                               authid=authid, userid=userid)
 
                     elif password == userpass_encrypt:
                         if credentials.auth == 'no':
@@ -260,7 +262,7 @@ def login():
                         login_fail = "Username and Password do not match"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
-                                               authid=authid)
+                                               authid=authid, userid=userid)
 
                 elif '@' not in username_get:
                     credentials = Users.query.filter_by(
@@ -282,13 +284,13 @@ def login():
                         login_fail = "Username and Password do not match"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
-                                               authid=authid)
+                                               authid=authid, userid=userid)
             except:
                 login_fail = "Username and Password do not match"
                 return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                       authorization_url=authorization_url, auth=auth, phone=phone, authid=authid)
+                                       authorization_url=authorization_url, auth=auth, phone=phone, authid=authid, userid=userid)
         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                               authorization_url=authorization_url, auth=auth, phone=phone, authid=authid)
+                               authorization_url=authorization_url, auth=auth, phone=phone, authid=authid, userid=userid)
 
 
 # facebook Auth
