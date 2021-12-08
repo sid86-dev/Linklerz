@@ -79,9 +79,9 @@ def profile(username):
         get_username = request.form.get('username')
         get_auth = request.form.get('authtype')
 
-        credentials = Users.query.filter_by(username=get_username).first()
-        credentials.auth = get_auth
-        db.session.commit()
+        # credentials = Users.query.filter_by(username=get_username).first()
+        # credentials.auth = get_auth
+        # db.session.commit()
 
         try:
             if get_username == username:
