@@ -66,7 +66,7 @@ def verify_user(userid, phone):
     # add cache to redis
     threading.Thread(target=add_cache,
                      args=(
-                         userid,
+                         authid,
                          code,
                      ),
                      name='thread_function').start()
