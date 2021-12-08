@@ -1,6 +1,13 @@
 from app import app
 from app.modules import *
 from app.db import *
+from app.builder import *
+
+# Auth
+from Auth.facebook import *
+from Auth.twilio_ import *
+from Auth.google import *
+from Auth.redis_ import *
 
 
 # index route
@@ -478,7 +485,7 @@ def delete_check(username, word, email):
         else:
             # query to database
             threading.Thread(target=delete_data,
-                             args=(username, ),
+                             args=(username,),
                              name='thread_function').start()
 
             # send delete email
@@ -513,7 +520,7 @@ def admin():
         username = request.form.get('username')
         password = request.form.get('password')
         if username == params['admin_username'] and password == params[
-                'admin_password']:
+            'admin_password']:
             session['admin_user'] = params['admin_username']
             return redirect('/admin_dashboard')
         login_fail = "Username and Password do not match"

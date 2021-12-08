@@ -30,8 +30,9 @@ def gen_code():
 
 if __name__ == '__main__':
     user_id = 'sdc8s44'
+    phone = '918389046987'
 
     code = gen_code()
-    send_sms_code(code)
+    send_sms_code(code, phone)
 
-    add_cache(user_id, code)
+    # add_cache(user_id, code)
