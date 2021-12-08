@@ -4,7 +4,7 @@ import random
 
 twilio_recover_code = 'FvSlfeiRjbH600qcyq2CtikudV1Ad2oFS6UOtXKt'
 account_sid = "AC27a055842d8fbdbc2943caf2d5962165"
-auth_token = "0bd89908b456c9d2770effcf0e609487"
+auth_token = "271e96871fffe116253bd65620fddb4f"
 twilio_number = '+18504077760'
 
 

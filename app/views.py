@@ -3,7 +3,6 @@ from app.modules import *
 from app.db import *
 
 
-
 # index route
 @app.route('/')
 def index():
@@ -35,7 +34,9 @@ def home(username):
         # credentials = get_credentials(username)
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)
-        return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
+        return render_template('home.html',
+                               list_linktype=list_linktype,
+                               credentials=credentials)
     return redirect('/login')
 
 
@@ -61,7 +62,10 @@ def edit(username):
             num = 5 - len(list_linktype)
         else:
             num = 10 - len(list_linktype)
-        return render_template('edit.html', linkdic=linkdic, num=num, credentials=credentials)
+        return render_template('edit.html',
+                               linkdic=linkdic,
+                               num=num,
+                               credentials=credentials)
     return redirect('/login')
 
 
@@ -81,7 +85,9 @@ def profile(username):
             # return to the same route with error
             credentials = Users.query.filter_by(username=username).first()
             error = 'Username already exist'
-            return render_template('profile.html', credentials=credentials, error=error)
+            return render_template('profile.html',
+                                   credentials=credentials,
+                                   error=error)
         except:
             credentials = Users.query.filter_by(username=username).first()
             credentials.username = get_username
@@ -94,7 +100,9 @@ def profile(username):
     try:
         if ('user' in session and session['user'] == username):
             credentials = Users.query.filter_by(username=username).first()
-            return render_template('profile.html', credentials=credentials, error=error)
+            return render_template('profile.html',
+                                   credentials=credentials,
+                                   error=error)
     except:
         return redirect('/login')
 
@@ -208,8 +216,13 @@ def login():
                     password = credentials.password
                     if password == 'google_auth':
                         login_fail = "Please sign in using Google"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url, auth=auth, phone=phone)
+                        return render_template(
+                            'login.html',
+                            login_fail=login_fail,
+                            login_type=login_type,
+                            authorization_url=authorization_url,
+                            auth=auth,
+                            phone=phone)
 
                     elif password == userpass_encrypt:
                         if credentials.auth == 'no':
@@ -223,8 +236,13 @@ def login():
 
                     else:
                         login_fail = "Username and Password do not match"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url, auth=auth, phone=phone)
+                        return render_template(
+                            'login.html',
+                            login_fail=login_fail,
+                            login_type=login_type,
+                            authorization_url=authorization_url,
+                            auth=auth,
+                            phone=phone)
 
                 elif '@' not in username_get:
                     credentials = Users.query.filter_by(
@@ -242,14 +260,27 @@ def login():
 
                     else:
                         login_fail = "Username and Password do not match"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url, auth=auth, phone=phone)
+                        return render_template(
+                            'login.html',
+                            login_fail=login_fail,
+                            login_type=login_type,
+                            authorization_url=authorization_url,
+                            auth=auth,
+                            phone=phone)
             except:
                 login_fail = "Username and Password do not match"
-                return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                       authorization_url=authorization_url, auth=auth, phone=phone)
-        return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                               authorization_url=authorization_url, auth=auth, phone=phone)
+                return render_template('login.html',
+                                       login_fail=login_fail,
+                                       login_type=login_type,
+                                       authorization_url=authorization_url,
+                                       auth=auth,
+                                       phone=phone)
+        return render_template('login.html',
+                               login_fail=login_fail,
+                               login_type=login_type,
+                               authorization_url=authorization_url,
+                               auth=auth,
+                               phone=phone)
 
 
 # facebook Auth
@@ -276,7 +307,8 @@ def facebook():
 @app.route('/facebook/Auth/')
 def facebook_auth():
     token = oauth.facebook.authorize_access_token()
-    resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+    resp = oauth.facebook.get(
+        'https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
     email = profile['email']
     name = profile['name']
@@ -303,11 +335,9 @@ def callback():
     token_request = google.auth.transport.requests.Request(
         session=cached_session)
 
-    id_info = id_token.verify_oauth2_token(
-        id_token=credentials._id_token,
-        request=token_request,
-        audience=GOOGLE_CLIENT_ID
-    )
+    id_info = id_token.verify_oauth2_token(id_token=credentials._id_token,
+                                           request=token_request,
+                                           audience=GOOGLE_CLIENT_ID)
     try:
         username = login_with_google(id_info)
         return redirect(f'/home/{username}')
@@ -322,7 +352,9 @@ def datapolicy(email):
         return render_template('confirm.html', email_address=email)
     arg = ''
     credentials = {'username': 'Data Policy', 'email': email}
-    return render_template('data_policy.html', credentials=credentials, arg=arg)
+    return render_template('data_policy.html',
+                           credentials=credentials,
+                           arg=arg)
 
 
 # signup route
@@ -342,7 +374,9 @@ def signup():
             credentials = Users.query.filter_by(username=username_get).first()
             username = credentials.username
             user_exist = "YES"
-            return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
+            return render_template('signup.html',
+                                   user_exist=user_exist,
+                                   authorization_url=authorization_url)
         except:
             user_exist = "NO"
             if userpass_get == confirmpass_get:
@@ -351,7 +385,9 @@ def signup():
                         email=useremail_get).first()
                     useremail = credentials.email
                     email_exist = "yes"
-                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist,
+                    return render_template('signup.html',
+                                           user_exist=user_exist,
+                                           email_exist=email_exist,
                                            authorization_url=authorization_url)
                 except:
                     userpass_encrypt = encrypt(userpass_get)
@@ -360,19 +396,28 @@ def signup():
                     token = gen_token(useremail_get)
                     final_token = f"https://lerz.herokuapp.com/confirm/{token}"
                     # entry to database
-                    threading.Thread(target=entry, args=(
-                        username_get, userpass_encrypt, useremail_get), name='thread_function').start()
+                    threading.Thread(target=entry,
+                                     args=(username_get, userpass_encrypt,
+                                           useremail_get),
+                                     name='thread_function').start()
 
                     # send confirmation email
-                    threading.Thread(target=send_email, args=(
-                        useremail_get, username_get, final_token), name='thread_function').start()
+                    threading.Thread(target=send_email,
+                                     args=(useremail_get, username_get,
+                                           final_token),
+                                     name='thread_function').start()
 
-                    return render_template('confirm.html', email_address=useremail_get)
+                    return render_template('confirm.html',
+                                           email_address=useremail_get)
             else:
                 match = "NO"
-                return render_template('signup.html', user_exist=user_exist, match=match,
+                return render_template('signup.html',
+                                       user_exist=user_exist,
+                                       match=match,
                                        authorization_url=authorization_url)
-    return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
+    return render_template('signup.html',
+                           user_exist=user_exist,
+                           authorization_url=authorization_url)
 
 
 # email send
@@ -408,7 +453,10 @@ def delete_account(email, username):
         keyword = gen_word()
         word = f"{username}{keyword}"
         # credentials = Users.query.filter_by(username=username).first()
-        return render_template('delete.html', username=username, word=word, email=email)
+        return render_template('delete.html',
+                               username=username,
+                               word=word,
+                               email=email)
 
 
 def delete_data(username):
@@ -420,7 +468,8 @@ def delete_data(username):
     # return email
 
 
-@app.route('/deletecheck/<string:username>/<string:word>/<string:email>', methods=['GET', 'POST'])
+@app.route('/deletecheck/<string:username>/<string:word>/<string:email>',
+           methods=['GET', 'POST'])
 def delete_check(username, word, email):
     if request.method == "POST":
         inputtext = request.form.get('inputtext')
@@ -428,12 +477,17 @@ def delete_check(username, word, email):
             return redirect(f'/deletelog/{username}')
         else:
             # query to database
-            threading.Thread(target=delete_data, args=(
-                username,), name='thread_function').start()
+            threading.Thread(target=delete_data,
+                             args=(username, ),
+                             name='thread_function').start()
 
             # send delete email
-            threading.Thread(target=delete_email, args=(
-                email, username,), name='thread_function').start()
+            threading.Thread(target=delete_email,
+                             args=(
+                                 email,
+                                 username,
+                             ),
+                             name='thread_function').start()
 
             return redirect('/logout')
     return redirect('/login')
@@ -458,12 +512,15 @@ def admin():
     if request.method == 'POST':
         username = request.form.get('username')
         password = request.form.get('password')
-        if username == params['admin_username'] and password == params['admin_password']:
+        if username == params['admin_username'] and password == params[
+                'admin_password']:
             session['admin_user'] = params['admin_username']
             return redirect('/admin_dashboard')
         login_fail = "Username and Password do not match"
     try:
-        return render_template('login.html', login_fail=login_fail, login_type=login_type)
+        return render_template('login.html',
+                               login_fail=login_fail,
+                               login_type=login_type)
     except:
         return render_template('404.html')
 
@@ -473,7 +530,8 @@ def admin_dashboard():
     try:
         if session['admin_user'] == params['admin_username']:
             credentials = Users.query.filter_by().all()
-            return render_template('admin_dashboard.html', credentials=credentials)
+            return render_template('admin_dashboard.html',
+                                   credentials=credentials)
     except:
         return redirect('/admin')
 
@@ -481,8 +539,7 @@ def admin_dashboard():
 # render links
 
 
-@app.route(
-    '/li.<string:username>')
+@app.route('/li.<string:username>')
 def link(username):
     credentials = Users.query.filter_by(username=username).first()
     linktype = credentials.linktype
@@ -498,7 +555,9 @@ def link(username):
             list_linkurl.remove(value)
             break
     # return render_template('dark_theme.html', credentials=credentials, linkdic=linkdic)
-    return render_template(f'{params[credentials.theme]}.html', credentials=credentials, linkdic=linkdic)
+    return render_template(f'{params[credentials.theme]}.html',
+                           credentials=credentials,
+                           linkdic=linkdic)
 
 
 @app.route('/appearance/<string:username>', methods=['GET', 'POST'])
@@ -526,8 +585,7 @@ def appearance(username):
 
 
 # api for linklerz.li
-@app.route(
-    '/api/<string:username>')
+@app.route('/api/<string:username>')
 def api(username):
     try:
         credentials = Users.query.filter_by(username=username).first()
@@ -572,8 +630,14 @@ def recovery():
                 username = credentials.username
             arg = 'success'
             delete_email(email, username)
-            return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
+            return render_template('recovery.html',
+                                   credentials=fixed_credentials,
+                                   arg=arg)
         except:
             arg = 'Username or Email does not exist'
-            return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
-    return render_template('recovery.html', credentials=fixed_credentials, arg=arg)
+            return render_template('recovery.html',
+                                   credentials=fixed_credentials,
+                                   arg=arg)
+    return render_template('recovery.html',
+                           credentials=fixed_credentials,
+                           arg=arg)

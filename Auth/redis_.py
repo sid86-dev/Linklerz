@@ -4,7 +4,9 @@ import json
 with open('config.json', 'r') as f:
     params = json.load(f)["params"]
 
-r = redis.Redis(host=params['redis_host'], port=params['redis_port'], password=params['redis_password'])
+r = redis.Redis(host=params['redis_host'],
+                port=params['redis_port'],
+                password=params['redis_password'])
 
 
 def add_cache_list(userid, list):
