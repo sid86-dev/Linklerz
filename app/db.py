@@ -12,5 +12,5 @@ class Users(db.Model):
     linkurl = db.Column(db.String(500), nullable=False)
     userid = db.Column(db.String(50), nullable=False)
     theme = db.Column(db.String(50), nullable=False)
-    auth = db.Column(db.String(10), nullable=False)
+    auth = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(20), nullable=False)

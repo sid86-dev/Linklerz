@@ -77,6 +77,12 @@ def profile(username):
     error = ''
     if request.method == "POST":
         get_username = request.form.get('username')
+        get_auth = request.form.get('authtype')
+
+        credentials = Users.query.filter_by(username=get_username).first()
+        credentials.auth = get_auth
+        db.session.commit()
+
         try:
             if get_username == username:
                 return redirect(f'/home/{get_username}')
@@ -90,7 +96,9 @@ def profile(username):
             return render_template('profile.html', credentials=credentials, error=error)
         except:
             credentials = Users.query.filter_by(username=username).first()
+            # print(credentials)
             credentials.username = get_username
+
             db.session.commit()
             # handle log info
             session.pop('user')
@@ -287,9 +295,11 @@ def login():
             except:
                 login_fail = "Username and Password do not match"
                 return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                       authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid, userid=userid)
+                                       authorization_url=authorization_url, auth=auth, phone=phone,
+                                       args_authid=args_authid, userid=userid)
         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                               authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid, userid=userid)
+                               authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid,
+                               userid=userid)
 
 
 # facebook Auth
