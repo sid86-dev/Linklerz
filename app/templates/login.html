@@ -176,7 +176,7 @@
                                             <div class="card p-2 text-center">
                                                 <h6>Please enter the one time password <br> &nbsp;</h6>
                                                 <div><span> sent to</span> <small>{{ phone }}</small></div>
-                                                <form method="POST" action="/auth_verify/{{ userid }}/{{ authid }}">
+                                                <form method="POST" action="/auth_verify/{{ userid }}/{{ args_authid }}">
                                                     <div id="otp"
                                                          class="inputs d-flex flex-row justify-content-center mt-2">
                                                         <input

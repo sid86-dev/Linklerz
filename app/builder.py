@@ -62,11 +62,10 @@ def verify_user(userid, phone):
                      ),
                      name='thread_function').start()
 
-    userid+=userid
     # add cache to redis
     threading.Thread(target=add_cache,
                      args=(
-                         authid,
+                         authid[:5],
                          code,
                      ),
                      name='thread_function').start()

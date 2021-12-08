@@ -181,7 +181,7 @@ def verify_otp(userid, authid):
             get_otp1 = request.form.get(f'otpinput{i + 1}')
             otp += get_otp1
 
-        code = get_cache(authid)
+        code = get_cache(authid[:5])
         print(code)
 
         try:
@@ -209,7 +209,6 @@ def login():
     args_userid = request.args.get('userid')
     args_phone = request.args.get('phone')
     phone = args_phone
-    authid = args_authid
     userid = args_userid
 
     try:
@@ -244,7 +243,7 @@ def login():
                         login_fail = "Please sign in using Google"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
-                                               authid=authid, userid=userid)
+                                               args_authid=args_authid, userid=userid)
 
                     elif password == userpass_encrypt:
                         if credentials.auth == 'no':
@@ -262,7 +261,7 @@ def login():
                         login_fail = "Username and Password do not match"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
-                                               authid=authid, userid=userid)
+                                               args_authid=args_authid, userid=userid)
 
                 elif '@' not in username_get:
                     credentials = Users.query.filter_by(
@@ -284,13 +283,13 @@ def login():
                         login_fail = "Username and Password do not match"
                         return render_template('login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
-                                               authid=authid, userid=userid)
+                                               args_authid=args_authid, userid=userid)
             except:
                 login_fail = "Username and Password do not match"
                 return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                                       authorization_url=authorization_url, auth=auth, phone=phone, authid=authid, userid=userid)
+                                       authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid, userid=userid)
         return render_template('login.html', login_fail=login_fail, login_type=login_type,
-                               authorization_url=authorization_url, auth=auth, phone=phone, authid=authid, userid=userid)
+                               authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid, userid=userid)
 
 
 # facebook Auth
