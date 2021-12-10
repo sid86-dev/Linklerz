@@ -77,7 +77,30 @@ def profile(username):
     error = ''
     if request.method == "POST":
         get_username = request.form.get('username')
-        get_auth = request.form.get('authtype')
+        get_auth1 = request.form.get('auth_switch_on')
+        get_auth2 = request.form.get('auth_switch_off')
+
+        print(get_auth1)
+        print(get_auth2)
+
+        credentials = Users.query.filter_by(username=username).first()
+
+        # auth on/off
+        auth_update = credentials.auth
+
+        if auth_update == 'yes':
+            if get_auth1 == 'open_to_close':
+                a = 'd'
+            else:
+                credentials.auth = 'no'
+                db.session.commit()
+
+        elif auth_update == 'no':
+            if get_auth1 == 'close_to_open':
+                a = 'd'
+            else:
+                credentials.auth = 'yes'
+                db.session.commit()
 
         # credentials = Users.query.filter_by(username=get_username).first()
         # credentials.auth = get_auth
@@ -95,7 +118,8 @@ def profile(username):
             error = 'Username already exist'
             return render_template('profile.html', credentials=credentials, error=error)
         except:
-            credentials = Users.query.filter_by(username=username).first()
+
+
             # print(credentials)
             credentials.username = get_username
 

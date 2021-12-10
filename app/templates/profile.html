@@ -52,6 +52,7 @@
     <link rel="stylesheet" type="text/css" href="/static/css_home/util.css">
     <link rel="stylesheet" type="text/css" href="/static/css_home/home.css">
     <link rel="stylesheet" type="text/css" href="/static/css/field.css">
+    <link rel="stylesheet" type="text/css" href="/static/css_home/switch.css">
     <link rel="stylesheet" type="text/css" href="/static/css/button.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
@@ -171,11 +172,25 @@
             }
         }
 
+
+
+
+
+
+
+
     </style>
     <script>
         function goBack() {
             window.history.back();
         }
+
+
+
+
+
+
+
 
     </script>
 </head>
@@ -228,10 +243,21 @@
                         </div>
                         <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4"
                              data-validate="Your auth (e@a.x)">
-                            <span class="label-input100 float-left">2Auth *</span>
-                            <input class="input100" type="text" name="authtype" value="{{credentials.auth}}"
-                                   required>
+                            <span class="label-input100 float-left" style="float:right;">2Auth *</span>
+                                {% if credentials.auth == 'no' %}
+                            <div class="button-switch">
+  <input type="checkbox" value="close_to_open" name="auth_switch_off" id="switch-orange" class="switch" />
+  <label for="switch-orange" class="lbl-off">Off</label>
+  <label for="switch-orange" class="lbl-on">On</label>
+</div> {% else %}<div class="button-switch">
+  <input type="checkbox" id="switch-blue" value="open_to_close" name="auth_switch_on" class="switch" checked />
+  <label for="switch-blue" class="lbl-off">Off</label>
+  <label for="switch-blue" class="lbl-on">On</label>
+</div>{% endif %}
                         </div>
+
+
+
                         <!-- email address -->
                         <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4"
                              data-validate="Your Email (e@a.x)">
@@ -340,6 +366,13 @@
             });
         })
 
+
+
+
+
+
+
+
 </script>
 <!--===============================================================================================-->
 <script src="/static/vendor_home/daterangepicker/moment.min.js "></script>
@@ -371,6 +404,13 @@
             $('.contact100-form-range-value input[name="to-value "]').val($('#value-upper').html());
         });
 
+
+
+
+
+
+
+
 </script>
 <!--===============================================================================================-->
 <script src="/static/js/main.js "></script>
@@ -386,6 +426,13 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-23581568-13');
+
+
+
+
+
+
+
 
 </script>
 
@@ -406,6 +453,13 @@
     gtag('js', new Date());
 
     gtag('config', 'UA-23581568-13');
+
+
+
+
+
+
+
 
 </script>
 
