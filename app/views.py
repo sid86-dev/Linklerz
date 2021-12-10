@@ -93,14 +93,16 @@ def profile(username):
                 a = 'd'
             else:
                 credentials.auth = 'no'
+                print(credentials.auth)
                 db.session.commit()
 
         elif auth_update == 'no':
-            if get_auth1 == 'close_to_open':
-                a = 'd'
-            else:
+            if get_auth2 == 'close_to_open':
                 credentials.auth = 'yes'
+                print(credentials.auth)
                 db.session.commit()
+            else:
+                a = 'd'
 
         # credentials = Users.query.filter_by(username=get_username).first()
         # credentials.auth = get_auth
