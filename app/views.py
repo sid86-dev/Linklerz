@@ -618,8 +618,8 @@ def api(username):
                 linkdic[key] = value
                 list_linkurl.remove(value)
                 break
-        arr = [api_conv(linkdic]
-        return {'links': arr}
+
+        return jsonify(api_conv(linkdic)
     except:
         return jsonify(username='Does not exist')
 
