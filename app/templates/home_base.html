@@ -155,15 +155,55 @@
                 opacity: 0;
             }
         }
+               #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
     </style>
     <script>
         function goBack() {
             window.history.back();
         }
     </script>
+
 </head>
 
 <body style="font-family: Montserrat-SemiBold">
+<div id="loader" class="center"></div>
+    <script>
+        document.onreadystatechange = function() {
+            if (document.readyState !== "complete") {
+                document.querySelector(
+                  "body").style.visibility = "hidden";
+                document.querySelector(
+                  "#loader").style.visibility = "visible";
+            } else {
+                document.querySelector(
+                  "#loader").style.display = "none";
+                document.querySelector(
+                  "body").style.visibility = "visible";
+            }
+        };
+    </script>
     <div class="container-contact100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
 
         <div class="wrap-contact100" style="padding-bottom: 0px;padding-top: 20px;">
@@ -202,6 +242,31 @@
             <script src="/static/vendor_home/bootstrap/js/bootstrap.min.js"></script>
             <!--===============================================================================================-->
             <script src="/static/vendor_home/select2/select2.min.js"></script>
+             <script>
+        function copyText() {
+            /* Get the text field */
+            var copyText = document.getElementById("myInput");
+
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+
+            /* Alert the copied text */
+            // alert("Copied the text: " + copyText.value);
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+    </script>
+
             <script>
                 $(".js-select2").each(function() {
                     $(this).select2({
