@@ -80,10 +80,9 @@ def profile(username):
         get_auth1 = request.form.get('auth_switch_on')
         get_auth2 = request.form.get('auth_switch_off')
 
-        print(get_auth1)
-        print(get_auth2)
 
         credentials = Users.query.filter_by(username=username).first()
+
 
         # auth on/off
         auth_update = credentials.auth
@@ -102,7 +101,7 @@ def profile(username):
                 print(credentials.auth)
                 db.session.commit()
             else:
-                a = 'd'
+                pass
 
         # credentials = Users.query.filter_by(username=get_username).first()
         # credentials.auth = get_auth
@@ -111,18 +110,21 @@ def profile(username):
         try:
             if get_username == username:
                 return redirect(f'/home/{get_username}')
-            credentials = Users.query.filter_by(username=get_username).first()
-            # to verify
-            email = credentials.email
+            else:
+                # to verify
+                credentials = Users.query.filter_by(username=get_username).first()
+                email = credentials.email
 
-            # return to the same route with error
-            credentials = Users.query.filter_by(username=username).first()
-            error = 'Username already exist'
-            return render_template('profile.html', credentials=credentials, error=error)
+                # return to the same route with error
+                credentials = Users.query.filter_by(username=username).first()
+                error = 'Username already exist'
+                return render_template('profile.html', credentials=credentials, error=error)
         except:
 
 
             # print(credentials)
+            credentials = Users.query.filter_by(username=username).first()
+
             credentials.username = get_username
 
             db.session.commit()
