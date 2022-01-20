@@ -38,6 +38,7 @@ def settings(username):
 def home(username):
     if ('user' in session and session['user'] == username):
         credentials = Users.query.filter_by(username=username).first()
+        print(credentials.qrlink)
         # credentials = get_credentials(username)
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)

@@ -14,3 +14,4 @@ class Users(db.Model):
     theme = db.Column(db.String(50), nullable=False)
     auth = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(20), nullable=False)
+    qrlink = db.Column(db.String(30), nullable=False)
