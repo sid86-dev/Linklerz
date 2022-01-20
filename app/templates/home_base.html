@@ -189,16 +189,12 @@
             right: 0;
             margin: auto;
         }
-        #content {
-    position: relative;
-}
-#content img {
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
 
-
+     @media only screen and (max-width: 1280px) {
+   #qrcode{
+    display:none;
+  }
+}
 
 
     </style>
@@ -206,6 +202,10 @@
         function goBack() {
             window.history.back();
         }
+
+
+
+
 
 
 
@@ -229,6 +229,10 @@
                   "body").style.visibility = "visible";
             }
         };
+
+
+
+
 
 
 
@@ -265,11 +269,9 @@
                      data-bs-placement="top" title="Pro Badge">
                 {% endif %}
             </span>{% block content%} {% endblock %}
-        <div class="wrapper">
-            <div class="box">
-                <div class="float"><img src="{{credentials.qrlink}}" alt=""/></div>
-            </div>
-        </div>
+        <img id="qrcode" src="{{credentials.qrlink}}" style="width:150px;top:0;
+        position:absolute; float:right;margin:15px;right:0" alt=""/>
+
         <!--===============================================================================================-->
         <script src="/static/vendor_home/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
@@ -305,6 +307,10 @@
 
 
 
+
+
+
+
         </script>
 
         <script>
@@ -326,6 +332,10 @@
                         });
                     });
                 })
+
+
+
+
 
 
 
@@ -362,6 +372,10 @@
 
 
 
+
+
+
+
         </script>
         <!--===============================================================================================-->
         <script src="/static/js/main.js"></script>
@@ -377,6 +391,10 @@
                 gtag('js', new Date());
 
                 gtag('config', 'UA-23581568-13');
+
+
+
+
 
 
 
