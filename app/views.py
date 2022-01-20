@@ -128,6 +128,10 @@ def profile(username):
 
             credentials.username = get_username
 
+            link = buildqr(credentials.userid, get_username)
+
+            credentials.link = link
+
             db.session.commit()
             # handle log info
             session.pop('user')
