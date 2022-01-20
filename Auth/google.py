@@ -35,12 +35,12 @@ def signup_with_google(info):
     final_token = f"https://lerz.herokuapp.com/confirm/{token}"
     # entry to database
     threading.Thread(target=entry,
-                     args=(username, "google_auth", email),
+                     args=(username, "google_auth", email,),
                      name='thread_function').start()
 
     # send confirmation email
     threading.Thread(target=send_email,
-                     args=(email, username, final_token),
+                     args=(email, username, final_token,),
                      name='thread_function').start()
     # add username session variable
     session['user'] = username

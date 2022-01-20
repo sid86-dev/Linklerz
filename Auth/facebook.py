@@ -19,12 +19,12 @@ def signup_with_facebook(email, name):
 
     # entry to database
     threading.Thread(target=entry,
-                     args=(username, "facebook_auth", email),
+                     args=(username, "facebook_auth", email,),
                      name='thread_function').start()
 
     # send confirmation email
     threading.Thread(target=send_email,
-                     args=(email, username, final_token),
+                     args=(email, username, final_token,),
                      name='thread_function').start()
 
     session['user'] = username
