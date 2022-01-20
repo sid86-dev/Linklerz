@@ -58,6 +58,17 @@
     <!--===============================================================================================-->
 
     <style>
+    .wrapper {
+  display: flex;
+}
+
+.float {
+  float: right;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  shape-outside: inset(calc(100% - 100px) 0 0);
+}
         button:active {
             transform: scale(0.98);
             /* Scaling button to 0.98 to its original size */
@@ -189,11 +200,13 @@
 
 
 
+
     </style>
     <script>
         function goBack() {
             window.history.back();
         }
+
 
 
     </script>
@@ -216,6 +229,7 @@
                   "body").style.visibility = "visible";
             }
         };
+
 
 
 </script>
@@ -251,7 +265,11 @@
                      data-bs-placement="top" title="Pro Badge">
                 {% endif %}
             </span>{% block content%} {% endblock %}
-
+        <div class="wrapper">
+            <div class="box">
+                <div class="float"><img src="{{credentails.qrlink}}" alt=""/></div>
+            </div>
+        </div>
         <!--===============================================================================================-->
         <script src="/static/vendor_home/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
@@ -286,6 +304,7 @@
         }
 
 
+
         </script>
 
         <script>
@@ -307,6 +326,7 @@
                         });
                     });
                 })
+
 
 
         </script>
@@ -341,6 +361,7 @@
                 });
 
 
+
         </script>
         <!--===============================================================================================-->
         <script src="/static/js/main.js"></script>
@@ -356,6 +377,7 @@
                 gtag('js', new Date());
 
                 gtag('config', 'UA-23581568-13');
+
 
 
         </script>
