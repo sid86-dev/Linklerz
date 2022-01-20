@@ -127,7 +127,7 @@ def profile(username):
 
             link = buildqr(credentials.userid, get_username)
 
-            credentials.link = link
+            credentials.qrlink = link
 
             db.session.commit()
             # handle log info
