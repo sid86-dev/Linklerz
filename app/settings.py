@@ -20,8 +20,8 @@ oauth = OAuth(app)
 db = SQLAlchemy(app)
 # app.config['SERVER_NAME'] = 'localhost:5000'
 
-development = False
-# development = True
+# development = False
+development = True
 
 if development == True:
     uri = 'http://127.0.0.1:5000/callback'
