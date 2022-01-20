@@ -121,9 +121,6 @@ def profile(username):
                 error = 'Username already exist'
                 return render_template('profile.html', credentials=credentials, error=error)
         except:
-
-
-            # print(credentials)
             credentials = Users.query.filter_by(username=username).first()
 
             credentials.username = get_username
