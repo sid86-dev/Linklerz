@@ -6,7 +6,6 @@
     };
 </script>
 
-
 <span class="contact100-form-title" style="font-size: large;">
     {% if credentials.confirmation == "no" %}
     <a href="/sendconfirm/{{credentials.email}}">
@@ -31,30 +30,7 @@
             </div>
         </div>
     </div>
-    <script>
-        function copyText() {
-            /* Get the text field */
-            var copyText = document.getElementById("myInput");
 
-            /* Select the text field */
-            copyText.select();
-            copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-            /* Copy the text inside the text field */
-            document.execCommand("copy");
-
-            /* Alert the copied text */
-            // alert("Copied the text: " + copyText.value);
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar");
-
-            // Add the "show" class to DIV
-            x.className = "show";
-
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-        }
-    </script>
     {% if credentials.linktype == "" %}
     <p style="font-family: Montserrat-SemiBold;">Hurrah ! Create your first linklerz by clicking on the button below</p>
     {% endif %}
@@ -108,6 +84,5 @@
 
     </div>
     </div>
-
 
     {% endblock %}

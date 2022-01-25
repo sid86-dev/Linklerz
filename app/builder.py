@@ -5,6 +5,7 @@ from Auth.facebook import *
 from Auth.twilio_ import *
 from Auth.google import *
 from Auth.redis_ import *
+from qr_code.genqr import *
 
 s = URLSafeTimedSerializer('Linklerz.li')
 
@@ -25,6 +26,9 @@ def get_credentials(variable):
 def entry(username_get, userpass_encrypt, useremail_get):
     w = gen_word()
     userid = f"{w}{random.randint(1000, 9999)}"
+
+    link = buildqr(userid, username_get)
+
     entry = Users(username=username_get,
                   password=userpass_encrypt,
                   email=useremail_get,
@@ -35,7 +39,8 @@ def entry(username_get, userpass_encrypt, useremail_get):
                   userid=userid,
                   theme='DEFAULT THEME',
                   auth='no',
-                  phone="")
+                  phone="",
+                  qrlink=link)
     db.session.add(entry)
     db.session.commit()
 
@@ -124,3 +129,26 @@ def cache_details(userid):
         return r.get('id')
     else:
         return "cannot find the key"
+
+
+def uploadimage(title):
+
+    CLIENT_ID = "b53e11fbba52bc8"
+    PATH = './qr_code/qr.png'
+
+    im = pyimgur.Imgur(CLIENT_ID)
+    uploaded_image = im.upload_image(PATH, title=title)
+    link = uploaded_image.link
+
+    return link
+
+def buildqr(id, username):
+
+    gen_qr(f"https://lerz.herokuapp.com/li.{username}")
+
+    link = uploadimage(f'{id}qrcode')
+
+    return link
+
+
+

@@ -7,5 +7,5 @@
 Name | Endpoint | Quicklink
 ------------ | ------------- | -------------
 Website | `/` | [here](https://lerz.herokuapp.com/)
-Api | `/api` | [here](https://lerz.herokuapp.com/api/sid86_)
+Api | `/api` | [here](https://linklerz-api.cleverapps.io/api/users)
 Admin | `/admin` | [here](https://lerz.herokuapp.com/admin_dashboard)
