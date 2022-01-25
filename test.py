@@ -1,41 +1,32 @@
-from Auth.twilio_ import *
-import threading
+data = {
+    'name': 'SidDharth',
+    'username': 'sid999'
+}
+
+import random
+
+print(data['name'])
+
+for item in data:
+    data[item] = data[item].lower()
 
 
-def code_verification(userid):
-    code = gen_code()
-    phone = '918389046987'
-    # send sms code
-    threading.Thread(target=send_sms_code, args=(code, phone,), name='thread_function').start()
+def createUsername(get_fullname):
+    num = random.randint(11, 500)
 
-    # add cache to redis
-    threading.Thread(target=add_cache, args=(
-        userid, code,), name='thread_function').start()
+    punctions = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
+
+    fullname = ''
+
+    for letter in get_fullname:
+        if letter not in punctions:
+            fullname += letter
+
+    fullname.replace(" ", "")
+
+    username = f"{fullname[:4]}{fullname[-3:]}{num}"
+
+    return username
 
 
-if __name__ == '__main__':
-    code = gen_code()
-
-    phone = '918389046987'
-    send_sms_code(code=code, phone=phone)
-#     user_id = 'sdc11s44d'
-#
-#     code_verification(user_id)
-#
-#     while True:
-#         code = get_cache(user_id)
-#         i = input("Enter the code: ")
-#
-#         try:
-#             if int(code.decode('ascii')) == int(i):
-#                 print("Verification Successfull")
-#
-#             elif code == 'Code Expired':
-#                 print('Code Expired')
-#
-#             else:
-#                 print('Verification Failed')
-#
-#
-#         except:
-#             print('Verification Failed')
+print(createUsername('sidd%$harth    Ro**y'))

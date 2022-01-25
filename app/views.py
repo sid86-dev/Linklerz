@@ -351,6 +351,7 @@ def facebook():
 
 @app.route('/facebook/Auth/')
 def facebook_auth():
+    errors = []
     token = oauth.facebook.authorize_access_token()
     resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
     profile = resp.json()
@@ -362,12 +363,13 @@ def facebook_auth():
         return redirect(f'/home/{username}')
 
     except:
-        signup_with_facebook(email, name)
-        return redirect(f'/datapolicy/{email}')
+        errors.append('Linked account not found')
+         
 
 
 @app.route("/callback")
 def callback():
+    errors = []
     flow.fetch_token(authorization_response=request.url)
 
     if not session["state"] == request.args["state"]:
@@ -388,8 +390,8 @@ def callback():
         username = login_with_google(id_info)
         return redirect(f'/home/{username}')
     except:
-        email = signup_with_google(id_info)
-        return redirect(f'/datapolicy/{email}')
+        errors.append('Linked account not found')
+        
 
 
 @app.route('/datapolicy/<string:email>', methods=['GET', 'POST'])
@@ -401,54 +403,54 @@ def datapolicy(email):
     return render_template('data_policy.html', credentials=credentials, arg=arg)
 
 
+
+@app.post('/signup_test')
+def signup_test():
+    return "Testing Route"
+
+
 # signup route
-@app.route('/signup', methods=['GET', 'POST'])
+@app.post('/entry_signup')
 def signup():
-    authorization_url, state = flow.authorization_url()
-    session['state'] = state
-    user_exist = "NO"
-    if request.method == 'POST':
-        useremail_get = request.form.get('email').lower()
-        userpass_get = request.form.get('password')
-        confirmpass_get = request.form.get('password_confirm')
-        full_name = request.form.get('username').lower()
-        num = random.randint(11, 500)
-        username_get = f"{full_name[:4]}{full_name[-3:]}{num}"
-        try:
-            credentials = Users.query.filter_by(username=username_get).first()
-            username = credentials.username
-            user_exist = "YES"
-            return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
-        except:
-            user_exist = "NO"
-            if userpass_get == confirmpass_get:
-                try:
-                    credentials = Users.query.filter_by(
-                        email=useremail_get).first()
-                    useremail = credentials.email
-                    email_exist = "yes"
-                    return render_template('signup.html', user_exist=user_exist, email_exist=email_exist,
-                                           authorization_url=authorization_url)
-                except:
-                    userpass_encrypt = encrypt(userpass_get)
-                    session['user'] = username_get
 
-                    token = gen_token(useremail_get)
-                    final_token = f"https://lerz.herokuapp.com/confirm/{token}"
-                    # entry to database
-                    threading.Thread(target=entry, args=(
-                        username_get, userpass_encrypt, useremail_get), name='thread_function').start()
+    data = request.get_json()
+    # sort data
+    for item in data:
+        data[item] = data[item].lower()
 
-                    # send confirmation email
-                    threading.Thread(target=send_email, args=(
-                        useremail_get, username_get, final_token), name='thread_function').start()
 
-                    return render_template('confirm.html', email_address=useremail_get)
-            else:
-                match = "NO"
-                return render_template('signup.html', user_exist=user_exist, match=match,
-                                       authorization_url=authorization_url)
-    return render_template('signup.html', user_exist=user_exist, authorization_url=authorization_url)
+    num = random.randint(11, 500)
+
+    userName = createUsername(data['fullname'])
+
+    try:
+        credentials = Users.query.filter_by(email=data['useremail']).first()
+        email = credentials.email
+
+        res = make_response(jsonify({"error": 'Email already exist, try login' }), 200)
+
+        return res
+
+    except:
+
+        userpass_encrypt = encrypt(data['userpass'])
+
+        # adding username to session
+        session['user'] = userName
+        token = gen_token(data['useremail'])
+        final_token = f"https://lerz.herokuapp.com/confirm/{token}"
+
+        # entry to database
+        threading.Thread(target=entry, args=(userName, userpass_encrypt, data['useremail']), name='thread_function').start()
+        # send confirmation email
+        threading.Thread(target=send_email, args=(data['useremail'], userName, final_token), name='thread_function').start()
+                
+        return render_template('confirm.html', email_address= data['useremail'])
+
+
+@app.get('/signup')
+def signup_view():
+    return render_template('signup.html')
 
 
 # email send

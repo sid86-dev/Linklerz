@@ -40,6 +40,24 @@ def entry(username_get, userpass_encrypt, useremail_get):
     db.session.commit()
 
 
+def createUsername(get_fullname):
+    num = random.randint(11, 500)
+
+    punctions = '''!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~'''
+
+    fullname = ''
+
+    for letter in get_fullname:
+        if letter not in punctions:
+            fullname += letter
+
+    fullname.replace(" ", "")
+
+    username = f"{fullname[:4]}{fullname[-3:]}{num}"
+
+    return username
+
+
 def verify_user(userid, phone):
     N = 80
     authid = ''.join(
