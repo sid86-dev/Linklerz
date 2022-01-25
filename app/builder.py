@@ -60,6 +60,8 @@ def createUsername(get_fullname):
 
     username = f"{fullname[:4]}{fullname[-3:]}{num}"
 
+    username.replace(" ", "")
+
     return username
 
 

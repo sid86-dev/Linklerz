@@ -403,6 +403,12 @@
 
                 response.json().then(function (data) {
 
+                    if (data.error == 'No-error'){
+
+                        url = `${window.origin}/newaccount/${data.email}`
+                        location.replace(url)
+
+                    }else{
                     // document.getElementById("submitButton").disabled = true;
                     document.getElementById("loader-line").style.display = 'none';
 
@@ -412,6 +418,7 @@
 
                     submitButton.style.opacity = 1;
                     submitButton.style.backgroundColor = '#2EE59D';
+                }
 
                 })
             })

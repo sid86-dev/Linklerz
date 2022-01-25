@@ -38,7 +38,6 @@ def settings(username):
 def home(username):
     if ('user' in session and session['user'] == username):
         credentials = Users.query.filter_by(username=username).first()
-        print(credentials.qrlink)
         # credentials = get_credentials(username)
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)
@@ -93,13 +92,11 @@ def profile(username):
                 a = 'd'
             else:
                 credentials.auth = 'no'
-                print(credentials.auth)
                 db.session.commit()
 
         elif auth_update == 'no':
             if get_auth2 == 'close_to_open':
                 credentials.auth = 'yes'
-                print(credentials.auth)
                 db.session.commit()
             else:
                 pass
@@ -220,7 +217,6 @@ def verify_otp(userid, authid):
             otp += get_otp1
 
         code = get_cache(authid[:5])
-        print(code)
 
         try:
             if int(code.decode('ascii')) == int(otp):
@@ -251,7 +247,6 @@ def login():
 
     try:
         get_user_id = get_userid(args_authid)
-        # print(get_user_id)
         if get_user_id.decode('ascii') == args_userid:
             auth = 'yes'
     except:
@@ -407,12 +402,6 @@ def datapolicy(email):
     return render_template('data_policy.html', credentials=credentials, arg=arg)
 
 
-
-@app.post('/signup_test')
-def signup_test():
-    return "Testing Route"
-
-
 # signup route
 @app.post('/entry_signup')
 def signup():
@@ -422,9 +411,6 @@ def signup():
     for item in data:
         data[item] = data[item].lower()
 
-
-    num = random.randint(11, 500)
-
     userName = createUsername(data['fullname'])
 
     try:
@@ -432,7 +418,6 @@ def signup():
         email = credentials.email
 
         res = make_response(jsonify({"error": 'Email already exist, try login' }), 200)
-
         return res
 
     except:
@@ -446,15 +431,22 @@ def signup():
 
         # entry to database
         threading.Thread(target=entry, args=(userName, userpass_encrypt, data['useremail']), name='thread_function').start()
+
         # send confirmation email
         threading.Thread(target=send_email, args=(data['useremail'], userName, final_token), name='thread_function').start()
                 
-        return render_template('confirm.html', email_address= data['useremail'])
 
+        res = make_response(jsonify({"error": 'No-error', 'email': data['useremail']}), 200)
+        return res
 
 @app.get('/signup')
 def signup_view():
     return render_template('signup.html')
+
+@app.get('/newaccount/<string:email>')
+def confirm_view(email):
+    return render_template('confirm.html', email_address=email)
+
 
 
 # email send
@@ -465,7 +457,7 @@ def emailconfirm(email):
         token = gen_token(email)
         final_token = f"https://lerz.herokuapp.com/confirm/{token}"
 
-        send_email(email, username, final_token)
+        threading.Thread(target=send_email, args=(email, username, final_token), name='thread_function').start()
         return render_template('confirm.html', email_address=email)
     except:
         return redirect('/error')
@@ -507,7 +499,7 @@ def delete_check(username, word, email):
     if request.method == "POST":
         inputtext = request.form.get('inputtext')
         if inputtext != word:
-            return redirect(f'/deletelog/{username}')
+            return redirect(f'/deletelog/{email}/{username}')
         else:
             # query to database
             threading.Thread(target=delete_data, args=(
@@ -629,7 +621,6 @@ def api(username):
 
         api = {'links':arr}
 
-        print(type(api))
 
         return api
         
@@ -648,7 +639,6 @@ def recovery():
     arg = ''
     if request.method == 'POST':
         recoveryinput = request.form.get('recoveryinput')
-        print(recoveryinput)
         try:
             if '@' in recoveryinput:
                 credentials = Users.query.filter_by(
