@@ -13,7 +13,6 @@
             style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please
             confirm Your email </h3>
     </a>
-</span>
 
     {% endif %}
     <h3 class="mb-2" style="font-family: Montserrat-SemiBold;font-size: medium;">Your Linklerz</h3>
@@ -32,8 +31,9 @@
         </div>
     </div>
 
-    <div id="homeContent">
-        
+
+<div id="homeContent">
+
     {% if credentials.linktype == "" %}
     <p style="font-family: Montserrat-SemiBold;">Hurrah ! Create your first linklerz by clicking on the button below</p>
     {% endif %}
@@ -44,10 +44,11 @@
         <div class="container__item">
 
             <input type="email " class="form__field " style="font-family: Montserrat-SemiBold;" value="{{items}}"
-                disabled />
+                   disabled/>
             <a href="/edit/{{credentials.username}}">
                 <button type="submit" style="font-family: Montserrat-Black; "
-                    class="btn btn--primary btn--inside uppercase ">Edit</button>
+                        class="btn btn--primary btn--inside uppercase ">Edit
+                </button>
             </a>
         </div>
     </div>
@@ -59,56 +60,54 @@
         <a href="/edit/{{credentials.username}}">
             <div class="container-contact100-form-btn inner " style="margin-top: 0px; ">
                 <button class="button "
-                    style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
+                        style="width: 70%;font-family: Montserrat-Black; font-size: large;border-radius: 5px ">
                     Add Links
                     <svg xmlns="http://www.w3.org/2000/svg " width="16 " height="16 " style="padding-top: 2px; "
-                        fill="currentColor " class="bi bi-plus-lg " viewBox="0 0 16 16 ">
+                         fill="currentColor " class="bi bi-plus-lg " viewBox="0 0 16 16 ">
                         <path
-                            d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z " />
+                                d="M8 0a1 1 0 0 1 1 1v6h6a1 1 0 1 1 0 2H9v6a1 1 0 1 1-2 0V9H1a1 1 0 0 1 0-2h6V1a1 1 0 0 1 1-1z "/>
                     </svg>
                 </button>
             </div>
 
         </a>
     </div>
-    </div>
-    <div id="settingsContent" style="display:none;">
-        <div class="container">
-    <a class="box mt-2" href="/login">
-                            <button>
-                                <h4 class="pt-2 settingsButton">Home</h4>
-                            </button>
-                        </a>
+</div>
+<div id="settingsContent" style="display:none;">
+    <div class="container">
+        <a class="box mt-2" href="/login">
+            <button>
+                <h4 class="pt-2 settingsButton">Home</h4>
+            </button>
+        </a>
 
-                        <a class="box mt-4" href="/appearance/{{credentials.username}}">
-                            <button>
-                                <h4 class="pt-2 settingsButton">Appearance</h4>
-                            </button>
-                        </a>
+        <a class="box mt-4" href="/appearance/{{credentials.username}}">
+            <button>
+                <h4 class="pt-2 settingsButton">Appearance</h4>
+            </button>
+        </a>
 
-                        <a class="box mt-4" href="/profile/{{credentials.username}}">
-                            <button>
-                                <h4 class="pt-2 settingsButton">Edit Profile</h4>
-                            </button>
-                        </a>
-                        <a href="" class="box mt-4">
-                            <button>
-                                <h4 class="pt-2 settingsButton">Plans</h4>
-                            </button>
-                        </a>
-                        <a href="" class="box mt-4">
-                            <button>
-                                <h4 class="pt-2 settingsButton">Help</h4>
-                            </button>
-                        </a>
-                        <a class="box mt-4" onclick="confirmbox()">
-                            <button>
-                                <h4 class="pt-2 settingsButton">Logout</h4>
-                            </button>
-                        </a>
-                        </div>
-                    </div>
+        <a class="box mt-4" href="/profile/{{credentials.username}}">
+            <button>
+                <h4 class="pt-2 settingsButton">Edit Profile</h4>
+            </button>
+        </a>
+        <a href="" class="box mt-4">
+            <button>
+                <h4 class="pt-2 settingsButton">Plans</h4>
+            </button>
+        </a>
+        <a href="" class="box mt-4">
+            <button>
+                <h4 class="pt-2 settingsButton">Help</h4>
+            </button>
+        </a>
+        <a class="box mt-4" onclick="confirmbox()">
+            <button>
+                <h4 class="pt-2 settingsButton">Logout</h4>
+            </button>
+        </a>
     </div>
-    </div>
+</div>
 
     {% endblock %}

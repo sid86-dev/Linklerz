@@ -51,15 +51,16 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href="/static/css_home/util.css">
     <link rel="stylesheet" type="text/css" href="/static/css_home/home.css">
+    <link rel="stylesheet" type="text/css" href="/static/css_home/style.css">
     <link rel="stylesheet" type="text/css" href="/static/css/field.css">
     <link rel="stylesheet" type="text/css" href="/static/css/button.css">
-    <link rel="stylesheet" type="text/css" href="/static/css_home/style.css">
-        <link rel="stylesheet" type="text/css" href="/static/css_home/switch.css">
-
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <!-- <link rel="stylesheet" type="text/css" href="/static/css/text.css"> -->
     <!--===============================================================================================-->
+
+   
 
 
 </head>
@@ -70,7 +71,7 @@
 <div class="container-contact100" style="background-image: linear-gradient(to right, #c6ffdd, #fbd786, #f7797d);">
 
     <div class="wrap-contact100" style="padding-bottom: 0px;padding-top: 20px;">
-        {% if page == 'home' %}
+    {% if page == 'home' %}
         <div class="float-right" style="cursor:pointer" id="settingsButton" onclick="showSettings()">
             <a>
                 <svg xmlns="http://www.w3.org/2000/svg" style="margin-top: 10px;" width="30" height="30"
@@ -124,31 +125,29 @@
         <script src="/static/vendor_home/bootstrap/js/bootstrap.min.js"></script>
         <!--===============================================================================================-->
         <script src="/static/vendor_home/select2/select2.min.js"></script>
-
-        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
         <script src="/static/js_home/script.js"></script>
 
+ 
+
         <script>
-            $(".js-select2").each(function () {
-                $(this).select2({
-                    minimumResultsForSearch: 20,
-                    dropdownParent: $(this).next('.dropDownSelect2')
-                });
-
-
-                $(".js-select2").each(function () {
-                    $(this).on('select2:close', function (e) {
-                        if ($(this).val() == "Please chooses") {
-                            $('.js-show-service').slideUp();
-                        } else {
-                            $('.js-show-service').slideUp();
-                            $('.js-show-service').slideDown();
-                        }
+                $(".js-select2").each(function() {
+                    $(this).select2({
+                        minimumResultsForSearch: 20,
+                        dropdownParent: $(this).next('.dropDownSelect2')
                     });
-                });
-            })
 
+
+                    $(".js-select2").each(function() {
+                        $(this).on('select2:close', function(e) {
+                            if ($(this).val() == "Please chooses") {
+                                $('.js-show-service').slideUp();
+                            } else {
+                                $('.js-show-service').slideUp();
+                                $('.js-show-service').slideDown();
+                            }
+                        });
+                    });
+                })
 
         </script>
         <!--===============================================================================================-->
@@ -159,27 +158,32 @@
         <!--===============================================================================================-->
         <script src="/static/vendor_home/noui/nouislider.min.js"></script>
         <script>
-            var filterBar = document.getElementById('filter-bar');
+                var filterBar = document.getElementById('filter-bar');
 
-            noUiSlider.create(filterBar, {
-                start: [1500, 3900],
-                connect: true,
-                range: {
-                    'min': 1500,
-                    'max': 7500
-                }
-            });
+                noUiSlider.create(filterBar, {
+                    start: [1500, 3900],
+                    connect: true,
+                    range: {
+                        'min': 1500,
+                        'max': 7500
+                    }
+                });
 
-            var skipValues = [
-                document.getElementById('value-lower'),
-                document.getElementById('value-upper')
-            ];
+                var skipValues = [
+                    document.getElementById('value-lower'),
+                    document.getElementById('value-upper')
+                ];
 
-            filterBar.noUiSlider.on('update', function (values, handle) {
-                skipValues[handle].innerHTML = Math.round(values[handle]);
-                $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
-                $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
-            });
+                filterBar.noUiSlider.on('update', function(values, handle) {
+                    skipValues[handle].innerHTML = Math.round(values[handle]);
+                    $('.contact100-form-range-value input[name="from-value"]').val($('#value-lower').html());
+                    $('.contact100-form-range-value input[name="to-value"]').val($('#value-upper').html());
+                });
+
+
+
+
+
 
 
         </script>
@@ -189,15 +193,19 @@
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
         <script>
-            window.dataLayer = window.dataLayer || [];
+                window.dataLayer = window.dataLayer || [];
 
-            function gtag() {
-                dataLayer.push(arguments);
-            }
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag('js', new Date());
 
-            gtag('js', new Date());
+                gtag('config', 'UA-23581568-13');
 
-            gtag('config', 'UA-23581568-13');
+
+
+
+
 
 
         </script>

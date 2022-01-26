@@ -1,6 +1,5 @@
 {% extends '/Client/home_base.html' %} {% block content %}
 <link rel="stylesheet" href="/static/css/appearance.css">
-
 <form action="/appearance/{{credentials.username}}" method="POST">
 
     <div class="wrap-input100 validate-input bg1 " data-validate="Please Type Your Userame or Email ">
@@ -50,6 +49,17 @@
     </div>
     
 </form>
+<script>
+    function showSnackbar() {
+        var x = document.getElementById("snackbar");
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+</script>
 
 </div>
 </div>
