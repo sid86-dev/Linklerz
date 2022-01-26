@@ -1,4 +1,4 @@
-{% extends 'home_base.html' %} {% block content%}
+{% extends '/Client/home_base.html' %} {% block content%}
 <script>
     window.history.pushState(null, "", window.location.href);
     window.onpopstate = function() {
@@ -13,6 +13,7 @@
             style="font-family: Montserrat-SemiBold;font-size: small; text-decoration: 2px underline coral;">Please
             confirm Your email </h3>
     </a>
+</span>
 
     {% endif %}
     <h3 class="mb-2" style="font-family: Montserrat-SemiBold;font-size: medium;">Your Linklerz</h3>
@@ -31,6 +32,8 @@
         </div>
     </div>
 
+    <div id="homeContent">
+        
     {% if credentials.linktype == "" %}
     <p style="font-family: Montserrat-SemiBold;">Hurrah ! Create your first linklerz by clicking on the button below</p>
     {% endif %}
@@ -51,19 +54,6 @@
     {% endif %}
     {% endfor %}
 
-
-    <style>
-        .inner {
-            display: table;
-            margin: 0 auto;
-            /* border: 1px solid black; */
-        }
-
-        .outer {
-            /* border: 1px solid red; */
-            width: 100%
-        }
-    </style>
     <br>
     <div class="outer ">
         <a href="/edit/{{credentials.username}}">
@@ -81,7 +71,43 @@
 
         </a>
     </div>
+    </div>
+    <div id="settingsContent" style="display:none;">
+        <div class="container">
+    <a class="box mt-2" href="/login">
+                            <button>
+                                <h4 class="pt-2 settingsButton">Home</h4>
+                            </button>
+                        </a>
 
+                        <a class="box mt-4" href="/appearance/{{credentials.username}}">
+                            <button>
+                                <h4 class="pt-2 settingsButton">Appearance</h4>
+                            </button>
+                        </a>
+
+                        <a class="box mt-4" href="/profile/{{credentials.username}}">
+                            <button>
+                                <h4 class="pt-2 settingsButton">Edit Profile</h4>
+                            </button>
+                        </a>
+                        <a href="" class="box mt-4">
+                            <button>
+                                <h4 class="pt-2 settingsButton">Plans</h4>
+                            </button>
+                        </a>
+                        <a href="" class="box mt-4">
+                            <button>
+                                <h4 class="pt-2 settingsButton">Help</h4>
+                            </button>
+                        </a>
+                        <a class="box mt-4" onclick="confirmbox()">
+                            <button>
+                                <h4 class="pt-2 settingsButton">Logout</h4>
+                            </button>
+                        </a>
+                        </div>
+                    </div>
     </div>
     </div>
 

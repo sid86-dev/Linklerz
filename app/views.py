@@ -37,11 +37,14 @@ def settings(username):
 @app.route('/home/<string:username>')
 def home(username):
     if ('user' in session and session['user'] == username):
+        page = 'home'
+
         credentials = Users.query.filter_by(username=username).first()
         # credentials = get_credentials(username)
         linktype = credentials.linktype
         list_linktype = get_linktype(linktype)
-        return render_template('home.html', list_linktype=list_linktype, credentials=credentials)
+
+        return render_template('/Client/home.html', list_linktype=list_linktype, credentials=credentials, page=page)
     return redirect('/login')
 
 
@@ -67,7 +70,7 @@ def edit(username):
             num = 5 - len(list_linktype)
         else:
             num = 10 - len(list_linktype)
-        return render_template('edit.html', linkdic=linkdic, num=num, credentials=credentials)
+        return render_template('/Client/edit.html', linkdic=linkdic, num=num, credentials=credentials)
     return redirect('/login')
 
 
@@ -116,7 +119,7 @@ def profile(username):
                 # return to the same route with error
                 credentials = Users.query.filter_by(username=username).first()
                 error = 'Username already exist'
-                return render_template('profile.html', credentials=credentials, error=error)
+                return render_template('/Client/profile.html', credentials=credentials, error=error)
         except:
             credentials = Users.query.filter_by(username=username).first()
 
@@ -135,7 +138,7 @@ def profile(username):
     try:
         if ('user' in session and session['user'] == username):
             credentials = Users.query.filter_by(username=username).first()
-            return render_template('profile.html', credentials=credentials, error=error)
+            return render_template('/Client/profile.html', credentials=credentials, error=error)
     except:
         return redirect('/login')
 
@@ -585,7 +588,7 @@ def appearance(username):
             credentials.theme = theme
             db.session.commit()
             return redirect(f'/home/{{credentials.username}}')
-        return render_template('appearance.html', credentials=credentials)
+        return render_template('/Client/appearance.html', credentials=credentials)
     else:
         return redirect('/login')
 

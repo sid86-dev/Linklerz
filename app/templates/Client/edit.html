@@ -1,17 +1,4 @@
-{% extends 'home_base.html' %} {% block content %}
-
-<style>
-    .inner {
-        display: table;
-        margin: 0 auto;
-        /* border: 1px solid black; */
-    }
-    
-    .outer {
-        /* border: 1px solid red; */
-        width: 100%
-    }
-</style>
+{% extends '/Client/home_base.html' %} {% block content %}
 
 <form action="/save" method="POST">
     <input type="text" value="{{username}}" name=username style="display: none;">

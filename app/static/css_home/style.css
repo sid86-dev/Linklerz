@@ -1,0 +1,188 @@
+    .settingsButton{
+            font-family: Montserrat-SemiBold; 
+        }
+        .inner {
+            display: table;
+            margin: 0 auto;
+            /* border: 1px solid black; */
+        }
+
+        .outer {
+            /* border: 1px solid red; */
+            width: 100%
+        }
+
+        .wrapper {
+            display: flex;
+        }
+
+        .float {
+            float: right;
+            height: 100%;
+            display: flex;
+            align-items: flex-end;
+            shape-outside: inset(calc(100% - 100px) 0 0);
+        }
+
+        button:active {
+            transform: scale(0.98);
+            /* Scaling button to 0.98 to its original size */
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+        .box {
+            width: 85%;
+            height: 60px;
+            border: 2px solid black;
+            margin: auto;
+            /* position: relative; */
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+            cursor: pointer;
+        }
+
+        .box:active {
+            transform: scale(0.98);
+            /* Scaling button to 0.98 to its original size */
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+        .profilebox {
+            width: 65%;
+            height: 50px;
+            border: 2px solid black;
+            margin: auto;
+            /* position: relative; */
+            box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+        }
+
+        .profilebox:active {
+            transform: scale(0.98);
+            /* Scaling button to 0.98 to its original size */
+            box-shadow: 3px 2px 22px 1px rgba(0, 0, 0, 0.24);
+            /* Lowering the shadow */
+        }
+
+        .vertical {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-family: Poppins-Regular, sans-serif;
+            padding-top: 5px;
+        }
+
+        /* The snackbar - position it at the bottom and in the middle of the screen */
+
+        #snackbar {
+            visibility: hidden;
+            /* Hidden by default. Visible on click */
+            min-width: 250px;
+            /* Set a default minimum width */
+            margin-left: -125px;
+            /* Divide value of min-width by 2 */
+            background-color: #333;
+            /* Black background color */
+            color: #fff;
+            /* White text color */
+            text-align: center;
+            /* Centered text */
+            border-radius: 2px;
+            /* Rounded borders */
+            padding: 16px;
+            /* Padding */
+            position: fixed;
+            /* Sit on top of the screen */
+            z-index: 1;
+            /* Add a z-index if needed */
+            left: 50%;
+            /* Center the snackbar */
+            bottom: 30px;
+            /* 30px from the bottom */
+            font-family: Montserrat-SemiBold;
+        }
+
+        /* Show the snackbar when clicking on a button (class added with JavaScript) */
+
+        #snackbar.show {
+            visibility: visible;
+            /* Show the snackbar */
+            /* Add animation: Take 0.5 seconds to fade in and out the snackbar.
+  However, delay the fade out process for 2.5 seconds */
+            -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+            animation: fadein 0.5s, fadeout 0.5s 2.5s;
+        }
+
+        /* Animations to fade the snackbar in and out */
+
+        @-webkit-keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadein {
+            from {
+                bottom: 0;
+                opacity: 0;
+            }
+            to {
+                bottom: 30px;
+                opacity: 1;
+            }
+        }
+
+        @-webkit-keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeout {
+            from {
+                bottom: 30px;
+                opacity: 1;
+            }
+            to {
+                bottom: 0;
+                opacity: 0;
+            }
+        }
+
+        #loader {
+            border: 12px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 12px solid #444444;
+            width: 70px;
+            height: 70px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .center {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+
+        @media only screen and (max-width: 1280px) {
+            #qrcode {
+                display: none;
+            }
+        }
+

@@ -1,17 +1,5 @@
-{% extends 'home_base.html' %} {% block content %}
+{% extends '/Client/home_base.html' %} {% block content %}
 <link rel="stylesheet" href="/static/css/appearance.css">
-<style>
-    .inner {
-        display: table;
-        margin: 0 auto;
-        /* border: 1px solid black; */
-    }
-
-    .outer {
-        /* border: 1px solid red; */
-        width: 100%
-    }
-</style>
 
 <form action="/appearance/{{credentials.username}}" method="POST">
 
@@ -62,17 +50,6 @@
     </div>
     
 </form>
-<script>
-    function showSnackbar() {
-        var x = document.getElementById("snackbar");
-
-        // Add the "show" class to DIV
-        x.className = "show";
-
-        // After 3 seconds, remove the show class from DIV
-        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-    }
-</script>
 
 </div>
 </div>
