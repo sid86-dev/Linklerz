@@ -1,3 +1,54 @@
+// qrpopu
+
+function showQR(){
+    var myBody = document.getElementById("myBody");
+    var qrPopup = document.getElementById("qrPopup");
+
+    qrPopup.style.display = "block";
+    myBody.classList.toggle('blur');
+
+}
+
+$(document).mouseup(function (e) {
+            if ($(e.target).closest("#qrPopup").length
+                        === 0) {
+                $("#qrPopup").hide();
+                document.getElementById("myBody").classList.remove('blur');
+            }
+});
+
+
+// download qrcode
+const btn = document.getElementById('downloadQR');
+const url =  document.getElementById('qrcode').src;
+
+
+btn.addEventListener('click', (event) => {
+  event.preventDefault();
+  downloadImage(url);
+})
+
+
+function downloadImage(url) {
+  fetch(url, {
+    mode : 'no-cors',
+  })
+    .then(response => response.blob())
+    .then(blob => {
+    let blobUrl = window.URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.download = url.replace(/^.*[\\\/]/, '');
+    a.href = blobUrl;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  })
+}
+
+
+
+
+
 
 // logout popup
  function confirmbox() {
