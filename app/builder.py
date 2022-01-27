@@ -146,7 +146,7 @@ def uploadimage(title):
 
 def buildqr(id, username):
 
-    gen_qr(f"https://lerz.herokuapp.com/li.{username}")
+    gen_qr(f"https://shwt.xyz/{username}")
 
     link = uploadimage(f'{id}qrcode')
 
