@@ -434,13 +434,13 @@ def signup():
 
         # entry to database
         threading.Thread(target=entry, args=(userName, userpass_encrypt, data['useremail']), name='thread_function').start()
-
         # send confirmation email
         threading.Thread(target=send_email, args=(data['useremail'], userName, final_token), name='thread_function').start()
                 
 
         res = make_response(jsonify({"error": 'No-error', 'email': data['useremail']}), 200)
         return res
+
 
 @app.get('/signup')
 def signup_view():
