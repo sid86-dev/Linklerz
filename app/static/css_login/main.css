@@ -172,6 +172,17 @@ iframe {
   margin: 0 auto;
 }
 
+#showPass{
+  float:right;
+  color:grey;
+  font-size: small;
+  margin: 5px 5px 10px 0px;
+  display: none;
+  cursor: pointer;
+
+
+}
+
 .container-login100 {
   width: 100%;  
   min-height: 100vh;
@@ -204,7 +215,7 @@ iframe {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 177px 130px 33px 95px;
+  padding: 100px 130px 33px 95px;
 }
 
 /*------------------------------------------------------------------
