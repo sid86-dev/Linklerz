@@ -277,7 +277,7 @@ def login():
                     password = credentials.password
                     if password == 'google_auth':
                         login_fail = "Please sign in using Google"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
                                                args_authid=args_authid, userid=userid)
 
@@ -295,7 +295,7 @@ def login():
 
                     else:
                         login_fail = "Username and Password do not match"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
                                                args_authid=args_authid, userid=userid)
 
@@ -317,15 +317,15 @@ def login():
 
                     else:
                         login_fail = "Username and Password do not match"
-                        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
                                                authorization_url=authorization_url, auth=auth, phone=phone,
                                                args_authid=args_authid, userid=userid)
             except:
                 login_fail = "Username and Password do not match"
-                return render_template('login.html', login_fail=login_fail, login_type=login_type,
+                return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
                                        authorization_url=authorization_url, auth=auth, phone=phone,
                                        args_authid=args_authid, userid=userid)
-        return render_template('login.html', login_fail=login_fail, login_type=login_type,
+        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
                                authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid,
                                userid=userid)
 
@@ -444,7 +444,7 @@ def signup():
 
 @app.get('/signup')
 def signup_view():
-    return render_template('signup.html')
+    return render_template('/Logging/signup.html')
 
 @app.get('/newaccount/<string:email>')
 def confirm_view(email):
@@ -540,7 +540,7 @@ def admin():
             return redirect('/admin_dashboard')
         login_fail = "Username and Password do not match"
     try:
-        return render_template('login.html', login_fail=login_fail, login_type=login_type)
+        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type)
     except:
         return render_template('404.html')
 
