@@ -128,7 +128,9 @@ function downloadImage(url) {
 
  function copyText() {
                 /* Get the text field */
-                var copyText = document.getElementById("myInput");
+                var copyText = document.getElementById("copyText");
+
+                copyText.disabled = false;
 
                 /* Select the text field */
                 copyText.select();
@@ -137,8 +139,10 @@ function downloadImage(url) {
                 /* Copy the text inside the text field */
                 document.execCommand("copy");
 
-                /* Alert the copied text */
-                // alert("Copied the text: " + copyText.value);
+                /* After the copied text */
+
+                copyText.disabled = true;
+
                 // Get the snackbar DIV
                 var x = document.getElementById("snackbar");
 
