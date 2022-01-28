@@ -12,10 +12,12 @@ var pass = document.getElementById("passInput");
 
         let strongPassword1 = new RegExp('(?=.*[a-z])(?=.*[0-9])(?=.{6,})')
         if(strongPassword1.test(pass.value)){
-          document.getElementById("submitButton").disabled = false;
+          submitButton.disabled = false;
+          submitButton.style.opacity = 1.0;
         }
         else{
-          document.getElementById("submitButton").disabled = true;
+          submitButton.disabled = true;
+          submitButton.style.opacity = 0.7;
         }
       }
       
