@@ -115,9 +115,9 @@
             </a>
         </div>
         {% endif %}
-        <span id="datauserName" class="contact100-form-title"
+        <span class="contact100-form-title"
               style="padding: 20px; font-family: Montserrat-SemiBold; font-size: 18.5px;">
-                @{{credentials.username}}
+                @<span id="datauserName" >{{credentials.username}}</span>
                 {% if credentials.plan == "premium" %}
                 <img src="/static/img/pro.png" style="padding-bottom: 5px;" alt="" data-bs-toggle="tooltip"
                      data-bs-placement="top" title="Pro Badge">

@@ -158,7 +158,6 @@ const shareButton = document.querySelector('.share-button');
 const shareDialog = document.querySelector('.share-dialog');
 const closeButton = document.querySelector('.close-button');
 const username = document.getElementById('datauserName').innerText;
-username.replace('@', '');
 
 shareButton.addEventListener('click', event => {
   if (navigator.share) { 
