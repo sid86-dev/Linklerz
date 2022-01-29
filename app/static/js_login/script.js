@@ -3,6 +3,11 @@
 var submitButton =  document.getElementById("submitButton");
 var showPass  = document.getElementById("showPass");
 var pass = document.getElementById("passInput");
+var loginLoader =   document.getElementById("loginLoader");
+var error = document.getElementById("error");
+var userInput = document.getElementById("userInput");
+
+
 
       pass.addEventListener("keyup",
       function validationPassword(){
@@ -38,3 +43,27 @@ var pass = document.getElementById("passInput");
                 x.type = "password";
               }
             }
+
+function submitData() {
+    if (userInput.value == "" || pass.value == "" ) {
+      error.innerText = "All fields are required"
+    }
+    else{
+  submitButton.style.display = 'none';
+  loginLoader.style.display = 'block';
+
+  var entry = {
+                username: userInput.value,
+                userpass: pass.value
+            };   
+
+            console.log(entry);
+
+  var newurl = window.location.protocol + "//" + window.location.host + window.location.pathname + `?user=${userInput.value}`;
+  window.history.pushState({ path: newurl }, '', newurl); 
+  
+
+    }
+  
+  
+}

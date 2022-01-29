@@ -5,6 +5,8 @@
         var passDiv = document.getElementById('passDiv');
         var emailDiv = document.getElementById("emailDiv");
         var emailError = document.getElementById("myError");
+        var fullnameDiv = document.getElementById("fullnameDiv")
+        var belowLoader = document.getElementById("belowLoader")
       
 
 // email validation listener
@@ -13,6 +15,7 @@
           emailDiv.style.border = '1px solid #e6e6e6';
           emailError.style.display = 'none';
             document.getElementById("submitButton").disabled = false;
+            fullnameDiv.style.marginTop = '22px'
 
 
       })
@@ -29,12 +32,20 @@
         if(strongPassword1.test(pass.value)){
           passError.style.display="none";
           passDiv.style.border = '1px solid #e6e6e6';
+          submitButton.style.opacity = 1.0;
+          submitButton.disabled = false;
+          passDiv.style.marginBottom = '40px';
+
 
         }
         else{
           passError.style.color="red";
           passError.innerHTML = "Password must contain at least 6 characters and a number";
           passDiv.style.border = '2px solid red';
+          submitButton.style.opacity = 0.7;
+          submitButton.disabled = true;
+          passDiv.style.marginBottom = '15px';
+
 
         }
       }
@@ -58,6 +69,8 @@
 
             document.getElementById("myError").innerHTML = "All fields are required";
             document.getElementById("myError").style.display = 'block';
+            fullnameDiv.style.marginTop = '0px'
+
 
             } else{
 
@@ -68,6 +81,7 @@
             loader.style.display = 'block';
             submitButton.style.opacity = 0.5;
             submitButton.style.backgroundColor = 'black'
+            belowLoader.style.marginTop = '0px'
 
 
             var entry = {
@@ -76,7 +90,7 @@
                 userpass: userpassInput.value
             };
 
-            fetch(`${window.origin}/entry_signup`, {
+            fetch(`${window.origin}/signup/data`, {
                 method: "POST",
                 credentials: "include",
                 body: JSON.stringify(entry),
@@ -105,7 +119,8 @@
                     document.getElementById("myError").innerHTML = data.error;
                     document.getElementById("myError").style.display = 'block';
                     document.getElementById("emailDiv").style.border = '2px solid red';
-
+                    fullnameDiv.style.marginTop = '0px'
+                    belowLoader.style.marginTop = '3.5px'
                     submitButton.style.opacity = 1;
                     submitButton.style.backgroundColor = '#2EE59D';
                 }

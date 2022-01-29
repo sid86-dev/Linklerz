@@ -237,9 +237,10 @@ def verify_otp(userid, authid):
             return redirect('/login')
 
 
+
 # login route
-@app.route('/login', methods=['GET', 'POST'])
-def login():
+@app.post('/login/data')
+def login_data():
     auth = "no"
 
     args_authid = request.args.get('auth')
@@ -255,8 +256,6 @@ def login():
     except:
         auth = 'no'
 
-    authorization_url, state = flow.authorization_url()
-    session['state'] = state
     try:
         username = session['user']
         if ('user' in session and session['user'] == username):
@@ -328,6 +327,24 @@ def login():
         return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
                                authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid,
                                userid=userid)
+
+@app.get('/login')
+def login_view():
+    # redirect to home
+    try:
+        username = session['user']
+        if ('user' in session and session['user'] == username):
+            return redirect(f'/home/{username}')
+    except:
+        pass
+
+    # create auth token
+    authorization_url, state = flow.authorization_url()
+    session['state'] = state
+
+    return render_template('/Logging/login.html', authorization_url=authorization_url)
+
+
 
 
 # facebook Auth
@@ -406,7 +423,7 @@ def datapolicy(email):
 
 
 # signup route
-@app.post('/entry_signup')
+@app.post('/signup/data')
 def signup():
 
     data = request.get_json()
@@ -417,8 +434,9 @@ def signup():
     userName = createUsername(data['fullname'])
 
     try:
-        credentials = Users.query.filter_by(email=data['useremail']).first()
-        email = credentials.email
+        for i in range(1):
+            credentials = Users.query.filter_by(email=data['useremail']).first()
+            email = credentials.email
 
         res = make_response(jsonify({"error": 'Email already exist, try login' }), 200)
         return res

@@ -54,7 +54,7 @@ function downloadImage(url) {
  function confirmbox() {
                         Swal.fire({
                             title: 'Do you want to logout?',
-                            text: "you may need to login again",
+                            text: "",
                             showCancelButton: true,
                             confirmButtonColor: '#2EE59D',
                             cancelButtonColor: '#d33',

@@ -1,4 +1,30 @@
+.loader {
+  display: none;
+  width: 30px;
+  height: 30px;
+  margin: 0 auto;
+  margin-bottom:20px;
+  margin-top: 35px;
+  border-top: 2.5px solid #292929;
+  border-right: 2.5px solid #efefef;
+  border-bottom: 2.5px solid #efefef;
+  border-left: 2.5px solid #efefef;
+  border-radius: 100px;
+  -webkit-animation: spin 1s infinite linear;
+          animation: spin 1s infinite linear;
+}
 
+@-webkit-keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
 
 
@@ -249,7 +275,7 @@ iframe {
 
   width: 100%;
   display: block;
-  padding-bottom: 54px;
+  padding-bottom: 44px;
 }
 
 

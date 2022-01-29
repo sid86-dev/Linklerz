@@ -78,7 +78,7 @@
                 </a>
             </div>
 
-            <span class="contact100-form-title" style="padding: 30px; font-family: Montserrat-SemiBold;font-size: xx-large;">
+            <span id="belowLoader" class="contact100-form-title" style="margin-top: 3.5px;padding: 30px; font-family: Montserrat-SemiBold;font-size: xx-large;">
                 <img src="/static/img/logo.png" alt=""> Welcome to Linklerz™
             </span>
             
@@ -92,7 +92,7 @@
 
                     <h3 class="mb-2 invalid" id="myError" style="font-family: Montserrat-SemiBold; font-size: small;"></h3>
                
-                 <div class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Full Name (e@Sid)">
+                 <div id="fullnameDiv" style="margin-top: 22px" class="wrap-input100 validate-input bg1 rs1-wrap-input100 inner mb-4" data-validate="Enter Your Full Name (e@Sid)">
                     
             <span class="label-input100 float-left">Fullname *</span>
             <input id="fullnameInput" class="input100" type="text" value="{{
@@ -105,7 +105,7 @@
                 request.form.email }}" name="email" placeholder="Enter Your Email " required>
         </div>
        
-        <div id='passDiv' class="wrap-input100 bg1 rs1-wrap-input100 inner mb-4">
+        <div id='passDiv' class="wrap-input100 bg1 rs1-wrap-input100 inner " style="margin-bottom: 40px;" >
 
             <!-- show password button -->
            <a  id="eyeShow"  style="cursor: pointer;"  onclick="showPass()"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye float-right" viewBox="0 0 16 16">
