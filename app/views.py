@@ -211,122 +211,118 @@ def delete(link_name):
     return redirect(f'/edit/{username}')
 
 
-@app.route('/auth_verify/<string:userid>/<string:authid>', methods=['POST'])
-def verify_otp(userid, authid):
-    if request.method == 'POST':
-        otp = ""
-        for i in range(4):
-            get_otp1 = request.form.get(f'otpinput{i + 1}')
-            otp += get_otp1
 
-        code = get_cache(authid[:5])
-
-        try:
-            if int(code.decode('ascii')) == int(otp):
-                credentials = Users.query.filter_by(userid=userid).first()
-                username = credentials.username
-                session['user'] = username
-
-                return redirect(f"/home/{username}")
-
-
-            elif code == 'Code Expired':
-                return redirect('/login')
-
-        except:
-            return redirect('/login')
 
 
 
 # login route
+@app.post('/authUser')
+def verifyLogin():
+
+    data = request.get_json()
+
+    userid, authid, otp = data['userid'], data['authid'], data['otp']
+
+
+    code = get_cache(authid[:5])
+
+    try:
+        decode_code = int(code.decode('ascii'))
+
+        if decode_code == int(otp):
+            for i in range(1):
+                credentials = Users.query.filter_by(userid=userid).first()
+                username = credentials.username
+
+            session['user'] = username
+            res = make_response(jsonify({"error": 'no-error','username':username}), 200)
+            return res
+
+        else:
+            res = make_response(jsonify({"error": 'Sorry OTP do not match'}), 200)
+            return res
+    except:
+
+        if code == 'Code Expired':
+            res = make_response(jsonify({"error": 'Code has been expired, try resend'}), 200)
+            return res
+      
+    res = make_response(jsonify({"error": 'Something went wrong, try login again'}), 200)
+    return res
+
+
+
 @app.post('/login/data')
-def login_data():
-    auth = "no"
+def loginData():
+    data = request.get_json()
+    # sort data
+    data['username'] = data['username'].lower()
 
-    args_authid = request.args.get('auth')
-    args_userid = request.args.get('userid')
-    args_phone = request.args.get('phone')
-    phone = args_phone
-    userid = args_userid
+    username = data['username'].lower()
+    hashPass = encrypt(data['userpass'])
 
+    # if email is input
     try:
-        get_user_id = get_userid(args_authid)
-        if get_user_id.decode('ascii') == args_userid:
-            auth = 'yes'
-    except:
-        auth = 'no'
+        if '@' and '.' in username:
 
-    try:
-        username = session['user']
-        if ('user' in session and session['user'] == username):
-            return redirect(f'/home/{username}')
-    except:
-        login_fail = ""
-        login_type = "Member"
-        if request.method == 'POST':
-            username_get = request.form.get('username').lower()
-            # if '.com' in username_get:
-            # username_get = username_get.lower()
-            userpass_get = request.form.get('password')
-            userpass_encrypt = encrypt(userpass_get)
             try:
-                if '@' in username_get:
-                    credentials = Users.query.filter_by(
-                        email=username_get).first()
-                    password = credentials.password
-                    if password == 'google_auth':
-                        login_fail = "Please sign in using Google"
-                        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url, auth=auth, phone=phone,
-                                               args_authid=args_authid, userid=userid)
+                for i in range(1):
+                    credentials = Users.query.filter_by(email=username).first()
+                    passWord =  credentials.password
 
-                    elif password == userpass_encrypt:
-                        if credentials.auth == 'no':
-                            session['user'] = credentials.username
-                            return redirect(f'/home/{credentials.username}')
-                        elif credentials.auth == 'yes':
-                            auth = 'yes'
-                            phone = credentials.phone
-                            userid = credentials.userid
-                            authid = verify_user(userid, phone)
-                            return redirect(f"/login?auth={authid}&userid={userid}&phone={phone}")
-
-
+                if hashPass == passWord:
+                    # checking auth
+                    if credentials.auth == 'no':
+                        session['user'] = username
+                        res = make_response(jsonify({"error": 'no-error',"auth":'no','username':username}), 200)
+                        return res
                     else:
-                        login_fail = "Username and Password do not match"
-                        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url, auth=auth, phone=phone,
-                                               args_authid=args_authid, userid=userid)
+                        userid, userphone = credentials.userid, credentials.phone
 
-                elif '@' not in username_get:
-                    credentials = Users.query.filter_by(
-                        username=username_get).first()
-                    if credentials.password == userpass_encrypt:
-                        # set the session variable
-                        if credentials.auth == 'no':
-                            session['user'] = credentials.username
-                            return redirect(f'/home/{credentials.username}')
-                        elif credentials.auth == 'yes':
-                            auth = 'yes'
-                            phone = credentials.phone
-                            userid = credentials.userid
-                            authid = verify_user(userid, phone)
-                            return redirect(f"/login?auth={authid}&userid={userid}&phone={phone}")
+                        authid = verify_user(userid, userphone)
 
-
-                    else:
-                        login_fail = "Username and Password do not match"
-                        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
-                                               authorization_url=authorization_url, auth=auth, phone=phone,
-                                               args_authid=args_authid, userid=userid)
+                        res = make_response(jsonify({"error": 'no-error', "auth":'yes','authid':authid,'userid':userid,'phone':userphone}), 200)
+                        return res
+                else:
+                    res = make_response(jsonify({"error": 'Username or password do not match'}), 200)
+                    return res
             except:
-                login_fail = "Username and Password do not match"
-                return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
-                                       authorization_url=authorization_url, auth=auth, phone=phone,
-                                       args_authid=args_authid, userid=userid)
-        return render_template('/Logging/login.html', login_fail=login_fail, login_type=login_type,
-                               authorization_url=authorization_url, auth=auth, phone=phone, args_authid=args_authid,
-                               userid=userid)
+                res = make_response(jsonify({"error": 'Email not found, try signup'}), 200)
+                return res
+
+        else:
+
+            try:
+                for i in range(1):
+                    credentials = Users.query.filter_by(username=username).first()
+                    passWord = credentials.password
+
+                if hashPass == passWord:
+                    # checking auth
+                    if credentials.auth == 'no':
+                        session['user'] = username
+                        res = make_response(jsonify({"error": 'no-error',"auth":'no','username':username}), 200)
+                        return res
+                    else:
+                        userid, userphone = credentials.userid, credentials.phone
+
+                        authid = verify_user(userid, userphone)
+
+                        res = make_response(jsonify({"error": 'no-error', "auth":'yes','authid':authid,'userid':userid,'phone':userphone}), 200)
+                        return res
+                else:
+                    res = make_response(jsonify({"error": 'Username or password do not match'}), 200)
+                    return res
+            except:
+                res = make_response(jsonify({"error": 'Sorry data not found, try again'}), 200)
+                return res
+
+    except:
+        res = make_response(jsonify({"error": 'Sorry data not found, try again'}), 200)
+        return res
+
+
+
 
 @app.get('/login')
 def login_view():
@@ -428,8 +424,9 @@ def signup():
 
     data = request.get_json()
     # sort data
-    for item in data:
-        data[item] = data[item].lower()
+    data['useremail'] = data['useremail'].lower()
+    data['fullname'] = data['fullname'].lower()
+
 
     userName = createUsername(data['fullname'])
 

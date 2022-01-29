@@ -52,7 +52,7 @@
     <!--===============================================================================================-->
 </head>
 
-<body onload="openwindow()">
+<body>
 
 
 <div class="limiter">
@@ -62,12 +62,12 @@
             <div class="login100-pic js-tilt" data-tilt>
                 <img src="/static/img/linklerz_logo.png" alt="IMG">
             </div>
-            <div id="loginForm" class="login100-form validate-form" >
+        <form id="loginForm" class="login100-form validate-form" action="javascript:submitData()">
 
-                    <span class="login100-form-title">
+                    <span id="topDiv" class="login100-form-title">
                             Member Login
                         </span>
-                    <div class="text-center pb-3">
+                    <div class="text-center pb-2">
                         <a class="txt2" href="#" style="color: red;">
                             <span id="error" ></span>
                         </a>
@@ -91,33 +91,12 @@
                             <span id="showPass" onclick="showPassword()">Show</span>
                     </div>
 
-
-                    {% if auth == 'yes' %}
-                    <script>
-                    function openwindow() {
-// <!--                    console.log('authon');-->
-                    document.getElementById("authwindow").click(); // Click on the checkbox
-                    }
-
-
-
-
-                    </script>
-                    {% else %}
-                    <script>
-                        function openwindow() {
-                            console.log('noauth');
-                        }
-
-                    </script>
-                    {% endif %}
-
                     <button style="display: none;" class="login100-form-btn mt-4" id="authwindow" type="button"
                             data-bs-toggle="modal"
                             data-bs-target="#myModal">
                         Login
                     </button>
-                    <button id="submitButton" role="" class="login100-form-btn mt-4" onclick="submitData()" disabled>
+                    <button id="submitButton" role="" class="login100-form-btn mt-4" >
                         Login 
                     </button>
                         <div id="loginLoader" class='loader' ></div>
@@ -163,7 +142,7 @@
                             <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
                         </a>
                     </div>
-                </div>
+                </form>
 
                 <!-- Verification Modal -->
                 <div class="modal fade" id="myModal">
@@ -176,33 +155,38 @@
                                         <div class="position-relative">
                                             <div class="card p-2 text-center">
                                                 <h6>Please enter the one time password <br> &nbsp;</h6>
-                                                <div><span> sent to</span> <small>{{ phone }}</small></div>
-                                                <form method="POST" action="/auth_verify/{{ userid }}/{{ args_authid }}">
+                                                <div><span> sent to</span> <small id="userphone"></small></div>
+
+                                                <form action="javascript:verifyOTP()">
                                                     <div id="otp"
                                                          class="inputs d-flex flex-row justify-content-center mt-2">
                                                         <input
                                                                 class="m-2 text-center form-control rounded" type="text"
-                                                                id="input1"
+                                                                id="otpinput1"
                                                                 v-on:keyup="inputenter(1)" name="otpinput1"
                                                                 maxlength="1"/> <input
                                                             class="m-2 text-center form-control rounded"
                                                             v-on:keyup="inputenter(2)"
-                                                            type="text" id="input2" name="otpinput2" maxlength="1"/>
+                                                            type="text" id="otpinput2" name="otpinput2" maxlength="1"/>
                                                         <input
                                                                 class="m-2 text-center form-control rounded"
                                                                 v-on:keyup="inputenter(3)"
-                                                                type="text" id="input3" name="otpinput3" maxlength="1"/>
+                                                                type="text" id="otpinput3" name="otpinput3" maxlength="1"/>
                                                         <input
                                                                 class="m-2 text-center form-control rounded"
                                                                 v-on:keyup="inputenter(4)"
-                                                                type="text" id="input4" name="otpinput4" maxlength="1"/>
+                                                                type="text" id="otpinput4" name="otpinput4" maxlength="1"/>
                                                     </div>
+
+                                                    <div class="mt-2"><span style="color:red;" id="otpError"></span></div>
+                                                    
                                                     <div class="mt-4">
-                                                        <button class="login100-form-btn mt-4">
+                                                        <button id="verifybtn" class="login100-form-btn mt-4">
                                                             Verify
                                                         </button>
                                                     </div>
                                                 </form>
+
                                                 <div class="mt-3 content d-flex justify-content-center align-items-center">
                                                     <span>Didn't get the code</span>
                                                     <a href="#" class="text-decoration-none ms-3">Resend(1/3)</a>

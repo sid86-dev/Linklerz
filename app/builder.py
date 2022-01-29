@@ -64,9 +64,17 @@ def createUsername(get_fullname):
 
     return username
 
+# async def getUserData(credentials):
+#     await asyncio.gather(
+#         userid = getUserid(credentials),
+#         userpass = getUserpass(credentials),
+#     )  # 1s + 1s = over 1s
+#     print(userid, userpass)
+#     # return {'userid':userid, 'userpass':userpass}
+
 
 def verify_user(userid, phone):
-    N = 80
+    N = 110
     authid = ''.join(
         random.choices(string.ascii_lowercase + string.digits, k=N))
     code = gen_code()
