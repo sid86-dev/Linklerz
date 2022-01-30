@@ -82,17 +82,19 @@ def profile(username):
         get_username = request.form.get('username')
         get_auth1 = request.form.get('auth_switch_on')
         get_auth2 = request.form.get('auth_switch_off')
+        get_phone1 = request.form.get('phone1')
+        get_phone2 = request.form.get('phone2')
 
+        print(get_phone1, get_phone2)
 
         credentials = Users.query.filter_by(username=username).first()
-
 
         # auth on/off
         auth_update = credentials.auth
 
         if auth_update == 'yes':
             if get_auth1 == 'open_to_close':
-                a = 'd'
+                pass
             else:
                 credentials.auth = 'no'
                 db.session.commit()
@@ -104,9 +106,6 @@ def profile(username):
             else:
                 pass
 
-        # credentials = Users.query.filter_by(username=get_username).first()
-        # credentials.auth = get_auth
-        # db.session.commit()
 
         try:
             if get_username == username:
@@ -121,7 +120,6 @@ def profile(username):
                 error = 'Username already exist'
                 return render_template('/Client/profile.html', credentials=credentials, error=error)
         except:
-            credentials = Users.query.filter_by(username=username).first()
 
             credentials.username = get_username
 
@@ -143,9 +141,57 @@ def profile(username):
         return redirect('/login')
 
 
+@app.post('/verifyPhone')
+def verifyPhone():
+    data = request.get_json()
+
+    phone = f"91{data['phone']}"
+    country = data['country']
+
+    try:
+        verify_phone(phone)
+
+        res = make_response(jsonify({"error": 'no-error','phone':phone}), 200)
+        return res
+    except:
+        res = make_response(jsonify({"error": 'Something went wrong, try again'}), 200)
+        return res
+
+@app.post('/verifyOTP')
+def verifyOTP():
+
+    data = request.get_json()
+    otp = data['otp']
+    phone = f"91{data['phone']}"
+    username = data['username']
+    code = get_cache(phone)
+
+    try:
+        decode_code = int(code.decode('ascii'))
+
+        if decode_code == int(otp):
+
+            credentials = Users.query.filter_by(username=username).first()
+            credentials.phone = phone
+            
+            db.session.commit()
+
+            res = make_response(jsonify({"error": 'no-error', 'phone':phone}), 200)
+            return res
+
+        else:
+            res = make_response(jsonify({"error": 'Sorry OTP do not match'}), 200)
+            return res
+    except:
+
+        if code == 'Code Expired':
+            res = make_response(jsonify({"error": 'Code has been expired, try resend'}), 200)
+            return res
+      
+    res = make_response(jsonify({"error": 'Something went wrong, try login again'}), 200)
+    return res
+
 # saving data
-
-
 @app.route('/save', methods=['GET', 'POST'])
 def save():
     if request.method == "POST":
@@ -209,8 +255,6 @@ def delete(link_name):
         db.session.commit()
         return redirect(f'/edit/{username}')
     return redirect(f'/edit/{username}')
-
-
 
 
 

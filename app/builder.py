@@ -72,6 +72,22 @@ def createUsername(get_fullname):
 #     print(userid, userpass)
 #     # return {'userid':userid, 'userpass':userpass}
 
+def verify_phone(phone):
+    code = gen_code()
+    
+    # send sms code
+    send_sms_code(code,phone)
+
+    # add cache to redis
+    threading.Thread(target=phoneCode,
+                     args=(
+                         phone,
+                         code,
+                     ),
+                     name='thread_function').start()
+
+
+
 
 def verify_user(userid, phone):
     N = 110

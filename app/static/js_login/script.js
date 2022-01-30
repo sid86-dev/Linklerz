@@ -117,7 +117,6 @@ function verifyOTP(){
 // get url params
 function getParameters() {
       let urlString = window.location.href;
-        console.log(urlString);
 
       var url = new URL(urlString);
       var authid = url.searchParams.get("auth");
@@ -142,8 +141,6 @@ function submitData() {
                         username: userInput.value,
                         userpass: pass.value
                     };   
-
-
 
                 fetch(`${window.origin}/login/data`, {
                 method: "POST",

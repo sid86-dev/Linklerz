@@ -21,6 +21,9 @@ def add_cache_list(userid, list):
 
     # r.rpush(noSQLList, "Riak", "CouchDB")
 
+def phoneCode(phone, code):
+    r.psetex(phone, 60000, code)  # milisecond
+
 
 def add_cache(userid, code):
     # r.mset({userid:list})
