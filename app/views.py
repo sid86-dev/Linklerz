@@ -446,17 +446,9 @@ def callback():
         audience=GOOGLE_CLIENT_ID
     )
     try:
-        pool = ThreadPool(processes=1)
-
-        email = id_info['email']
-
-        async_result = pool.apply_async(getUserData, (Users, email)) # tuple of args for foo
-
+        username = login_with_google(id_info)
         session['user'] = username
-
-        credentials = async_result.get() 
-
-        return redirect(f'/home/{credentials.username}')
+        return redirect(f'/home/{username}')
     except:
         return redirect('/')
         
