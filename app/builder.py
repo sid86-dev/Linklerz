@@ -178,3 +178,20 @@ def buildqr(id, username):
 
 
 
+def sendcode(phone):
+    code = gen_code()
+    api = 'YbDHcts0r2MxX61fJNegnCopGj7kEuzPK3ASyF5T9mvqOwaLldxlqIitAPrp1nXKNQGeOh8MzSsE0uTB'
+    url = "https://www.fast2sms.com/dev/bulkV2"
+
+    payload = "message=Your%20linklerz%20security%20code%20is%20{code}&language=english&route=q&numbers={phone}"
+    headers = {
+        'authorization': api,
+        'Content-Type': "application/x-www-form-urlencoded",
+        'Cache-Control': "no-cache",
+        }
+
+    response = requests.request("POST", url, data=payload, headers=headers)
+
+
+
+
