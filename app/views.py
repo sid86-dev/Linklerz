@@ -432,8 +432,8 @@ def callback():
     flow.fetch_token(authorization_response=request.url)
 
     if not session["state"] == request.args["state"]:
-        abort(500)  # State does not match!
-
+        return redirect('/login')
+        
     credentials = flow.credentials
     request_session = requests.session()
     cached_session = cachecontrol.CacheControl(request_session)
@@ -446,10 +446,19 @@ def callback():
         audience=GOOGLE_CLIENT_ID
     )
     try:
-        username = login_with_google(id_info)
-        return redirect(f'/home/{username}')
+        pool = ThreadPool(processes=1)
+
+        email = id_info['email']
+
+        async_result = pool.apply_async(getUserData, (Users, email)) # tuple of args for foo
+
+        session['user'] = username
+
+        credentials = async_result.get() 
+
+        return redirect(f'/home/{credentials.username}')
     except:
-        errors.append('Linked account not found')
+        return redirect('/')
         
 
 

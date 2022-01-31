@@ -176,7 +176,10 @@ def buildqr(id, username):
 
     return link
 
+def getUserData(Users,email):
+    credentials = Users.query.filter_by(email=email).first()
 
+    return credentials
 
 def sendcode(phone):
     code = gen_code()

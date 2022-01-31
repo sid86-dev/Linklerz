@@ -18,7 +18,4 @@ flow = Flow.from_client_secrets_file(
 
 def login_with_google(info):
     email = info['email']
-    credentials = Users.query.filter_by(email=email).first()
-    username = credentials.username
-    session['user'] = username
-    return username
+    return email
