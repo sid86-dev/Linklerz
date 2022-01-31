@@ -450,7 +450,7 @@ def callback():
         session['user'] = username
         return redirect(f'/home/{username}')
     except:
-        return redirect('/')
+        return redirect('/signup')
         
 
 
