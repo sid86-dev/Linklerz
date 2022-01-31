@@ -313,7 +313,8 @@ def loginData():
                 for i in range(1):
                     credentials = Users.query.filter_by(email=username).first()
                     passWord =  credentials.password
-
+                    username = credentials.username
+                    
                 if hashPass == passWord:
                     # checking auth
                     if credentials.auth == 'no':
