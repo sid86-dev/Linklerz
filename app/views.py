@@ -410,20 +410,13 @@ def facebook():
 
 @app.route('/facebook/Auth/')
 def facebook_auth():
-    errors = []
-    token = oauth.facebook.authorize_access_token()
-    resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
-    profile = resp.json()
-    email = profile['email']
-    name = profile['name']
-
     try:
-        username = login_with_facebook(email)
+        token = oauth.facebook.authorize_access_token()
+        resp = oauth.facebook.get('https://graph.facebook.com/me?fields=id,name,email,picture{url}')
+        username = login_with_facebook(resp)
         return redirect(f'/home/{username}')
-
     except:
-        errors.append('Linked account not found')
-         
+        return redirect('/signup')         
 
 
 @app.route("/callback")
