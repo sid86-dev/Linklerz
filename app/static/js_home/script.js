@@ -157,6 +157,7 @@ function downloadImage(url) {
 
 
 
+
 // share link
 const shareButton = document.querySelector('.share-button');
 const shareDialog = document.querySelector('.share-dialog');
@@ -180,3 +181,5 @@ shareButton.addEventListener('click', event => {
 closeButton.addEventListener('click', event => {
   shareDialog.classList.remove('is-open');
 });
+
+

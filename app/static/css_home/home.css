@@ -11,6 +11,7 @@
  
  body{
   font-family: Montserrat-SemiBold;
+  /*cursor: url('/static/img/cursor2.png') ,pointer;*/
  }
  
 ::-webkit-scrollbar-track {
@@ -747,3 +748,4 @@ textarea.input100 {
     padding: 15px 0px 0 0px;
   }
 }
+

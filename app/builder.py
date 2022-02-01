@@ -176,8 +176,8 @@ def buildqr(id, username):
 
     return link
 
-def getUserData(Users,email):
-    credentials = Users.query.filter_by(email=email).first()
+def getUserData(Users,username):
+    credentials = Users.query.filter_by(username=username).first()
 
     return credentials
 
@@ -195,6 +195,11 @@ def sendcode(phone):
 
     response = requests.request("POST", url, data=payload, headers=headers)
 
+
+
+def sortLinkname(data):
+    link_name = re.sub(r"\s+", "", data['name'], flags=re.UNICODE)
+    return link_name.capitalize()
 
 
 

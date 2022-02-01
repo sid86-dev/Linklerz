@@ -229,32 +229,41 @@ def save():
             return redirect(f'/home/{username}')
 
 
-# delete route
-
-
-@app.route('/delete/<link_name>')
-def delete(link_name):
+# delete link
+@app.post('/delete/link')
+def delete():
     username = session['user']
     if ('user' in session and session['user'] == username):
-        credentials = Users.query.filter_by(username=username).first()
-        linktype = credentials.linktype
-        linkurl = credentials.linkurl
-        list_linktype = get_linktype(linktype)
-        list_linkurl = get_linktype(linkurl)
-        # get index and delete with the index
-        index = list_linktype.index(link_name)
-        list_linktype.remove(link_name)
-        list_linkurl.remove(list_linkurl[index])
+        data = request.get_json()
+        link_name = re.sub(r"\s+", "", data['name'], flags=re.UNICODE)
 
-        x = ">".join(list_linktype)
-        y = ">".join(list_linkurl)
+        try:
+            credentials = Users.query.filter_by(username=username).first()
+            linktype = credentials.linktype
+            linkurl = credentials.linkurl
+            list_linktype = get_linktype(linktype)
+            list_linkurl = get_linktype(linkurl)
+            # get index and delete with the index
+            index = list_linktype.index(link_name)
+            list_linktype.remove(link_name)
+            list_linkurl.remove(list_linkurl[index])
 
-        credentials.linktype = x
-        credentials.linkurl = y
+            x = ">".join(list_linktype)
+            y = ">".join(list_linkurl)
 
-        db.session.commit()
-        return redirect(f'/edit/{username}')
-    return redirect(f'/edit/{username}')
+            credentials.linktype = x
+            credentials.linkurl = y
+
+            db.session.commit()
+
+            res = make_response(jsonify({"error": 'no-error', 'message':f'{link_name} link has been Deleted'}), 200)
+            return res
+
+        except:
+            res = make_response(jsonify({"error": f'Cannot delete {link_name} link'}), 200)
+            return res
+
+    return redirect('/login')
 
 
 

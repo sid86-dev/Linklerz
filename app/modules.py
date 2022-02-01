@@ -25,6 +25,7 @@ from google_auth_oauthlib.flow import Flow
 import redis
 import pyimgur
 
+
 # local modules
 from mailer.delete_mailer import delete_email
 from mailer.mailer import send_email
@@ -35,6 +36,9 @@ import pathlib
 import json
 import asyncio
 from multiprocessing.pool import ThreadPool
+pool = ThreadPool(processes=1)
+import re
+
 
 
 with open('config.json', 'r') as f:
